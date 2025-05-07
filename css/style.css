@@ -1,0 +1,1296 @@
+/* Base styles */
+:root {
+    --primary-color: #4361ee; /* Esempio di colore primario, puoi cambiarlo */
+    --primary-dark: #3a53c0;  /* Esempio di colore primario scuro */
+    --primary-light: #a3b0f1; /* Esempio di colore primario chiaro */
+    --secondary-color: #f72585; /* Esempio di colore secondario */
+    --text-color: #333;
+    --dark-color: #1a1a1a; /* Colore scuro per testi e sfondi */
+    --bg-color: #f8f9fa;
+    --grey-color: #6c757d;
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.1);
+    --border-radius-sm: 8px;
+    --border-radius-md: 12px;
+    --border-radius-lg: 24px;
+    --border-radius-xl: 32px;
+    --header-height: 80px;
+    --section-padding: 100px;
+    --transition: all 0.3s ease-in-out;
+}
+
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-color) #f1f1f1;
+}
+
+body {
+    font-family: 'Urbanist', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    overflow-x: hidden;
+    min-height: 100vh; /* Garantire che il footer sia sempre visibile alla fine della pagina */
+    display: flex; /* Garantire che il footer sia sempre visibile alla fine della pagina */
+    flex-direction: column; /* Garantire che il footer sia sempre visibile alla fine della pagina */
+}
+
+main { /* Contenitore principale per il contenuto della pagina */
+    flex: 1; /* Garantire che il footer sia sempre visibile alla fine della pagina */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+
+h1 {
+    font-size: clamp(3rem, 8vw, 5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+}
+
+h2 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+}
+
+h3 {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+h4 {
+    font-size: clamp(1.25rem, 2vw, 1.75rem);
+}
+
+p {
+    margin-bottom: 1.5rem;
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+a:hover {
+    color: var(--primary-dark);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.container {
+    width: 100%;
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* Section Styles */
+.section-padding {
+    padding: var(--section-padding) 0;
+}
+
+section { /* Assicurarsi che tutti i testi siano visibili */
+    color: var(--text-color);
+}
+
+.section-title {
+    position: relative;
+    margin-bottom: 3rem;
+}
+
+.section-title .subtitle {
+    color: var(--primary-color);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.section-title h2 {
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.section-title h2::after {
+    content: '';
+    position: absolute;
+    bottom: -0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: var(--primary-color);
+    border-radius: 3px;
+}
+
+.section-title .title-desc {
+    font-size: 1.125rem;
+    color: var(--grey-color);
+    max-width: 700px;
+    margin: 1rem auto 0;
+}
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.75rem;
+    border-radius: var(--border-radius-sm);
+    font-weight: 600;
+    font-size: 1rem;
+    transition: var(--transition);
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(-100%);
+    transition: var(--transition);
+}
+
+.btn:hover::before {
+    transform: translateX(0);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(67, 97, 238, 0.3); /* Usare il colore primario per l'ombra */
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.btn-outline:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.btn-light { /* Stile per btn-light se non già definito da Bootstrap */
+    background-color: #f8f9fa; /* Colore di sfondo chiaro */
+    color: var(--dark-color); /* Testo scuro */
+    border: 1px solid #dee2e6; /* Bordo leggero */
+}
+
+.btn-light:hover {
+    background-color: #e2e6ea;
+    color: var(--dark-color);
+}
+
+.btn-outline-light { /* Stile per btn-outline-light se non già definito da Bootstrap */
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+}
+
+.btn-outline-light:hover {
+    background-color: white;
+    color: var(--dark-color); /* Testo scuro su sfondo bianco */
+}
+
+
+/* Navbar */
+.navbar {
+    padding: 1rem 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: var(--transition);
+    background-color: transparent;
+}
+
+.navbar.scrolled {
+    background-color: rgba(255, 255, 255, 0.95); /* Sfondo bianco semitrasparente */
+    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-sm);
+    padding: 0.75rem 0;
+}
+
+.navbar-brand {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--primary-color); /* Colore primario per il brand */
+}
+
+.navbar.scrolled .navbar-brand {
+    color: var(--primary-color); /* Mantiene il colore primario anche con lo scroll */
+}
+
+.navbar-toggler {
+    border: none;
+    background: transparent;
+}
+
+.nav-link {
+    font-weight: 500;
+    padding: 0.5rem 1rem !important;
+    position: relative;
+    transition: var(--transition);
+}
+
+/* Colore dei link della navbar: scuro di default, bianco sulla hero trasparente */
+.navbar:not(.scrolled) .nav-link {
+    color: white !important; /* Testo bianco quando la navbar è trasparente sulla hero */
+}
+
+.navbar.scrolled .nav-link {
+    color: var(--dark-color) !important; /* Testo scuro quando la navbar ha lo sfondo */
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+    transition: var(--transition);
+}
+
+.navbar:not(.scrolled) .nav-link:hover::after,
+.navbar:not(.scrolled) .nav-link.active::after {
+    background-color: white; /* Linea bianca per hover/active su navbar trasparente */
+}
+
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
+.navbar:not(.scrolled) .navbar-brand {
+    color: white; /* Brand bianco su hero */
+}
+
+
+/* Hero Section - Modifiche integrate */
+.hero {
+    min-height: 100vh;
+    padding-top: var(--header-height);
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%); /* Colori di sfondo corretti */
+    color: white; /* Colore testo corretto */
+    position: relative;
+    overflow: hidden;
+    display: flex; /* Aggiunto per flex align-items-center */
+    align-items: center; /* Aggiunto per flex align-items-center */
+}
+
+.hero .row {
+    min-height: 80vh; /* Miglioramento layout hero section */
+    align-items: center; /* Allinea verticalmente gli elementi della riga */
+}
+
+.hero-content {
+    padding: 4rem 0;
+    display: flex; /* Miglioramento layout hero section */
+    flex-direction: column; /* Miglioramento layout hero section */
+    justify-content: center; /* Miglioramento layout hero section */
+    align-items: flex-start; /* Miglioramento layout hero section */
+    text-align: left; /* Miglioramento layout hero section */
+    z-index: 2; /* Assicura che il contenuto sia sopra le forme decorative */
+}
+
+.hero .pre-heading {
+    font-size: 1.25rem;
+    /* color: var(--grey-color); eliminato, ora eredita da .hero */
+    margin-bottom: 1rem;
+    color: white; /* Colore testo corretto */
+}
+
+.hero h1 {
+    margin-bottom: 1rem;
+    /* background: linear-gradient(45deg, var(--primary-color), var(--secondary-color)); eliminato */
+    /* -webkit-background-clip: text; eliminato */
+    /* background-clip: text; eliminato */
+    /* color: transparent; eliminato */
+    color: white; /* Colore testo corretto */
+    display: inline-block;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Colore testo corretto */
+}
+
+.typing-container {
+    height: 3rem; /* O l'altezza desiderata per il testo digitato */
+    margin-bottom: 1.5rem;
+}
+
+.typed-text {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.5rem; /* O la dimensione desiderata */
+    font-weight: 600;
+    color: white; /* Assicurati che sia leggibile sullo sfondo della hero */
+}
+
+.cursor {
+    display: inline-block;
+    width: 3px;
+    background-color: white; /* Cursore bianco per contrasto */
+    margin-left: 0.1rem;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.hero .lead {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    /* color: var(--grey-color); eliminato, ora eredita da .hero */
+    color: white; /* Colore testo corretto */
+}
+
+.contact-info {
+    margin-bottom: 2rem; /* Spaziatura aggiunta se necessario */
+}
+
+.contact-item {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 1.5rem;
+    /* color: var(--dark-color); eliminato */
+    color: white; /* Colore testo corretto */
+    font-weight: 500;
+    margin-bottom: 0.5rem; /* Aggiunto per spaziare se vanno a capo */
+}
+
+.contact-item i {
+    margin-right: 0.5rem;
+    color: white; /* Icone bianche per coerenza, o un colore che contrasta bene */
+}
+
+.hero-btns {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap; /* Permette ai bottoni di andare a capo su schermi piccoli */
+}
+
+
+/* Layout migliorato per l'immagine principale */
+.hero-image-wrap { /* Contenitore aggiunto nell'HTML */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.hero-image-container {
+    position: relative;
+    /* height: 100%; Eliminato, l'altezza è gestita dal contenuto e dal wrap */
+    display: flex; /* Layout migliorato per l'immagine principale */
+    align-items: center; /* Layout migliorato per l'immagine principale */
+    justify-content: center; /* Layout migliorato per l'immagine principale */
+    border-radius: var(--border-radius-lg); /* Spostato da hero-img */
+    overflow: visible; /* Permette alle forme di uscire leggermente se necessario */
+    /* box-shadow: var(--shadow-lg); Spostato su hero-img */
+}
+
+.hero-img, .hero-image-container img { /* Applicato a entrambe le classi per compatibilità */
+    max-height: 70vh; /* Layout migliorato per l'immagine principale */
+    width: auto; /* Mantiene l'aspect ratio */
+    max-width: 100%; /* Non supera il contenitore */
+    object-fit: cover; /* Layout migliorato per l'immagine principale */
+    border-radius: var(--border-radius-lg); /* Layout migliorato per l'immagine principale */
+    position: relative; /* Layout migliorato per l'immagine principale */
+    z-index: 2; /* Layout migliorato per l'immagine principale */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2); /* Layout migliorato per l'immagine principale */
+}
+
+.hero-image-shape {
+    position: absolute;
+    top: -5%;
+    right: -5%;
+    width: 100%;
+    height: 100%;
+    background-color: var(--primary-light);
+    border-radius: var(--border-radius-lg);
+    z-index: 1; /* Dietro l'immagine, sopra il backdrop */
+    opacity: 0.8; /* Layout migliorato per l'immagine principale */
+}
+
+.hero-image-backdrop {
+    position: absolute;
+    bottom: -5%;
+    left: -5%;
+    width: 100%;
+    height: 100%;
+    background-color: var(--secondary-color);
+    border-radius: var(--border-radius-lg);
+    z-index: 0; /* Dietro tutto */
+    opacity: 0.6; /* Layout migliorato per l'immagine principale */
+}
+
+.hero-shapes .shape {
+    position: absolute;
+    border-radius: 50%;
+    z-index: 0; /* Dietro il contenuto ma visibili */
+}
+
+.hero-shapes .shape-1 {
+    top: 15%;
+    left: 5%;
+    width: 60px;
+    height: 60px;
+    background-color: rgba(255, 255, 255, 0.1); /* Forme bianche trasparenti */
+    animation: float 6s ease-in-out infinite;
+}
+
+.hero-shapes .shape-2 {
+    top: 60%;
+    right: 10%;
+    width: 80px;
+    height: 80px;
+    background-color: rgba(255, 255, 255, 0.08); /* Forme bianche trasparenti */
+    animation: float 8s ease-in-out infinite 1s;
+}
+
+.hero-shapes .shape-3 {
+    bottom: 10%;
+    left: 15%;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.12); /* Forme bianche trasparenti */
+    animation: float 5s ease-in-out infinite 2s;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* About Section */
+.about-content {
+    background-color: white;
+    border-radius: var(--border-radius-lg);
+    padding: 3rem;
+    box-shadow: var(--shadow-md);
+}
+
+.about-content .tagline {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.about-content h3 {
+    color: var(--dark-color);
+    margin-bottom: 1.5rem;
+}
+
+.about-stats {
+    margin-top: 3rem;
+}
+
+.stat-item {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.stat-number {
+    font-family: 'Syne', sans-serif;
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--primary-color);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 1rem;
+    color: var(--grey-color);
+    font-weight: 500;
+}
+
+/* Services Section */
+#services.bg-light {
+    background-color: #f8f9fa !important; /* Assicura che bg-light sia applicato */
+}
+
+.service-card {
+    background-color: white;
+    border-radius: var(--border-radius-md);
+    padding: 2.5rem 2rem;
+    height: 100%;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+    opacity: 0.03; /* Molto leggero per non scurire troppo */
+    transition: var(--transition);
+    z-index: -1;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-md);
+}
+
+.service-card:hover::before {
+    height: 100%;
+    opacity: 0.05; /* Leggermente più visibile su hover */
+}
+
+.service-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: rgba(67, 97, 238, 0.1);
+    color: var(--primary-color);
+    font-size: 2rem;
+    transition: var(--transition);
+}
+
+.service-card:hover .service-icon {
+    background-color: var(--primary-color);
+    color: white;
+    transform: rotateY(180deg); /* Effetto flip carino */
+}
+
+.service-card h4 {
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+    color: var(--dark-color); /* Assicura leggibilità */
+}
+
+.service-card p {
+    color: var(--grey-color);
+    margin-bottom: 0;
+}
+
+/* Certifications Section */
+.cert-card {
+    display: flex;
+    align-items: flex-start; /* Allinea gli item all'inizio */
+    background-color: white;
+    border-radius: var(--border-radius-md);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+.cert-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+.cert-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: rgba(67, 97, 238, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    margin-right: 1.5rem;
+    flex-shrink: 0; /* Impedisce all'icona di restringersi */
+}
+
+.cert-content {
+    flex: 1;
+}
+
+.cert-content h4 {
+    margin-bottom: 0.5rem;
+    color: var(--dark-color);
+}
+
+.cert-date {
+    font-size: 0.875rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.cert-desc {
+    color: var(--grey-color);
+    margin-bottom: 0;
+}
+
+/* Projects Timeline */
+#projects.bg-light {
+    background-color: #f8f9fa !important; /* Assicura che bg-light sia applicato */
+}
+.timeline-cards {
+    --col-gap: 2rem;
+    --row-gap: 2.5rem;
+    --line-w: 0.25rem;
+    display: grid;
+    grid-template-columns: 1fr var(--line-w) 1fr;
+    grid-auto-columns: max-content;
+    column-gap: var(--col-gap);
+    list-style: none;
+    width: min(70rem, 90%);
+    margin-inline: auto;
+    position: relative;
+    padding: 0; /* Rimuovi padding di default da ul */
+}
+
+/* Linea verticale */
+.timeline-cards::before {
+    content: "";
+    grid-column: 2;
+    grid-row: 1 / span 20; /* Abbastanza grande per coprire molti elementi */
+    background: rgba(67, 97, 238, 0.3); /* Colore primario con opacità */
+    border-radius: calc(var(--line-w) / 2);
+}
+
+/* Spazio tra le card */
+.timeline-cards li:not(:last-child) {
+    margin-bottom: var(--row-gap);
+}
+
+/* Card */
+.timeline-cards li {
+    grid-column: auto; /* Lascia che la logica nth-child gestisca la colonna */
+    --inlineP: 1.5rem;
+    margin-inline: 0; /* Rimuovi margini laterali, sono già gestiti dal gap */
+    grid-row: span 2; /* Ogni card occupa 2 righe della griglia (data + contenuto) */
+    display: grid; /* display: contents; potrebbe essere un'alternativa se la card non ha sfondo/bordo proprio */
+    grid-template-rows: min-content min-content min-content; /* Data, Titolo, Descrizione */
+    box-shadow: var(--shadow-sm);
+    border-radius: var(--border-radius-md);
+    overflow: hidden; /* Nasconde le parti eccedenti delle decorazioni della data */
+    transition: var(--transition);
+    background-color: white; /* Sfondo bianco per le card */
+}
+
+.timeline-cards li:nth-child(odd) {
+    grid-column: 1; /* Card dispari a sinistra */
+}
+
+.timeline-cards li:nth-child(even) {
+    grid-column: 3; /* Card pari a destra */
+}
+
+.timeline-cards li:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Data */
+.timeline-cards li .date {
+    --dateH: 3rem; /* Altezza della banda della data */
+    height: var(--dateH);
+    margin-inline: calc(var(--inlineP) * -1); /* Allarga la banda oltre i padding della card */
+    text-align: center;
+    background-color: var(--accent-color); /* Colore definito in style HTML, es: #e74c3c */
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 700;
+    display: grid;
+    place-content: center;
+    position: relative;
+    /* border-radius specifico per la posizione */
+}
+
+.timeline-cards li:nth-child(odd) .date {
+    border-radius: var(--border-radius-md) 0 0 var(--border-radius-md); /* Angoli arrotondati per card a sinistra */
+    margin-left: 0;
+    margin-right: calc(var(--inlineP) * -1);
+}
+.timeline-cards li:nth-child(even) .date {
+    border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0; /* Angoli arrotondati per card a destra */
+    margin-right: 0;
+    margin-left: calc(var(--inlineP) * -1);
+}
+
+
+/* Decorazione data (triangolo) */
+.timeline-cards li .date::before {
+    content: "";
+    width: var(--inlineP);
+    aspect-ratio: 1;
+    background: var(--accent-color); /* Stesso colore della data */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2) 100%, transparent); /* Piccola ombra */
+    position: absolute;
+    top: 100%; /* Posizionato sotto la banda della data */
+}
+
+/* Cerchio sulla timeline */
+.timeline-cards li .date::after {
+    content: "";
+    position: absolute;
+    width: 2rem; /* Dimensione del cerchio */
+    aspect-ratio: 1;
+    background: var(--bg-color); /* Sfondo della pagina, o bianco */
+    border: 0.3rem solid var(--accent-color); /* Bordo con colore della data */
+    border-radius: 50%;
+    top: 50%; /* Centrato verticalmente rispetto alla data */
+    box-shadow: var(--shadow-sm); /* Piccola ombra per dare profondità */
+}
+
+/* Posizionamento triangolo e cerchio per card a SINISTRA */
+.timeline-cards li:nth-child(odd) .date::before {
+    clip-path: polygon(0 0, 100% 0, 0 100%); /* Triangolo a sinistra */
+    right: 0; /* Allineato a destra della banda data */
+}
+.timeline-cards li:nth-child(odd) .date::after {
+    transform: translate(50%, -50%); /* Sposta il cerchio a destra della linea */
+    right: calc(var(--col-gap) * -1 - var(--line-w) / 2 - var(--inlineP));
+}
+
+/* Posizionamento triangolo e cerchio per card a DESTRA */
+.timeline-cards li:nth-child(even) .date::before {
+    clip-path: polygon(0 0, 100% 0, 100% 100%); /* Triangolo a destra */
+    left: 0; /* Allineato a sinistra della banda data */
+}
+.timeline-cards li:nth-child(even) .date::after {
+    transform: translate(-50%, -50%); /* Sposta il cerchio a sinistra della linea */
+    left: calc(var(--col-gap) * -1 - var(--line-w) / 2 - var(--inlineP));
+}
+
+
+/* Titolo e descrizione */
+.timeline-cards li .title,
+.timeline-cards li .descr {
+    background: #fff; /* Sfondo bianco per contenuto */
+    position: relative;
+    padding-inline: 1.5rem;
+    color: var(--text-color); /* Colore testo standard */
+}
+
+.timeline-cards li .title {
+    padding-block-start: 1.5rem;
+    padding-block-end: 1rem;
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: var(--dark-color); /* Titolo più scuro */
+}
+
+.timeline-cards li .descr {
+    padding-block-end: 1.5rem;
+    font-weight: 400;
+    color: var(--grey-color); /* Descrizione in grigio */
+}
+.timeline-cards li .descr p {
+    margin-bottom: 0.5rem; /* Spaziatura tra paragrafi nella descrizione */
+}
+.timeline-cards li .descr .btn {
+    margin-top: 1rem; /* Spazio sopra il bottone */
+}
+
+/* Gallery Section */
+.gallery-item {
+    position: relative;
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+    margin-bottom: 1.5rem; /* Bootstrap 'g-3' gestisce il gap, questo è un fallback */
+    box-shadow: var(--shadow-sm);
+}
+
+.gallery-item img {
+    transition: var(--transition);
+    width: 100%;
+    /* height: 300px; Rimosso per permettere altezze variabili basate su aspect ratio e colonna */
+    object-fit: cover;
+    display: block; /* Rimuove spazio extra sotto l'immagine */
+}
+
+.gallery-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(67, 97, 238, 0.7); /* Colore primario con opacità */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.gallery-item:hover .gallery-overlay {
+    opacity: 1;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1); /* Leggero zoom sull'immagine */
+}
+
+.gallery-link {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+    font-size: 1.25rem;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: var(--transition);
+    transition-delay: 0.1s; /* Leggero ritardo per l'icona */
+}
+
+.gallery-item:hover .gallery-link {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Social Media Section - Modifiche integrate */
+#social.bg-light {
+    background-color: #f8f9fa !important; /* Assicura che bg-light sia applicato */
+}
+
+.social-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.social-item {
+    background-color: white; /* Miglioramento sezione social */
+    padding: 2.5rem 2rem;
+    border-radius: var(--border-radius-md);
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    color: var(--dark-color); /* Miglioramento sezione social */
+}
+
+.social-item:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-md);
+    background-color: var(--primary-color);
+    color: white; /* Il testo principale dell'item diventa bianco */
+}
+
+.social-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: rgba(67, 97, 238, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 1.75rem;
+    color: var(--primary-color);
+    transition: var(--transition);
+}
+
+.social-item:hover .social-icon {
+    background-color: white;
+    color: var(--primary-color); /* L'icona mantiene il colore primario anche su hover */
+}
+
+.social-item h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1.25rem;
+    transition: var(--transition);
+    color: var(--dark-color); /* Miglioramento sezione social */
+}
+
+.social-item:hover h3 {
+    color: white; /* Miglioramento sezione social */
+}
+
+.social-item p {
+    /* color: var(--grey-color); eliminato */
+    color: var(--dark-color); /* Miglioramento sezione social */
+    margin-bottom: 0;
+    transition: var(--transition);
+}
+
+.social-item:hover p {
+    color: rgba(255, 255, 255, 0.8); /* Testo leggermente trasparente su hover */
+}
+
+/* Footer - Modifiche integrate */
+.footer {
+    background-color: var(--dark-color); /* Correzione contrasto per il footer */
+    color: white; /* Correzione contrasto per il footer */
+    padding: 4rem 0 2rem; /* Aumentato padding superiore */
+    margin-top: auto; /* Garantire che il footer sia sempre visibile alla fine della pagina */
+}
+
+.footer-logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.8rem; /* Leggermente ridotto per bilanciare */
+    font-weight: 700;
+    color: white; /* Correzione contrasto per il footer */
+    display: inline-block;
+    /* margin-bottom: 1rem; Rimosso, gestito da gy-4 di Bootstrap */
+}
+
+.text-light-opacity { /* Classe dall'HTML */
+    color: rgba(255, 255, 255, 0.7);
+}
+.text-light-opacity:hover {
+    color: white;
+}
+
+
+.footer h5.text-white { /* Targeting più specifico */
+    font-family: 'Syne', sans-serif;
+    font-weight: 600; /* Meno bold di h1-h4 */
+    font-size: 1.1rem; /* Dimensione appropriata per titoli footer */
+    margin-bottom: 1.5rem; /* Spazio sotto il titolo */
+}
+.footer h6.text-white { /* Targeting più specifico */
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+
+.footer-nav {
+    display: flex;
+    flex-direction: column; /* Link uno sotto l'altro */
+    gap: 0.5rem; /* Spazio tra i link */
+}
+
+.footer-nav a {
+    color: rgba(255, 255, 255, 0.8); /* Correzione contrasto per il footer */
+    font-weight: 500;
+    transition: var(--transition);
+    padding: 0.25rem 0; /* Leggero padding verticale */
+}
+
+.footer-nav a:hover {
+    color: white; /* Correzione contrasto per il footer */
+    padding-left: 5px; /* Leggero effetto su hover */
+}
+
+.footer-social {
+    display: flex;
+    gap: 0.75rem; /* Spazio tra le icone social */
+    margin-bottom: 1.5rem; /* Spazio sotto le icone social */
+}
+
+.footer-social a {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    transition: var(--transition);
+    font-size: 1rem; /* Dimensione icona */
+}
+
+.footer-social a:hover {
+    background-color: var(--primary-color);
+    transform: translateY(-3px);
+}
+
+.newsletter-form { /* Dall'HTML */
+    display: flex;
+    gap: 0.5rem;
+}
+.newsletter-form .form-control {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+}
+.newsletter-form .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+.newsletter-form .btn-primary { /* Il bottone primario del footer */
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+.newsletter-form .btn-primary:hover {
+    background-color: var(--primary-dark);
+    border-color: var(--primary-dark);
+}
+
+.footer-divider { /* Dall'HTML */
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.copyright {
+    color: rgba(255, 255, 255, 0.7); /* Correzione contrasto per il footer */
+    text-align: center;
+    font-size: 0.875rem;
+    margin-bottom: 0;
+    padding-top: 1rem; /* Spazio sopra il copyright dopo hr */
+}
+
+
+/* Back to top button */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    z-index: 99;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+    box-shadow: var(--shadow-md);
+}
+
+.back-to-top.visible { /* Classe aggiunta da JS */
+    opacity: 1;
+    visibility: visible;
+}
+
+.back-to-top:hover {
+    background-color: var(--primary-dark);
+    color: white;
+    transform: translateY(-5px);
+}
+
+/* Classi di utility per testo */
+.text-dark {
+    color: var(--dark-color) !important; /* Garantire che il testo sia scuro */
+}
+
+.text-light {
+    color: white !important; /* Garantire che il testo sia chiaro/bianco */
+}
+
+/* Media Queries */
+@media (max-width: 1200px) {
+    :root {
+        --section-padding: 80px;
+    }
+}
+
+@media (max-width: 992px) {
+    :root {
+        --section-padding: 70px;
+    }
+    .hero {
+        text-align: center; /* Centra il testo quando l'immagine va sotto */
+    }
+    .hero-content {
+        text-align: center; /* Centra il testo quando l'immagine va sotto */
+        align-items: center; /* Centra i bottoni e gli altri elementi */
+        padding: 2rem 0;
+    }
+    .hero .row {
+        flex-direction: column; /* Elementi della hero uno sotto l'altro */
+    }
+    .hero-image-wrap {
+        margin-top: 3rem; /* Spazio tra testo e immagine */
+        width: 100%; /* Occupa tutta la larghezza disponibile */
+    }
+    .hero-image-container img, .hero-img {
+        max-height: 50vh; /* Riduci l'altezza massima dell'immagine */
+        /* max-width: 500px; Potrebbe non essere necessario se il wrap gestisce la larghezza */
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .timeline-cards {
+        grid-template-columns: var(--line-w) 1fr; /* Linea a sinistra, card a destra */
+        column-gap: 0; /* Nessun gap tra linea e card */
+        width: min(90%, 600px); /* Aumenta la larghezza relativa per schermi medi */
+        margin-inline: auto; /* Centra */
+    }
+    .timeline-cards::before {
+        grid-column: 1; /* La linea è nella prima colonna */
+        grid-row: 1 / span 20;
+        margin-left: calc(var(--line-w) / -2 + 1.5rem); /* Centra la linea rispetto al cerchio */
+    }
+    .timeline-cards li,
+    .timeline-cards li:nth-child(odd),
+    .timeline-cards li:nth-child(even) {
+        grid-column: 2; /* Tutte le card nella seconda colonna */
+        margin-left: 2rem; /* Spazio per il cerchio e la linea */
+        width: auto; /* Lascia che la griglia gestisca la larghezza */
+    }
+
+    .timeline-cards li .date {
+        margin-inline: 0;
+        border-radius: var(--border-radius-md) 0 0 var(--border-radius-md) !important; /* Standard per mobile */
+    }
+
+    .timeline-cards li .date::before {
+        display: none; /* Nascondi il triangolo su mobile per semplicità */
+    }
+    .timeline-cards li .date::after {
+        /* left: calc(var(--inlineP) * -1 - var(--col-gap) - var(--line-w)/2); */
+        left: -2.5rem; /* Posizionamento fisso del cerchio a sinistra della card */
+        right: auto;
+        transform: translate(-50%, -50%); /* Centra il cerchio sulla sua posizione */
+    }
+
+    .footer-nav {
+        flex-direction: row; /* Link affiancati se c'è spazio */
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .footer-nav a {
+        padding: 0.25rem 0.5rem;
+    }
+    .footer .col-lg-4 { /* Colonne del footer */
+        text-align: center; /* Centra il contenuto delle colonne del footer */
+    }
+    .footer-social {
+        justify-content: center;
+    }
+    .newsletter-form {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --section-padding: 60px;
+    }
+    .hero h1 {
+        font-size: clamp(2.5rem, 10vw, 3.5rem); /* Aggiustato per leggibilità */
+    }
+    .about-content {
+        padding: 2rem;
+    }
+    .cert-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    .cert-icon {
+        margin: 0 auto 1.5rem;
+    }
+    .social-grid {
+        grid-template-columns: 1fr; /* Una card per riga */
+    }
+    .footer-nav a {
+        margin: 0 0.5rem 0.5rem; /* Riduci margini per più link per riga */
+    }
+    .timeline-cards::before {
+        margin-left: calc(var(--line-w) / -2 + 1rem); /* Ajusta per padding ridotto */
+    }
+    .timeline-cards li {
+        margin-left: 1.5rem;
+    }
+    .timeline-cards li .date::after {
+        left: -2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    :root {
+        --section-padding: 50px;
+    }
+    .section-title h2 {
+        font-size: 2rem;
+    }
+    .hero-btns {
+        justify-content: center; /* Centra i bottoni */
+        flex-direction: column; /* Bottoni uno sotto l'altro */
+        align-items: center;
+    }
+    .hero-btns .btn {
+        width: 80%; /* Bottoni più larghi */
+        max-width: 300px;
+    }
+    .back-to-top {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+        bottom: 20px;
+        right: 20px;
+    }
+    .timeline-cards {
+        width: 95%;
+    }
+    .timeline-cards::before {
+        margin-left: calc(var(--line-w) / -2 + 0.5rem);
+    }
+    .timeline-cards li {
+        margin-left: 1rem;
+    }
+    .timeline-cards li .date::after {
+        width: 1.5rem;
+        height: 1.5rem;
+        border-width: 0.2rem;
+        left: -1.5rem;
+    }
+    .footer .col-lg-4 {
+        margin-bottom: 2rem; /* Spazio tra le sezioni del footer su mobile */
+    }
+    .footer-nav {
+        flex-direction: column;
+        align-items: center;
+    }
+}
