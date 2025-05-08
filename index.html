@@ -14,10 +14,64 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-lightbox@2.1.0/dist/simpleLightbox.min.css">
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" type="image/png" href="img/favicon.png">
+    
+    <style>
+    /* SimpleLightbox personalizzato */
+    .sl-overlay {
+        background-color: rgba(0, 0, 0, 0.9) !important;
+    }
+    
+    .sl-wrapper .sl-close, 
+    .sl-wrapper .sl-navigation button {
+        color: white !important;
+    }
+    
+    .sl-wrapper .sl-counter {
+        color: white !important;
+    }
+    
+    .sl-wrapper .sl-image img {
+        border-radius: 8px !important;
+    }
+    
+    .sl-caption {
+        background-color: rgba(0, 0, 0, 0.8) !important;
+        color: white !important;
+        font-family: 'Urbanist', sans-serif !important;
+    }
+    
+    /* Modifica al comportamento del menu */
+    .navbar-collapse .nav-link {
+        color: var(--dark-color) !important; /* Forza sempre il colore scuro nei menu dropdown */
+    }
+    
+    /* Colore scuro per i link nel menu mobile */
+    @media (max-width: 991.98px) {
+        .navbar-collapse {
+            background-color: rgba(255, 255, 255, 0.95);
+            margin-top: 0.5rem;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Forza il colore scuro per tutti i link nel menu mobile */
+        .navbar:not(.scrolled) .navbar-collapse .nav-link,
+        .navbar.scrolled .navbar-collapse .nav-link {
+            color: var(--dark-color) !important;
+        }
+        
+        /* Stile hover più evidente per il menu mobile */
+        .navbar-nav .nav-link:hover {
+            background-color: rgba(67, 97, 238, 0.1);
+        }
+    }
+    </style>
 </head>
 <body>
     <!-- Header Navigation -->
@@ -67,9 +121,9 @@
               </div>
               <p class="lead text-light">Web Developer, Social Media Manager, Fotografo e Videomaker</p>
               <div class="contact-info mb-4">
-                  <a href="mailto:LUCAVALLI2000@GMAIL.COM" class="contact-item text-light">
+                  <a href="mailto:lucavalli2000@gmail.com" class="contact-item text-light">
                       <i class="fas fa-envelope"></i>
-                      <span>LUCAVALLI2000@GMAIL.COM</span>
+                      <span>lucavalli2000@gmail.com</span>
                   </a>
                   <a href="tel:+393928305037" class="contact-item text-light">
                       <i class="fas fa-phone"></i>
@@ -228,7 +282,7 @@
                 <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
                     <div class="service-card">
                         <div class="service-icon">
-                            <i class="fas fa-drone"></i>
+                            <i class="fas fa-helicopter"></i>
                         </div>
                         <h4>RIPRESE CON DRONE</h4>
                         <p>Riprese aeree con DJI Mini 3 Pro per matrimoni, feste, immobili, paesaggi, contenuti per i social…</p>
@@ -294,6 +348,19 @@
             </div>
             
             <ul class="timeline-cards">
+                <!-- Nuovo Progetto - La stanza del Petrarca -->
+                <li style="--accent-color:#4361ee" data-aos="fade-up">
+                    <div class="date">07/2024 - Oggi</div>
+                    <div class="title">La stanza del Petrarca</div>
+                    <div class="descr">
+                        <h5 class="text-primary mb-3">WEB DEVELOPER</h5>
+                        <p>Sviluppo e realizzazione del sito web per La stanza del Petrarca.</p>
+                        <a href="https://www.lastanzadelpetrarca.it" class="btn btn-sm btn-outline-primary mt-2" target="_blank">
+                            <i class="fas fa-globe me-2" style="color: #2563eb;"></i> Visita il sito
+                        </a>                    
+                    </div>
+                </li>
+
                 <!-- Nuovo Progetto 1 -->
                 <li style="--accent-color:#e74c3c" data-aos="fade-up">
                     <div class="date">06/2024 - Oggi</div>
@@ -301,18 +368,22 @@
                     <div class="descr">
                         <h5 class="text-primary mb-3">CREATORE E SVILUPPATORE</h5>
                         <p>Sviluppo di un fantasy game basato sugli eventi dell'Ottava Medievale di Orte. Un gioco ispirato al concetto di FantaSanremo ma adattato per le competizioni locali.</p>
-                        <a href="https://www.fantacontrade.it" class="btn btn-sm btn-outline-primary mt-2" target="_blank">Visita il sito</a>
+                        <a href="https://www.fantacontrade.it" class="btn btn-sm btn-outline-primary mt-2" target="_blank">
+                            <i class="fas fa-globe me-2" style="color: #2563eb;"></i> Visita il sito
+                        </a>                    
                     </div>
                 </li>
                 
                 <!-- Nuovo Progetto 2 -->
                 <li style="--accent-color:#9b59b6" data-aos="fade-up" data-aos-delay="100">
                     <div class="date">07/2024 - Oggi</div>
-                    <div class="title">Wellness Studio</div>
+                    <div class="title">A.S.D. Wellness Studio</div>
                     <div class="descr">
                         <h5 class="text-primary mb-3">SOCIAL MEDIA MANAGER</h5>
                         <p>Gestione delle pagine social e creazione di contenuti per Wellness Studio, uno studio di benessere situato a Soriano nel Cimino.</p>
-                        <a href=#" class="btn btn-sm btn-outline-primary mt-2" target="_blank">Link al profilo Instagram</a>
+                        <a href="#" class="btn btn-sm btn-outline-primary mt-2" target="_blank">
+                            <i class="fab fa-instagram me-2" style="color: #E1306C;"></i> Link al profilo Instagram
+                        </a>                 
                     </div>
                 </li>
                 
@@ -321,51 +392,117 @@
                     <div class="date">05/2023 - 06/2024</div>
                     <div class="title">FantaTorneo</div>
                     <div class="descr">
-                        <h5 class="text-primary mb-3">CREATORE E SVILUPPATORE</h5>
-                        <p>Realizzazione di www.fantatorneo.it, un fantasy game ispirato al FantaSanremo e basato sul Torneo delle Contrade che si svolge a Soriano nel Cimino.</p>
-                        <a href="https://www.fantatorneo.it" class="btn btn-sm btn-outline-primary mt-2" target="_blank">Visita il sito</a>
+                        <h5 class="text-primary mb-3">CREATORE, SVILUPPATORE E SOCIAL MEDIA MANAGER</h5>
+                        <p>Realizzazione di www.fantatorneo.it, un fantasy game ispirato al FantaSanremo e basato sul Torneo delle Contrade che si svolge a Soriano nel Cimino. Gestione delle pagine social e creazione di contenuti.</p>
+                        <a href="https://www.fantatorneo.it" class="btn btn-sm btn-outline-primary mt-2" target="_blank">
+                            <i class="fas fa-globe me-2" style="color: #2563eb;"></i> Visita il sito
+                        </a>                    
                     </div>
                 </li>
                 
-                <!-- Progetto 1 -->
+                <!-- Associazione COST -->
                 <li style="--accent-color:#3498db" data-aos="fade-up" data-aos-delay="300">
                     <div class="date">06/2022 - Oggi</div>
                     <div class="title">Associazione COST</div>
                     <div class="descr">
-                        <h5 class="text-primary mb-3">SOCIAL MEDIA MANAGER E MEMBRO DEL CONSIGLIO DIRETTIVO</h5>
-                        <p>Creazione e gestione delle pagine social e dei contenuti dell'Associazione COST, SORIANO NEL CIMINO (VT)</p>
-                        <a href="#" class="btn btn-sm btn-outline-primary mt-2">Link alla pagina Facebook</a>
+                        <h5 class="text-primary mb-3">SOCIAL MEDIA MANAGER, WEB DEVELOPER E MEMBRO DEL CONSIGLIO DIRETTIVO</h5>
+                        <p>Creazione e gestione delle pagine social e dei contenuti dell'Associazione COST, SORIANO NEL CIMINO (VT). Realizzazione del sito web per l'associazione (08/2023).</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <a href="#" class="btn btn-sm btn-outline-primary mt-2">
+                                <i class="fab fa-facebook-f me-2" style="color: #1877F2;"></i> Link alla pagina Facebook
+                            </a>
+                            <a href="https://www.costsoriano.it" class="btn btn-sm btn-outline-primary mt-2" target="_blank">
+                                <i class="fas fa-globe me-2" style="color: #2563eb;"></i> Visita il sito
+                            </a>
+                        </div>             
                     </div>
                 </li>
                 
-                <!-- Progetti rimanenti... -->
+                <!-- Associazione Culturale Kimairah -->
                 <li style="--accent-color:#2c3e50" data-aos="fade-up" data-aos-delay="100">
                     <div class="date">05/2022 - Oggi</div>
                     <div class="title">Associazione Culturale Kimairah</div>
                     <div class="descr">
                         <h5 class="text-primary mb-3">SOCIAL MEDIA MANAGER</h5>
                         <p>Creazione e gestione delle pagine social e dei contenuti dell'Associazione Culturale Kimairah, CAPRANICA (VT)</p>
-                        <a href="#" class="btn btn-sm btn-outline-primary mt-2">Link alla pagina Facebook</a>
+                        <a href="#" class="btn btn-sm btn-outline-primary mt-2">
+                            <i class="fab fa-facebook-f me-2" style="color: #1877F2;"></i> Link alla pagina Facebook
+                        </a>                            
                     </div>
                 </li>
                 
+                <!-- Dialoghi sulla Tuscia -->
                 <li style="--accent-color:#2980b9" data-aos="fade-up" data-aos-delay="200">
                     <div class="date">10/2021 - Oggi</div>
                     <div class="title">Dialoghi sulla Tuscia</div>
                     <div class="descr">
                         <h5 class="text-primary mb-3">VIDEOMAKER E CONTENT CREATOR</h5>
                         <p>Creazione contenuti video per il canale Dialoghi sulla Tuscia.</p>
-                        <a href="#" class="btn btn-sm btn-outline-primary mt-2">Link al canale Youtube</a>
+                        <a href="#" class="btn btn-sm btn-outline-primary mt-2">
+                            <i class="fab fa-youtube me-2" style="color: #FF0000;"></i> Link al canale Youtube
+                        </a>                    
+                    </div>
+                </li>
+
+                <!-- Giuseppe Rossi -->
+                <li style="--accent-color:#e67e22" data-aos="fade-up" data-aos-delay="100">
+                    <div class="date">08/2021 - 09/2021</div>
+                    <div class="title">Giuseppe Rossi</div>
+                    <div class="descr">
+                        <h5 class="text-primary mb-3">WEB DEVELOPER</h5>
+                        <p>Restyling completo del sito del pittore Giuseppe Rossi, SORIANO NEL CIMINO (VT).</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary mt-2" target="_blank">
+                            <i class="fas fa-globe me-2" style="color: #2563eb;"></i> Visita il sito
+                        </a>                    
                     </div>
                 </li>
                 
+                <!-- Lost in Tuscia -->
                 <li style="--accent-color:#16a085" data-aos="fade-up" data-aos-delay="300">
                     <div class="date">05/2022 - 07/2022</div>
                     <div class="title">Lost in Tuscia</div>
                     <div class="descr">
                         <h5 class="text-primary mb-3">IDEATORE, VIDEOMAKER E CONTENT CREATOR</h5>
                         <p>Creazione e gestione delle pagine social e dei contenuti di Lost in Tuscia.</p>
-                        <a href="#" class="btn btn-sm btn-outline-primary mt-2">Link al profilo Instagram</a>
+                        <a href="#" class="btn btn-sm btn-outline-primary mt-2" target="_blank">
+                            <i class="fab fa-instagram me-2" style="color: #E1306C;"></i> Link al profilo Instagram
+                        </a>                     
+                    </div>
+                </li>
+
+                <!-- Azienda Agricola Vulcano -->
+                <li style="--accent-color:#27ae60" data-aos="fade-up" data-aos-delay="200">
+                    <div class="date">01/2021 - 05/2021</div>
+                    <div class="title">Azienda Agricola Vulcano</div>
+                    <div class="descr">
+                        <h5 class="text-primary mb-3">PARTECIPAZIONE @ AMAZON CAMPUS CHALLENGE</h5>
+                        <p>Sfida tra studenti universitari con lo scopo di lanciare un'azienda italiana sugli store europei di Amazon. In collaborazione con l'Azienda Agricola Vulcano, MIRTO CROSIA (CS).</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary mt-2" target="_blank">
+                            <i class="fab fa-amazon me-2" style="color: #FF9900;"></i> Link allo store Amazon
+                        </a>                    
+                    </div>
+                </li>
+
+                <!-- S.A.D. – Sportello Amico Digitale -->
+                <li style="--accent-color:#8e44ad" data-aos="fade-up" data-aos-delay="200">
+                    <div class="date">09/2018 - 06/2019</div>
+                    <div class="title">S.A.D. – Sportello Amico Digitale</div>
+                    <div class="descr">
+                        <h5 class="text-primary mb-3">WEB DEVELOPER</h5>
+                        <p>Sviluppo del sistema gestionale S.A.D. – Sportello Amico Digitale per il Liceo Scientifico "Paolo Ruffini" di Viterbo.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary mt-2" target="_blank">
+                            <i class="fas fa-globe me-2" style="color: #2563eb;"></i> Visita il sito
+                        </a>                    
+                    </div>
+                </li>
+
+                <!-- KDS Web Agency -->
+                <li style="--accent-color:#d35400" data-aos="fade-up" data-aos-delay="300">
+                    <div class="date">06/2017 - 07/2017</div>
+                    <div class="title">KDS Web Agency</div>
+                    <div class="descr">
+                        <h5 class="text-primary mb-3">WEB DEVELOPER</h5>
+                        <p>Gestione e organizzazione di un sistema informativo.</p>                   
                     </div>
                 </li>
             </ul>
@@ -385,7 +522,7 @@
                     <div class="gallery-item">
                         <img src="img/Foto01-Sito-scaled.jpg" alt="Foto portfolio 1" class="img-fluid">
                         <div class="gallery-overlay">
-                            <a href="img/Foto01-Sito-scaled.jpg" class="gallery-link" data-gallery="gallery">
+                            <a href="img/Foto01-Sito-scaled.jpg" class="gallery-link">
                                 <i class="fas fa-plus"></i>
                             </a>
                         </div>
@@ -395,7 +532,7 @@
                     <div class="gallery-item">
                         <img src="img/Foto02-Sito-scaled.jpg" alt="Foto portfolio 2" class="img-fluid">
                         <div class="gallery-overlay">
-                            <a href="img/Foto02-Sito-scaled.jpg" class="gallery-link" data-gallery="gallery">
+                            <a href="img/Foto02-Sito-scaled.jpg" class="gallery-link">
                                 <i class="fas fa-plus"></i>
                             </a>
                         </div>
@@ -405,7 +542,7 @@
                     <div class="gallery-item">
                         <img src="img/Foto03-Sito-scaled.jpg" alt="Foto portfolio 3" class="img-fluid">
                         <div class="gallery-overlay">
-                            <a href="img/Foto03-Sito-scaled.jpg" class="gallery-link" data-gallery="gallery">
+                            <a href="img/Foto03-Sito-scaled.jpg" class="gallery-link">
                                 <i class="fas fa-plus"></i>
                             </a>
                         </div>
@@ -416,7 +553,7 @@
                     <div class="gallery-item">
                         <img src="img/Foto17-Sito-scaled.jpg" alt="Foto portfolio panoramica" class="img-fluid">
                         <div class="gallery-overlay">
-                            <a href="img/Foto17-Sito-scaled.jpg" class="gallery-link" data-gallery="gallery">
+                            <a href="img/Foto17-Sito-scaled.jpg" class="gallery-link">
                                 <i class="fas fa-plus"></i>
                             </a>
                         </div>
@@ -426,7 +563,7 @@
                     <div class="gallery-item">
                         <img src="img/Foto20-Sito-scaled.jpg" alt="Foto portfolio panoramica" class="img-fluid">
                         <div class="gallery-overlay">
-                            <a href="img/Foto20-Sito-scaled.jpg" class="gallery-link" data-gallery="gallery">
+                            <a href="img/Foto20-Sito-scaled.jpg" class="gallery-link">
                                 <i class="fas fa-plus"></i>
                             </a>
                         </div>
@@ -437,36 +574,36 @@
     </section>
 
     <!-- Social Media -->
-    <section id="social" class="py-5 section-padding bg-light">
-        <div class="container">
-            <div class="section-title text-center mb-5" data-aos="fade-up">
-                <span class="subtitle">Resta in contatto</span>
-                <h2>Seguimi sui social</h2>
-            </div>
-            <div class="social-grid" data-aos="fade-up">
-                <a href="#" class="social-item" target="_blank">
-                    <div class="social-icon"><i class="fab fa-instagram"></i></div>
-                    <h3>Instagram</h3>
-                    <p>Seguimi su Instagram</p>
-                </a>
-                <a href="#" class="social-item" target="_blank">
-                    <div class="social-icon"><i class="fab fa-facebook-f"></i></div>
-                    <h3>Facebook</h3>
-                    <p>Seguimi su Facebook</p>
-                </a>
-                <a href="#" class="social-item" target="_blank">
-                    <div class="social-icon"><i class="fab fa-linkedin-in"></i></div>
-                    <h3>LinkedIn</h3>
-                    <p>Seguimi su LinkedIn</p>
-                </a>
-                <a href="#" class="social-item" target="_blank">
-                    <div class="social-icon"><i class="fab fa-twitter"></i></div>
-                    <h3>Twitter</h3>
-                    <p>Seguimi su Twitter</p>
-                </a>
-            </div>
+<section id="social" class="py-5 section-padding bg-light">
+    <div class="container">
+        <div class="section-title text-center mb-5" data-aos="fade-up">
+            <span class="subtitle">Resta in contatto</span>
+            <h2>Seguimi sui social</h2>
         </div>
-    </section>
+        <div class="social-grid" data-aos="fade-up">
+            <a href="http://instagram.com/lucavalli17/" class="social-item" target="_blank">
+                <div class="social-icon"><i class="fab fa-instagram" style="color: #E1306C;"></i></div>
+                <h3>Instagram</h3>
+                <p>Seguimi su Instagram</p>
+            </a>
+            <a href="http://facebook.com/lucavalli17/" class="social-item" target="_blank">
+                <div class="social-icon"><i class="fab fa-facebook-f" style="color: #1877F2;"></i></div>
+                <h3>Facebook</h3>
+                <p>Seguimi su Facebook</p>
+            </a>
+            <a href="https://it.linkedin.com/in/lucavalli17" class="social-item" target="_blank">
+                <div class="social-icon"><i class="fab fa-linkedin-in" style="color: #0A66C2;"></i></div>
+                <h3>LinkedIn</h3>
+                <p>Collegati con me su LinkedIn</p>
+            </a>
+            <a href="https://github.com/lucavalli" class="social-item" target="_blank">
+                <div class="social-icon"><i class="fab fa-github" style="color: #171515;"></i></div>
+                <h3>GitHub</h3>
+                <p>Esplora i miei progetti su GitHub</p>
+            </a>
+        </div>
+    </div>
+</section>
 
 <!-- Footer moderno migliorato -->
 <footer class="footer">
@@ -478,7 +615,7 @@
               <div class="footer-contact mt-4">
                   <div class="contact-item mb-2">
                       <i class="fas fa-envelope me-2"></i>
-                      <a href="mailto:LUCAVALLI2000@GMAIL.COM" class="text-light-opacity">LUCAVALLI2000@GMAIL.COM</a>
+                      <a href="mailto:lucavalli2000@gmail.com" class="text-light-opacity">lucavalli2000@gmail.com</a>
                   </div>
                   <div class="contact-item">
                       <i class="fas fa-phone me-2"></i>
@@ -494,25 +631,17 @@
                   <a href="#services">Servizi</a>
                   <a href="#projects">Progetti</a>
                   <a href="#gallery">Galleria</a>
-                  <a href="#social">Social</a>
               </div>
-          </div>
-          <div class="col-lg-4">
-              <h5 class="text-white mb-4">Social Media</h5>
-              <div class="footer-social">
-                  <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
-                  <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                  <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                  <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
-              </div>
-              <div class="newsletter mt-4">
-                  <h6 class="text-white mb-3">Iscriviti alla newsletter</h6>
-                  <div class="newsletter-form">
-                      <input type="email" class="form-control" placeholder="La tua email">
-                      <button type="submit" class="btn btn-primary">Iscriviti</button>
-                  </div>
-              </div>
-          </div>
+            </div>
+            <div class="col-lg-4">
+                <h5 class="text-white mb-4">Social Media</h5>
+                <div class="footer-social">
+                    <a href="http://instagram.com/lucavalli17/" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="http://facebook.com/lucavalli17/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://it.linkedin.com/in/lucavalli17" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://github.com/lucavalli" target="_blank"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
       </div>
       <hr class="mt-4 mb-3 footer-divider">
       <div class="text-center">

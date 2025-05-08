@@ -30,15 +30,21 @@ document.addEventListener('DOMContentLoaded', function() {
       });
   }
   
-  // Initialize SimpleLightbox for gallery
-  const galleryLinks = document.querySelectorAll('.gallery-link');
-  if (galleryLinks.length > 0) {
-      new SimpleLightbox('.gallery-link', {
-          /* options */
-          captionsData: 'alt',
-          captionDelay: 250
-      });
-  }
+// Initialize SimpleLightbox for gallery
+const galleryLinks = document.querySelectorAll('.gallery-link');
+if (galleryLinks.length > 0) {
+    new SimpleLightbox('.gallery-link', {
+        captionsData: 'alt',
+        captionDelay: 250,
+        showCounter: true,
+        animationSpeed: 300,
+        close: true,
+        closeText: '×',
+        nav: true,
+        navText: ['←', '→'],
+        overlayOpacity: 0.9
+    });
+}
   
   // Navbar scroll effect
   initNavbarScroll();
