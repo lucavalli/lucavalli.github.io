@@ -517,28 +517,315 @@ section {
     margin-bottom: 1.5rem;
 }
 
-.about-stats {
-    margin-top: 3rem;
+/* Cards informative nella sezione About */
+.about-info-card {
+    display: flex;
+    align-items: flex-start;
+    background-color: rgba(67, 97, 238, 0.05);
+    border-radius: var(--border-radius-md);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    transition: var(--transition);
 }
 
-.stat-item {
+.about-info-card:hover {
+    transform: translateY(-5px);
+    background-color: rgba(67, 97, 238, 0.1);
+    box-shadow: var(--shadow-sm);
+}
+
+.about-info-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.25rem;
+    margin-right: 1rem;
+    flex-shrink: 0;
+}
+
+.about-info-content {
+    flex: 1;
+}
+
+.about-info-content h4 {
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    color: var(--dark-color);
+}
+
+.about-info-content p {
+    color: var(--grey-color);
+    margin-bottom: 0;
+    font-size: 0.95rem;
+}
+
+/* Skills Section */
+.skills-section {
+    margin-top: 4rem;
+}
+
+.section-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.section-divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.1);
+    z-index: 0;
+}
+
+.divider-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.25rem;
+    margin-right: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.divider-text {
+    background-color: white;
+    padding: 0 1.5rem;
+    font-size: 1.5rem;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 0;
+}
+
+.skills-title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    color: var(--dark-color);
+    font-size: 1.25rem;
+}
+
+.skill-title-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(67, 97, 238, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+    font-size: 1rem;
+    margin-right: 1rem;
+}
+
+/* Linguaggi di programmazione orizzontali */
+.programming-languages {
+    background-color: white;
+    border-radius: var(--border-radius-md);
+    padding: 2rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.language-chart {
+    width: 100%;
+}
+
+.language-bar-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+.language-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.language-name {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--dark-color);
+}
+
+.language-bar-outer {
+    width: 100%;
+    height: 12px;
+    background-color: rgba(67, 97, 238, 0.1);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.language-bar-inner {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
+    border-radius: 6px;
+    opacity: 0;
+    transition: opacity 1.5s ease;
+}
+
+/* Hexagon grid skills */
+.hexagon-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0 -15px;
+}
+
+.hexagon-item {
+    position: relative;
+    width: 120px;
+    margin: 25px 15px;
     text-align: center;
+}
+
+.hexagon {
+    position: relative;
+    width: 100px;
+    height: 110px;
+    margin: 0 auto;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+    z-index: 1;
+}
+
+.hexagon::before,
+.hexagon::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    z-index: -1;
+    transition: var(--transition);
+}
+
+.hexagon::before {
+    transform: rotate(60deg);
+}
+
+.hexagon::after {
+    transform: rotate(-60deg);
+}
+
+.hexagon:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateY(-10px);
+}
+
+.hexagon:hover::before,
+.hexagon:hover::after {
+    background-color: var(--primary-color);
+}
+
+.hexagon i {
+    font-size: 2rem;
+    margin-bottom: 5px;
+    color: var(--primary-color);
+    transition: var(--transition);
+}
+
+.hexagon:hover i {
+    color: white;
+}
+
+.hexagon h5 {
+    font-size: 0.9rem;
+    margin-bottom: 0;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.hexagon:hover h5 {
+    color: white;
+}
+
+/* Software e Strumenti - Design migliorato */
+.software-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin-bottom: 2rem;
 }
 
-.stat-number {
-    font-family: 'Syne', sans-serif;
-    font-size: 3rem;
-    font-weight: 800;
-    color: var(--primary-color);
-    line-height: 1;
-    margin-bottom: 0.5rem;
+.progress-circle {
+    position: relative;
+    width: 90px;
+    height: 90px;
+    margin-bottom: 1rem;
 }
 
-.stat-label {
-    font-size: 1rem;
-    color: var(--grey-color);
-    font-weight: 500;
+.progress-circle-inner {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: conic-gradient(var(--primary-color) var(--percent, 0%), rgba(67, 97, 238, 0.1) 0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow: var(--shadow-sm);
+}
+
+.progress-circle-inner::before {
+    content: '';
+    position: absolute;
+    inset: 10px;
+    border-radius: 50%;
+    background-color: white;
+}
+
+.progress-circle-inner i {
+    position: relative;
+    z-index: 2;
+    font-size: 1.75rem;
+    color: var(--primary-color);
+}
+
+.progress-percent {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.25rem 0.5rem;
+    border-radius: 1rem;
+    box-shadow: var(--shadow-sm);
+    z-index: 3;
+}
+
+.software-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--dark-color);
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    box-shadow: var(--shadow-sm);
 }
 
 /* Services Section */
@@ -669,6 +956,7 @@ section {
 #projects.bg-light {
     background-color: #f8f9fa !important;
 }
+
 /* Correzione padding per le card dei progetti */
 .timeline-cards li .title,
 .timeline-cards li .descr {
@@ -1159,6 +1447,11 @@ section {
         background-color: transparent !important;
         box-shadow: none;
     }
+    
+    /* Versione orizzontale dei linguaggi di programmazione per desktop */
+    .language-bar-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
 
 @media (max-width: 991.98px) {
@@ -1211,6 +1504,11 @@ section {
     .navbar:not(.scrolled) .navbar-collapse .nav-link:hover,
     .navbar:not(.scrolled) .navbar-nav .nav-link:hover {
         background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    /* Versione verticale dei linguaggi di programmazione per tablet */
+    .language-bar-container {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
@@ -1288,7 +1586,15 @@ section {
         right: auto;
         transform: translate(-50%, -50%);
     }
-
+    
+    .hexagon-grid {
+        justify-content: center;
+    }
+    
+    .hexagon-item {
+        margin: 15px 10px;
+    }
+    
     .footer-nav {
         flex-direction: row;
         justify-content: center;
@@ -1339,6 +1645,22 @@ section {
     }
     .timeline-cards li .date::after {
         left: -2rem;
+    }
+    
+    .about-info-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .about-info-icon {
+        margin-right: 0;
+        margin-bottom: 1rem;
+    }
+    
+    /* Versione verticale dei linguaggi di programmazione per mobile */
+    .language-bar-container {
+        grid-template-columns: 1fr;
     }
 }
 
@@ -1401,5 +1723,45 @@ section {
     .footer-nav {
         flex-direction: column;
         align-items: center;
+    }
+    
+    .hexagon-grid {
+        margin: 0 -5px;
+    }
+    
+    .hexagon-item {
+        width: 90px;
+        margin: 15px 5px;
+    }
+    
+    .hexagon {
+        width: 80px;
+        height: 90px;
+    }
+    
+    .hexagon i {
+        font-size: 1.5rem;
+    }
+    
+    .hexagon h5 {
+        font-size: 0.8rem;
+    }
+    
+    .progress-circle {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .progress-circle-inner i {
+        font-size: 1.5rem;
+    }
+    
+    .progress-percent {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.4rem;
+    }
+    
+    .software-name {
+        font-size: 0.85rem;
     }
 }
