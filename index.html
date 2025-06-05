@@ -5,422 +5,733 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Luca Valli | Portfolio</title>
     
-    <!-- Modern fonts 2025 -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700;800&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- CSS Libraries -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <!-- AOS Animation Library -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-lightbox@2.1.0/dist/simpleLightbox.min.css">
     
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" type="image/png" href="img/favicon.png">
-    
-    <style>
-    /* SimpleLightbox personalizzato */
-    .sl-overlay {
-        background-color: rgba(0, 0, 0, 0.9) !important;
-    }
-    
-    .sl-wrapper .sl-close, 
-    .sl-wrapper .sl-navigation button {
-        color: white !important;
-    }
-    
-    .sl-wrapper .sl-counter {
-        color: white !important;
-    }
-    
-    .sl-wrapper .sl-image img {
-        border-radius: 8px !important;
-    }
-    
-    .sl-caption {
-        background-color: rgba(0, 0, 0, 0.8) !important;
-        color: white !important;
-        font-family: 'Urbanist', sans-serif !important;
-    }
-    
-    /* Modifica al comportamento del menu */
-    .navbar-collapse .nav-link {
-        color: var(--dark-color) !important; /* Forza sempre il colore scuro nei menu dropdown */
-    }
-    
-    /* Colore scuro per i link nel menu mobile */
-    @media (max-width: 991.98px) {
-        .navbar-collapse {
-            background-color: rgba(255, 255, 255, 0.95);
-            margin-top: 0.5rem;
-            padding: 1rem;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#4361ee',
+                            dark: '#3a53c0',
+                            light: '#a3b0f1'
+                        },
+                        secondary: '#f72585',
+                        dark: '#1a1a1a',
+                        text: '#333333',
+                        bgColor: '#f8f9fa',
+                        gray: {
+                            DEFAULT: '#6c757d'
+                        }
+                    },
+                    fontFamily: {
+                        'urbanist': ['Urbanist', 'sans-serif'],
+                        'syne': ['Syne', 'sans-serif']
+                    }
+                }
+            }
         }
-        
-        /* Forza il colore scuro per tutti i link nel menu mobile */
-        .navbar:not(.scrolled) .navbar-collapse .nav-link,
-        .navbar.scrolled .navbar-collapse .nav-link {
-            color: var(--dark-color) !important;
-        }
-        
-        /* Stile hover più evidente per il menu mobile */
-        .navbar-nav .nav-link:hover {
-            background-color: rgba(67, 97, 238, 0.1);
-        }
+</script>
+<style>
+/* Base styles optimized for the current site */
+:root { scroll-behavior: smooth; }
+
+/* Typed.js cursor animation */
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+.cursor {
+    display: inline-block;
+    width: 3px;
+    background-color: white;
+    margin-left: 0.1rem;
+    animation: blink 1s infinite;
+}
+
+/* Floating animation for hero elements */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+.animate-float-1 { animation: float 6s ease-in-out infinite; }
+.animate-float-2 { animation: float 8s ease-in-out infinite 1s; }
+.animate-float-3 { animation: float 5s ease-in-out infinite 2s; }
+
+/* Navigation active line fix */
+/* Default state: white lines for home section */
+.nav-link::after {
+    background-color: white !important;
+}
+
+.nav-link:hover::after {
+    background-color: white !important;
+}
+
+/* Active link with white line on home section */
+.nav-link.active::after {
+    width: 100% !important;
+    background-color: white !important;
+}
+
+/* When header has scrolled background: celestine lines */
+#navbar.scrolled .nav-link::after,
+#navbar.bg-white .nav-link::after,
+nav.scrolled .nav-link::after,
+nav.bg-white .nav-link::after {
+    background-color: #4361EE !important;
+}
+
+#navbar.scrolled .nav-link:hover::after,
+#navbar.bg-white .nav-link:hover::after,
+nav.scrolled .nav-link:hover::after,
+nav.bg-white .nav-link:hover::after {
+    background-color: #4361EE !important;
+}
+
+/* Active link with celestine line when scrolled */
+#navbar.scrolled .nav-link.active::after,
+#navbar.bg-white .nav-link.active::after,
+nav.scrolled .nav-link.active::after,
+nav.bg-white .nav-link.active::after {
+    width: 100% !important;
+    background-color: #4361EE !important;
+}
+
+/* Clean timeline layout like screenshot 2 */
+.timeline-cards {
+    --line-w: 6px;
+    display: grid;
+    grid-template-columns: 1fr var(--line-w) 1fr;
+    column-gap: 0;
+    width: min(85rem, 90%);
+    margin-inline: auto;
+    position: relative;
+}
+
+.timeline-cards::before {
+    content: "";
+    grid-column: 2;
+    grid-row: 1 / span 20;
+    background: linear-gradient(to bottom, rgba(67, 97, 238, 0.8), rgba(67, 97, 238, 0.6));
+    width: 6px;
+    border-radius: 3px;
+    z-index: 1;
+}
+
+.timeline-cards li {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.timeline-cards li:nth-child(odd) { 
+    grid-column: 1;
+    align-items: flex-end;
+    padding-right: 4rem;
+}
+
+.timeline-cards li:nth-child(even) { 
+    grid-column: 3;
+    align-items: flex-start;
+    padding-left: 4rem;
+    margin-top: 30px; /* Offset iniziale per la colonna destra */
+}
+
+/* Remove margin-bottom from last items in each column */
+.timeline-cards li:nth-child(odd):last-child,
+.timeline-cards li:nth-child(even):last-child {
+    margin-bottom: 0;
+}
+
+/* Project cards with integrated dates */
+.timeline-cards li .project-card {
+    width: 100%;
+    max-width: 450px;
+    position: relative;
+    z-index: 2;
+}
+
+/* Connection lines from cards to timeline */
+.timeline-cards li .project-card::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    height: 3px;
+    background: rgba(67, 97, 238, 0.7);
+    z-index: 1;
+    border-radius: 1px;
+}
+
+.timeline-cards li:nth-child(odd) .project-card::before {
+    right: -4rem;
+    width: 4rem;
+    transform: translateY(-50%);
+}
+
+.timeline-cards li:nth-child(even) .project-card::before {
+    left: -4rem;
+    width: 4rem;
+    transform: translateY(-50%);
+}
+
+/* Hide the separate date elements */
+.timeline-cards li .date {
+    display: none;
+}
+
+/* Mobile timeline adjustments */
+@media (max-width: 992px) {
+    .timeline-cards {
+        --line-w: 4px;
+        display: block;
+        width: 100%;
+        position: relative;
+        padding-left: 2rem;
     }
-    </style>
+    
+    .timeline-cards::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background: linear-gradient(to bottom, rgba(67, 97, 238, 0.8), rgba(67, 97, 238, 0.6));
+        border-radius: 2px;
+        z-index: 1;
+    }
+    
+    .timeline-cards li,
+    .timeline-cards li:nth-child(odd),
+    .timeline-cards li:nth-child(even) {
+        display: block;
+        margin-bottom: 2rem;
+        margin-top: 0 !important;
+        padding: 0;
+        position: relative;
+    }
+    
+    .timeline-cards li .project-card {
+        margin-left: 2rem;
+        max-width: none;
+        width: calc(100% - 2rem);
+    }
+    
+    /* Reset e normalizza tutte le linee orizzontali per mobile */
+    .timeline-cards li .project-card::before,
+    .timeline-cards li:nth-child(odd) .project-card::before,
+    .timeline-cards li:nth-child(even) .project-card::before {
+        content: "";
+        position: absolute;
+        left: -2rem !important;
+        right: auto !important;
+        top: 50%;
+        width: 2rem !important;
+        height: 3px;
+        background: rgba(67, 97, 238, 0.7);
+        transform: translateY(-50%);
+        z-index: 2;
+    }
+}
+
+/* Extra mobile optimizations */
+@media (max-width: 768px) {
+    .animate-float-1, .animate-float-2, .animate-float-3 { 
+        animation: none; 
+    }
+    #social { 
+        display: none !important; 
+    }
+    
+    .timeline-cards {
+        padding-left: 4px;
+    }
+    
+    .timeline-cards::before {
+        left: 0;
+    }
+    
+    .timeline-cards li .project-card {
+        margin-left: 1.5rem;
+        width: calc(100% - 1.5rem);
+    }
+    
+    .timeline-cards li .project-card::before,
+    .timeline-cards li:nth-child(odd) .project-card::before,
+    .timeline-cards li:nth-child(even) .project-card::before {
+        left: -1.5rem !important;
+        width: 1.5rem !important;
+    }
+}
+
+/* Mobile menu button fix */
+/* Default state: white hamburger lines */
+#navbar button span {
+    background-color: white;
+    transition: background-color 0.3s ease;
+}
+
+/* When navbar is scrolled: blue hamburger lines */
+#navbar.bg-white button span,
+#navbar.bg-opacity-95 button span {
+    background-color: #4361ee !important;
+}
+
+/* Remove background from mobile menu button */
+#navbar button {
+    background: none !important;
+    border: none !important;
+}
+
+/* Mobile responsive adjustments for About section */
+@media (max-width: 768px) {
+    /* Make formation box wider on mobile */
+    .lg\:w-1\/3 {
+        width: 100% !important;
+        margin-top: 2rem;
+    }
+    
+    /* Adjust flex direction for mobile */
+    .lg\:flex-row {
+        flex-direction: column !important;
+    }
+    
+    /* Remove padding that creates narrow box */
+    .lg\:pr-12 {
+        padding-right: 0 !important;
+    }
+    
+    /* Reduce size of floating certification icons on mobile */
+    .group .absolute.-top-4.-right-4 {
+        width: 50px !important;
+        height: 50px !important;
+        top: -15px !important;
+        right: -15px !important;
+    }
+    
+    .group .absolute.-top-4.-right-4 i {
+        font-size: 16px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .timeline-cards {
+        padding-left: 1rem;
+    }
+    
+    .timeline-cards::before {
+        left: 0;
+    }
+    
+    .timeline-cards li .project-card {
+        margin-left: 1rem;
+        width: calc(100% - 1rem);
+    }
+    
+    .timeline-cards li .project-card::before,
+    .timeline-cards li:nth-child(odd) .project-card::before,
+    .timeline-cards li:nth-child(even) .project-card::before {
+        left: -1rem !important;
+        width: 1rem !important;
+    }
+}
+</style>
+
+
 </head>
-<body>
+<body class="font-urbanist text-text bg-white min-h-screen flex flex-col overflow-x-hidden">
     <!-- Header Navigation -->
-    <nav class="navbar navbar-expand-lg fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="#home">Luca Valli</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#home">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#about">Chi Sono</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#services">Servizi</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#certifications">Certificazioni</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#projects">Progetti</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#gallery">Galleria</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#social">Social</a>
-                    </li>
-                </ul>
+    <nav id="navbar" class="fixed top-0 left-0 w-full z-50 py-4 transition-all duration-300 ease-in-out">
+        <div class="container mx-auto px-6">
+            <div class="flex items-center justify-between">
+                <a href="#home" class="text-2xl font-syne font-bold text-white transition-colors duration-300">Luca Valli</a>
+                <button class="lg:hidden p-2 rounded bg-white bg-opacity-20 border border-white border-opacity-30" onclick="toggleMobileMenu()">
+                    <div class="w-6 h-6 flex flex-col justify-center items-center">
+                        <span class="w-5 h-0.5 bg-white mb-1"></span>
+                        <span class="w-5 h-0.5 bg-white mb-1"></span>
+                        <span class="w-5 h-0.5 bg-white"></span>
+                    </div>
+                </button>
+                <div class="hidden lg:flex">
+                    <ul class="flex lg:ml-auto">
+                        <li><a class="nav-link text-white font-medium px-4 py-2 relative hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-white after:transition-all after:duration-300" href="#home">Home</a></li>
+                        <li><a class="nav-link text-white font-medium px-4 py-2 relative hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-white after:transition-all after:duration-300" href="#about">Chi Sono</a></li>
+                        <li><a class="nav-link text-white font-medium px-4 py-2 relative hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-white after:transition-all after:duration-300" href="#services">Servizi</a></li>
+                        <li><a class="nav-link text-white font-medium px-4 py-2 relative hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-white after:transition-all after:duration-300" href="#certifications">Certificazioni</a></li>
+                        <li><a class="nav-link text-white font-medium px-4 py-2 relative hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-white after:transition-all after:duration-300" href="#projects">Progetti</a></li>
+                        <li><a class="nav-link text-white font-medium px-4 py-2 relative hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-white after:transition-all after:duration-300" href="#gallery">Galleria</a></li>
+                        <li><a class="nav-link text-white font-medium px-4 py-2 relative hover:after:w-full after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-white after:transition-all after:duration-300" href="#social">Social</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Mobile menu -->
+                <div class="lg:hidden absolute top-full left-0 right-0 mt-2 mx-4 p-4 rounded-lg shadow-md bg-white bg-opacity-95 hidden" id="mobile-menu">
+                    <ul class="space-y-1">
+                        <li class="border-b border-gray-100"><a class="block py-3 px-4 text-dark hover:bg-primary-light hover:bg-opacity-10 rounded" href="#home" onclick="toggleMobileMenu()">Home</a></li>
+                        <li class="border-b border-gray-100"><a class="block py-3 px-4 text-dark hover:bg-primary-light hover:bg-opacity-10 rounded" href="#about" onclick="toggleMobileMenu()">Chi Sono</a></li>
+                        <li class="border-b border-gray-100"><a class="block py-3 px-4 text-dark hover:bg-primary-light hover:bg-opacity-10 rounded" href="#services" onclick="toggleMobileMenu()">Servizi</a></li>
+                        <li class="border-b border-gray-100"><a class="block py-3 px-4 text-dark hover:bg-primary-light hover:bg-opacity-10 rounded" href="#certifications" onclick="toggleMobileMenu()">Certificazioni</a></li>
+                        <li class="border-b border-gray-100"><a class="block py-3 px-4 text-dark hover:bg-primary-light hover:bg-opacity-10 rounded" href="#projects" onclick="toggleMobileMenu()">Progetti</a></li>
+                        <li class="border-b border-gray-100"><a class="block py-3 px-4 text-dark hover:bg-primary-light hover:bg-opacity-10 rounded" href="#gallery" onclick="toggleMobileMenu()">Galleria</a></li>
+                        <li><a class="block py-3 px-4 text-dark hover:bg-primary-light hover:bg-opacity-10 rounded" href="#social" onclick="toggleMobileMenu()">Social</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </nav>
 
-<!-- Hero Section migliorata -->
-<header id="home" class="hero d-flex align-items-center">
-  <div class="container">
-      <div class="row align-items-center">
-          <div class="col-lg-6 hero-content" data-aos="fade-right">
-              <h2 class="pre-heading text-light">Ciao, sono</h2>
-              <h1 class="text-light">Luca Valli</h1>
-              <div class="typing-container">
-                  <span class="typed-text"></span><span class="cursor">&nbsp;</span>
-              </div>
-              <p class="lead text-light">Web Developer, Social Media Manager, Fotografo e Videomaker</p>
-              <div class="contact-info mb-4">
-                  <a href="mailto:lucavalli2000@gmail.com" class="contact-item text-light">
-                      <i class="fas fa-envelope"></i>
-                      <span>lucavalli2000@gmail.com</span>
-                  </a>
-                  <a href="tel:+393928305037" class="contact-item text-light">
-                      <i class="fas fa-phone"></i>
-                      <span>392 8305037</span>
-                  </a>
-              </div>
-              <div class="hero-btns">
-                  <a href="#about" class="btn btn-light">Scopri di più</a>
-                  <a href="#projects" class="btn btn-outline-light">I miei lavori</a>
-              </div>
-          </div>
-          <div class="col-lg-6 d-flex justify-content-center" data-aos="fade-left">
-              <div class="hero-image-wrap">
-                  <div class="hero-image-container">
-                      <img src="img/profile.png" alt="Luca Valli" class="hero-img" onerror="this.src='https://via.placeholder.com/600x800?text=Luca+Valli'">
-                      <div class="hero-image-shape"></div>
-                      <div class="hero-image-backdrop"></div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
-  <div class="hero-shapes">
-      <div class="shape shape-1"></div>
-      <div class="shape shape-2"></div>
-      <div class="shape shape-3"></div>
-  </div>
-</header>
+    <!-- Hero Section -->
+    <header id="home" class="flex items-center min-h-screen pt-20 bg-gradient-to-br from-primary-dark to-primary relative overflow-hidden">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/2 text-center lg:text-left flex flex-col items-center lg:items-start justify-center z-10" data-aos="fade-right">
+                    <h2 class="text-xl lg:text-2xl text-white mb-4">Ciao, sono</h2>
+                    <h1 class="text-5xl lg:text-7xl font-syne font-extrabold text-white mb-4 leading-tight tracking-tighter">Luca Valli</h1>
+                    <div class="h-12 mb-6">
+                        <span class="typed-text text-cyan-400 text-2xl font-semibold"></span><span class="cursor">&nbsp;</span>
+                    </div>
+                    <p class="text-xl text-white mb-6">Web Developer, Social Media Manager, Fotografo e Videomaker</p>
+                    <div class="contact-info mb-6 flex flex-col sm:flex-row items-center lg:items-start">
+                        <a href="mailto:lucavalli2000@gmail.com" class="flex items-center text-white font-medium mr-6 mb-2 hover:text-cyan-400 transition-colors">
+                            <i class="fas fa-envelope mr-2"></i>
+                            <span>lucavalli2000@gmail.com</span>
+                        </a>
+                        <a href="tel:+393928305037" class="flex items-center text-white font-medium mb-2 hover:text-cyan-400 transition-colors">
+                            <i class="fas fa-phone mr-2"></i>
+                            <span>392 8305037</span>
+                        </a>
+                    </div>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#about" class="px-7 py-3 bg-white text-dark font-semibold rounded-lg transition-all duration-300 hover:bg-gray-200 hover:-translate-y-1 hover:shadow-md">Scopri di più</a>
+                        <a href="#projects" class="px-7 py-3 bg-transparent border-2 border-white text-white font-semibold rounded-lg transition-all duration-300 hover:bg-white hover:text-dark hover:-translate-y-1 hover:shadow-md">I miei lavori</a>
+                    </div>
+                </div>
+                <div class="lg:w-1/2 flex justify-center mt-12 lg:mt-0" data-aos="fade-left">
+                    <div class="relative">
+                        <div class="absolute top-[-5%] right-[-5%] w-full h-full bg-primary-light bg-opacity-80 rounded-lg z-10"></div>
+                        <div class="absolute bottom-[-5%] left-[-5%] w-full h-full bg-secondary bg-opacity-60 rounded-lg z-0"></div>
+                        <img src="img/profile.png" alt="Luca Valli" class="relative z-20 max-h-[70vh] w-auto rounded-lg shadow-2xl" onerror="this.src='https://via.placeholder.com/600x800?text=Luca+Valli'">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Floating elements -->
+        <div class="absolute inset-0 pointer-events-none overflow-hidden">
+            <div class="absolute top-[15%] left-[5%] w-[60px] h-[60px] rounded-full bg-white bg-opacity-10 animate-float-1"></div>
+            <div class="absolute top-[60%] right-[10%] w-[80px] h-[80px] rounded-full bg-white bg-opacity-8 animate-float-2"></div>
+            <div class="absolute bottom-[10%] left-[15%] w-[40px] h-[40px] rounded-full bg-white bg-opacity-12 animate-float-3"></div>
+        </div>
+    </header>
 
     <!-- About Section -->
-    <section id="about" class="py-5 section-padding">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-10">
-                    <div class="section-title text-center mb-5" data-aos="fade-up">
-                        <span class="subtitle">Chi sono</span>
-                        <h2>Un po' di me</h2>
+    <section id="about" class="py-24 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="flex justify-center">
+                <div class="lg:w-11/12">
+                    <div class="text-center mb-16" data-aos="fade-up">
+                        <span class="text-primary font-semibold uppercase tracking-wider text-sm mb-2 block">Chi sono</span>
+                        <h2 class="text-4xl lg:text-5xl font-syne font-bold mb-4 relative inline-block">Un po' di me</h2>
                     </div>
                     
-                    <div class="about-content" data-aos="fade-up" data-aos-delay="100">
-                        <div class="row mb-5">
-                            <div class="col-lg-8">
-                                <p class="tagline">Appassionato da sempre del mondo digitale ho deciso di rendere questa mia passione un'ottima esperienza lavorativa.</p>
-                                <h3>Il mix perfetto tra passione & lavoro</h3>
-                                <p>Negli ultimi anni ho realizzato e collaborato a realizzare siti web (vetrina e/o dinamici), sistemi informativi, informatici, gestionali ed e-commerce per aziende e privati.</p>
-                                <p>Attualmente gestisco diverse pagine Social per attività, associazioni ed organizzazioni. Queste sono sempre più importanti al giorno d'oggi!</p>
-                                <p>Ho deciso di intraprendere la carriera universitaria per approfondire ancora di più la mia formazione culturale studiando Ingegneria Informatica presso "La Sapienza" di Roma.</p>
+                    <!-- Hero About Card -->
+                    <div class="bg-gradient-to-br from-blue-600 to-blue-800 rounded-3xl p-8 lg:p-12 text-white mb-16 relative overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-white bg-opacity-10 rounded-full -translate-y-16 translate-x-16"></div>
+                        <div class="absolute bottom-0 left-0 w-24 h-24 bg-white bg-opacity-5 rounded-full translate-y-12 -translate-x-12"></div>
+                        
+                        <div class="relative z-10">
+                            <div class="flex flex-col lg:flex-row items-center lg:items-start">
+                                <div class="lg:w-2/3 text-center lg:text-left mb-8 lg:mb-0 lg:pr-12">
+                                    <h3 class="text-3xl lg:text-4xl font-syne font-bold mb-6 leading-tight">
+                                        Il mix perfetto tra <span class="text-yellow-300">passione</span> & <span class="text-yellow-300">lavoro</span>
+                                    </h3>
+                                    <p class="text-xl mb-6 text-white text-opacity-90 leading-relaxed">
+                                        Appassionato da sempre del mondo digitale, ho trasformato questa passione in un'esperienza lavorativa di successo, specializzandomi nello sviluppo web e nella gestione dei social media.
+                                    </p>
+                                    <p class="text-lg text-white text-opacity-80 leading-relaxed">
+                                        Attualmente studio <strong>Ingegneria Informatica</strong> presso "La Sapienza" di Roma per approfondire ulteriormente la mia formazione tecnica e rimanere sempre al passo con le tecnologie emergenti.
+                                    </p>
+                                </div>
+                                
+                                <div class="lg:w-1/3">
+                                    <div class="bg-white bg-opacity-10 rounded-2xl p-6 backdrop-blur-sm">
+                                        <div class="flex items-center mb-4">
+                                            <i class="fas fa-graduation-cap text-2xl text-yellow-300 mr-3"></i>
+                                            <h4 class="text-lg font-bold">Formazione</h4>
+                                        </div>
+                                        <div class="space-y-3">
+                                            <div>
+                                                <p class="text-white text-opacity-90 text-sm">
+                                                    <strong>Ingegneria Informatica</strong><br>
+                                                    <span class="text-yellow-300">Università La Sapienza - Roma</span>
+                                                </p>
+                                            </div>
+                                            <div class="border-t border-white border-opacity-20 pt-3">
+                                                <p class="text-white text-opacity-90 text-sm">
+                                                    <strong>Liceo Scientifico "Paolo Ruffini"</strong><br>
+                                                    <span class="text-yellow-300">Viterbo - Votazione 94/100</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-lg-4">
-                                <div class="about-info-card">
-                                    <div class="about-info-icon">
-                                        <i class="fas fa-code"></i>
+                        </div>
+                    </div>
+
+                    <!-- Core Business Section -->
+                    <div class="mb-16" data-aos="fade-up" data-aos-delay="200">
+                        <div class="text-center mb-12">
+                            <h3 class="text-3xl font-syne font-bold text-dark mb-4">Le mie specializzazioni principali</h3>
+                            <p class="text-gray-600 max-w-2xl mx-auto">Focus sui servizi che rappresentano il core del mio business</p>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                            <!-- Web Development -->
+                            <div class="bg-white rounded-2xl p-8 shadow-lg border-l-8 border-primary relative overflow-hidden group hover:-translate-y-2 transition-all duration-300">
+                                <div class="absolute top-0 right-0 w-20 h-20 bg-primary bg-opacity-5 rounded-full -translate-y-10 translate-x-10"></div>
+                                
+                                <div class="relative z-10">
+                                    <div class="flex items-start mb-6">
+                                        <div class="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center mr-6 flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                                            <i class="fas fa-code text-white text-2xl"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-2xl font-bold text-dark mb-2">Sviluppo Web</h4>
+                                            <p class="text-primary font-semibold">La mia specializzazione principale</p>
+                                        </div>
                                     </div>
-                                    <div class="about-info-content">
-                                        <h4>Sviluppo Web</h4>
-                                        <p>Creazione di siti web, gestionali e sistemi e-commerce</p>
+                                    
+                                    <p class="text-gray-700 mb-6 leading-relaxed">
+                                        Realizzo <strong>siti web professionali</strong>, <strong>sistemi gestionali</strong> e <strong>e-commerce</strong> su misura per aziende e privati. Dai siti vetrina dinamici ai complessi sistemi informativi, ogni progetto è sviluppato con tecnologie moderne e standard elevati.
+                                    </p>
+                                    
+                                    <div class="grid grid-cols-2 gap-4 mb-6">
+                                        <div class="text-center p-4 bg-primary bg-opacity-5 rounded-xl">
+                                            <i class="fas fa-laptop-code text-primary text-2xl mb-2"></i>
+                                            <p class="text-sm font-semibold text-dark">Siti Web</p>
+                                            <p class="text-xs text-gray-600">Vetrina & Dinamici</p>
+                                        </div>
+                                        <div class="text-center p-4 bg-primary bg-opacity-5 rounded-xl">
+                                            <i class="fas fa-shopping-cart text-primary text-2xl mb-2"></i>
+                                            <p class="text-sm font-semibold text-dark">E-commerce</p>
+                                            <p class="text-xs text-gray-600">Vendita Online</p>
+                                        </div>
+                                        <div class="text-center p-4 bg-primary bg-opacity-5 rounded-xl">
+                                            <i class="fas fa-cogs text-primary text-2xl mb-2"></i>
+                                            <p class="text-sm font-semibold text-dark">Gestionali</p>
+                                            <p class="text-xs text-gray-600">Sistemi Aziendali</p>
+                                        </div>
+                                        <div class="text-center p-4 bg-primary bg-opacity-5 rounded-xl">
+                                            <i class="fas fa-mobile-alt text-primary text-2xl mb-2"></i>
+                                            <p class="text-sm font-semibold text-dark">Responsive</p>
+                                            <p class="text-xs text-gray-600">Mobile-First</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="px-3 py-1 bg-primary text-white text-xs font-medium rounded-full">PHP</span>
+                                        <span class="px-3 py-1 bg-primary text-white text-xs font-medium rounded-full">Laravel</span>
+                                        <span class="px-3 py-1 bg-primary text-white text-xs font-medium rounded-full">JavaScript</span>
+                                        <span class="px-3 py-1 bg-primary text-white text-xs font-medium rounded-full">HTML/CSS</span>
+                                        <span class="px-3 py-1 bg-primary text-white text-xs font-medium rounded-full">SQL</span>
                                     </div>
                                 </div>
+                            </div>
+                            
+                            <!-- Social Media Management -->
+                            <div class="bg-white rounded-2xl p-8 shadow-lg border-l-8 border-secondary relative overflow-hidden group hover:-translate-y-2 transition-all duration-300">
+                                <div class="absolute top-0 right-0 w-20 h-20 bg-secondary bg-opacity-5 rounded-full -translate-y-10 translate-x-10"></div>
+                                <div class="absolute top-4 right-4 bg-secondary text-white text-xs font-bold px-3 py-1 rounded-full">FOCUS</div>
                                 
-                                <div class="about-info-card">
-                                    <div class="about-info-icon">
-                                        <i class="fas fa-bullhorn"></i>
+                                <div class="relative z-10">
+                                    <div class="flex items-start mb-6">
+                                        <div class="w-16 h-16 bg-secondary rounded-2xl flex items-center justify-center mr-6 flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                                            <i class="fas fa-hashtag text-white text-2xl"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-2xl font-bold text-dark mb-2">Social Media</h4>
+                                            <p class="text-secondary font-semibold">Gestione strategica e contenuti</p>
+                                        </div>
                                     </div>
-                                    <div class="about-info-content">
-                                        <h4>Social Media</h4>
-                                        <p>Gestione e strategia sui canali social</p>
+                                    
+                                    <p class="text-gray-700 mb-6 leading-relaxed">
+                                        Gestisco diverse <strong>pagine social</strong> per attività, associazioni ed organizzazioni. Creo strategie di comunicazione efficaci, contenuti coinvolgenti e campagne pubblicitarie mirate per aumentare la visibilità online.
+                                    </p>
+                                    
+                                    <div class="grid grid-cols-2 gap-4 mb-6">
+                                        <div class="text-center p-4 bg-secondary bg-opacity-5 rounded-xl">
+                                            <i class="fab fa-instagram text-secondary text-2xl mb-2"></i>
+                                            <p class="text-sm font-semibold text-dark">Instagram</p>
+                                            <p class="text-xs text-gray-600">Visual Content</p>
+                                        </div>
+                                        <div class="text-center p-4 bg-secondary bg-opacity-5 rounded-xl">
+                                            <i class="fab fa-facebook text-secondary text-2xl mb-2"></i>
+                                            <p class="text-sm font-semibold text-dark">Facebook</p>
+                                            <p class="text-xs text-gray-600">Community</p>
+                                        </div>
+                                        <div class="text-center p-4 bg-secondary bg-opacity-5 rounded-xl">
+                                            <i class="fas fa-ad text-secondary text-2xl mb-2"></i>
+                                            <p class="text-sm font-semibold text-dark">Advertising</p>
+                                            <p class="text-xs text-gray-600">Campagne ADS</p>
+                                        </div>
+                                        <div class="text-center p-4 bg-secondary bg-opacity-5 rounded-xl">
+                                            <i class="fas fa-chart-line text-secondary text-2xl mb-2"></i>
+                                            <p class="text-sm font-semibold text-dark">Analytics</p>
+                                            <p class="text-xs text-gray-600">Performance</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="bg-secondary bg-opacity-5 rounded-xl p-4">
+                                        <p class="text-xs font-semibold text-secondary mb-2">PROGETTI ATTIVI</p>
+                                        <p class="text-sm text-gray-700">Associazione COST, Wellness Studio, Kimairah e altri</p>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Competenze Aggiuntive -->
+                    <div class="mb-16" data-aos="fade-up" data-aos-delay="300">
+                        <div class="text-center mb-8">
+                            <h3 class="text-2xl font-syne font-bold text-dark mb-4">Competenze complementari</h3>
+                            <p class="text-gray-600">Servizi aggiuntivi per completare la tua presenza digitale</p>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="bg-white rounded-xl p-6 shadow-md text-center hover:-translate-y-1 transition-all duration-300">
+                                <div class="w-12 h-12 bg-orange-500 bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <i class="fas fa-camera text-orange-500 text-xl"></i>
+                                </div>
+                                <h4 class="text-lg font-bold text-dark mb-2">Fotografia</h4>
+                                <p class="text-gray-600 text-sm">Eventi, ritratti, food photography per completare i tuoi contenuti digitali</p>
+                            </div>
+                            
+                            <div class="bg-white rounded-xl p-6 shadow-md text-center hover:-translate-y-1 transition-all duration-300">
+                                <div class="w-12 h-12 bg-purple-500 bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <i class="fas fa-video text-purple-500 text-xl"></i>
+                                </div>
+                                <h4 class="text-lg font-bold text-dark mb-2">Video Production</h4>
+                                <p class="text-gray-600 text-sm">Produzione e montaggio video per social, pubblicità e eventi speciali</p>
+                            </div>
+                            
+                            <div class="bg-white rounded-xl p-6 shadow-md text-center hover:-translate-y-1 transition-all duration-300">
+                                <div class="w-12 h-12 bg-green-500 bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <i class="fas fa-palette text-green-500 text-xl"></i>
+                                </div>
+                                <h4 class="text-lg font-bold text-dark mb-2">Graphic Design</h4>
+                                <p class="text-gray-600 text-sm">Loghi, grafiche e materiali visivi per la tua identità aziendale</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Skills Section -->
+                    <div class="bg-white rounded-3xl p-8 lg:p-12 shadow-lg border border-gray-100" data-aos="fade-up" data-aos-delay="400">
+                        <div class="text-center mb-12">
+                            <div class="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-2xl mb-4">
+                                <i class="fas fa-laptop-code text-white text-2xl"></i>
+                            </div>
+                            <h3 class="text-3xl font-syne font-bold text-dark mb-4">Stack tecnologico</h3>
+                            <p class="text-gray-600 max-w-2xl mx-auto">Le tecnologie che utilizzo quotidianamente per i miei progetti</p>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+                            <div>
+                                <h4 class="text-xl font-bold text-dark mb-6 flex items-center">
+                                    <span class="w-8 h-8 bg-primary bg-opacity-10 rounded-full flex items-center justify-center text-primary mr-3">
+                                        <i class="fas fa-code text-sm"></i>
+                                    </span>
+                                    Linguaggi di Programmazione
+                                </h4>
                                 
-                                <div class="about-info-card">
-                                    <div class="about-info-icon">
-                                        <i class="fas fa-camera"></i>
+                                <div class="space-y-4">
+                                    <div class="flex items-center justify-between">
+                                        <span class="font-semibold text-dark">PHP & Laravel</span>
+                                        <div class="w-32 h-2 bg-gray-200 rounded-full overflow-hidden">
+                                            <div class="w-[85%] h-full bg-primary rounded-full"></div>
+                                        </div>
                                     </div>
-                                    <div class="about-info-content">
-                                        <h4>Fotografia & Video</h4>
-                                        <p>Produzione e editing di contenuti visivi</p>
+                                    <div class="flex items-center justify-between">
+                                        <span class="font-semibold text-dark">HTML/CSS & JavaScript</span>
+                                        <div class="w-32 h-2 bg-gray-200 rounded-full overflow-hidden">
+                                            <div class="w-[90%] h-full bg-primary rounded-full"></div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <span class="font-semibold text-dark">SQL & Database</span>
+                                        <div class="w-32 h-2 bg-gray-200 rounded-full overflow-hidden">
+                                            <div class="w-[80%] h-full bg-primary rounded-full"></div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <span class="font-semibold text-dark">Python & C/C++</span>
+                                        <div class="w-32 h-2 bg-gray-200 rounded-full overflow-hidden">
+                                            <div class="w-[70%] h-full bg-primary rounded-full"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h4 class="text-xl font-bold text-dark mb-6 flex items-center">
+                                    <span class="w-8 h-8 bg-secondary bg-opacity-10 rounded-full flex items-center justify-center text-secondary mr-3">
+                                        <i class="fas fa-tools text-sm"></i>
+                                    </span>
+                                    Software & Strumenti
+                                </h4>
+                                
+                                <div class="grid grid-cols-4 gap-4">
+                                    <div class="text-center">
+                                        <div class="w-12 h-12 bg-blue-500 bg-opacity-10 rounded-xl flex items-center justify-center mx-auto mb-2">
+                                            <i class="fas fa-image text-blue-600 text-lg"></i>
+                                        </div>
+                                        <p class="text-xs font-semibold text-dark">Photoshop</p>
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="w-12 h-12 bg-orange-500 bg-opacity-10 rounded-xl flex items-center justify-center mx-auto mb-2">
+                                            <i class="fas fa-pen-nib text-orange-600 text-lg"></i>
+                                        </div>
+                                        <p class="text-xs font-semibold text-dark">Illustrator</p>
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="w-12 h-12 bg-purple-500 bg-opacity-10 rounded-xl flex items-center justify-center mx-auto mb-2">
+                                            <i class="fas fa-film text-purple-600 text-lg"></i>
+                                        </div>
+                                        <p class="text-xs font-semibold text-dark">Premiere</p>
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="w-12 h-12 bg-green-500 bg-opacity-10 rounded-xl flex items-center justify-center mx-auto mb-2">
+                                            <i class="fab fa-github text-green-600 text-lg"></i>
+                                        </div>
+                                        <p class="text-xs font-semibold text-dark">Git</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         
-                        <!-- Skills Section -->
-                        <div class="skills-section">
-                            <div class="section-divider">
-                                <span class="divider-icon"><i class="fas fa-laptop-code"></i></span>
-                                <h3 class="divider-text">Le mie competenze</h3>
-                            </div>
-                            
-                            <!-- Linguaggi di programmazione - Rappresentazione orizzontale -->
-                            <div class="mb-5">
-                                <h4 class="skills-title">
-                                    <i class="fas fa-code skill-title-icon"></i>
-                                    Linguaggi di Programmazione
-                                </h4>
-                                
-                                <div class="programming-languages">
-                                    <div class="language-chart">
-                                        <div class="language-bar-container">
-                                            <div class="language-item">
-                                                <div class="language-name">PHP</div>
-                                                <div class="language-bar-outer">
-                                                    <div class="language-bar-inner" style="width: 85%"></div>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="language-item">
-                                                <div class="language-name">Laravel</div>
-                                                <div class="language-bar-outer">
-                                                    <div class="language-bar-inner" style="width: 80%"></div>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="language-item">
-                                                <div class="language-name">SQL</div>
-                                                <div class="language-bar-outer">
-                                                    <div class="language-bar-inner" style="width: 78%"></div>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="language-item">
-                                                <div class="language-name">Python</div>
-                                                <div class="language-bar-outer">
-                                                    <div class="language-bar-inner" style="width: 70%"></div>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="language-item">
-                                                <div class="language-name">C/C++</div>
-                                                <div class="language-bar-outer">
-                                                    <div class="language-bar-inner" style="width: 75%"></div>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="language-item">
-                                                <div class="language-name">Java</div>
-                                                <div class="language-bar-outer">
-                                                    <div class="language-bar-inner" style="width: 65%"></div>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="language-item">
-                                                <div class="language-name">HTML/CSS</div>
-                                                <div class="language-bar-outer">
-                                                    <div class="language-bar-inner" style="width: 90%"></div>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="language-item">
-                                                <div class="language-name">JavaScript</div>
-                                                <div class="language-bar-outer">
-                                                    <div class="language-bar-inner" style="width: 85%"></div>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="language-item">
-                                                <div class="language-name">Assembly</div>
-                                                <div class="language-bar-outer">
-                                                    <div class="language-bar-inner" style="width: 55%"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Competenze Tecniche - Esagoni -->
-                            <div class="tech-competences mb-5">
-                                <h4 class="skills-title mb-4">
-                                    <i class="fas fa-tools skill-title-icon"></i>
-                                    Competenze Tecniche
-                                </h4>
-                                
-                                <div class="hexagon-grid">
-                                    <div class="hexagon-item" data-aos="zoom-in" data-aos-delay="100">
-                                        <div class="hexagon">
-                                            <i class="fas fa-database"></i>
-                                            <h5>Database</h5>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="hexagon-item" data-aos="zoom-in" data-aos-delay="200">
-                                        <div class="hexagon">
-                                            <i class="fas fa-mobile-alt"></i>
-                                            <h5>Responsive</h5>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="hexagon-item" data-aos="zoom-in" data-aos-delay="300">
-                                        <div class="hexagon">
-                                            <i class="fas fa-search"></i>
-                                            <h5>SEO</h5>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="hexagon-item" data-aos="zoom-in" data-aos-delay="400">
-                                        <div class="hexagon">
-                                            <i class="fas fa-pen-fancy"></i>
-                                            <h5>UI/UX</h5>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="hexagon-item" data-aos="zoom-in" data-aos-delay="500">
-                                        <div class="hexagon">
-                                            <i class="fas fa-server"></i>
-                                            <h5>API</h5>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="hexagon-item" data-aos="zoom-in" data-aos-delay="600">
-                                        <div class="hexagon">
-                                            <i class="fas fa-shield-alt"></i>
-                                            <h5>Security</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Software e Strumenti - Progresso circolare con etichette migliorato -->
-                            <div class="software-competences mt-5">
-                                <h4 class="skills-title text-center mb-4">
-                                    <i class="fas fa-desktop skill-title-icon"></i>
-                                    Software & Strumenti
-                                </h4>
-                                
-                                <div class="row justify-content-center">
-                                    <div class="col-4 col-md-3 col-lg-2" data-aos="fade-up" data-aos-delay="100">
-                                        <div class="software-item">
-                                            <div class="progress-circle" data-percent="85">
-                                                <div class="progress-circle-inner">
-                                                    <i class="fab fa-wordpress"></i>
-                                                </div>
-                                                <span class="progress-percent">85%</span>
-                                            </div>
-                                            <div class="software-name">WordPress</div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="col-4 col-md-3 col-lg-2" data-aos="fade-up" data-aos-delay="200">
-                                        <div class="software-item">
-                                            <div class="progress-circle" data-percent="90">
-                                                <div class="progress-circle-inner">
-                                                    <i class="fas fa-paint-brush"></i>
-                                                </div>
-                                                <span class="progress-percent">90%</span>
-                                            </div>
-                                            <div class="software-name">Canva</div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="col-4 col-md-3 col-lg-2" data-aos="fade-up" data-aos-delay="300">
-                                        <div class="software-item">
-                                            <div class="progress-circle" data-percent="70">
-                                                <div class="progress-circle-inner">
-                                                    <i class="fas fa-layer-group"></i>
-                                                </div>
-                                                <span class="progress-percent">70%</span>
-                                            </div>
-                                            <div class="software-name">InDesign</div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="col-4 col-md-3 col-lg-2" data-aos="fade-up" data-aos-delay="400">
-                                        <div class="software-item">
-                                            <div class="progress-circle" data-percent="75">
-                                                <div class="progress-circle-inner">
-                                                    <i class="fas fa-code-branch"></i>
-                                                </div>
-                                                <span class="progress-percent">75%</span>
-                                            </div>
-                                            <div class="software-name">Git</div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="col-4 col-md-3 col-lg-2" data-aos="fade-up" data-aos-delay="500">
-                                        <div class="software-item">
-                                            <div class="progress-circle" data-percent="80">
-                                                <div class="progress-circle-inner">
-                                                    <i class="fas fa-film"></i>
-                                                </div>
-                                                <span class="progress-percent">80%</span>
-                                            </div>
-                                            <div class="software-name">Premiere</div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="col-4 col-md-3 col-lg-2" data-aos="fade-up" data-aos-delay="600">
-                                        <div class="software-item">
-                                            <div class="progress-circle" data-percent="65">
-                                                <div class="progress-circle-inner">
-                                                    <i class="fas fa-cubes"></i>
-                                                </div>
-                                                <span class="progress-percent">65%</span>
-                                            </div>
-                                            <div class="software-name">Blender</div>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="text-center">
+                            <div class="inline-flex flex-col sm:flex-row gap-4">
+                                <a href="#projects" class="px-8 py-3 bg-primary text-white font-semibold rounded-xl transition-all duration-300 hover:bg-primary-dark hover:-translate-y-1 hover:shadow-lg">
+                                    <i class="fas fa-rocket mr-2"></i>
+                                    Scopri i miei progetti
+                                </a>
+                                <a href="#services" class="px-8 py-3 bg-white text-primary border-2 border-primary font-semibold rounded-xl transition-all duration-300 hover:bg-primary hover:text-white hover:-translate-y-1 hover:shadow-lg">
+                                    <i class="fas fa-arrow-right mr-2"></i>
+                                    Tutti i servizi
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -430,100 +741,191 @@
     </section>
 
     <!-- Services Section -->
-    <section id="services" class="py-5 section-padding bg-light">
-        <div class="container">
-            <div class="section-title text-center mb-5" data-aos="fade-up">
-                <span class="subtitle">Cosa offro</span>
-                <h2>I miei servizi</h2>
-                <p class="title-desc">Dalla comprensione delle tue esigenze, alla realizzazione di un progetto e alla consegna del prodotto finale, tranquillo, non preoccuparti, penso a tutto io.</p>
+    <section id="services" class="py-24 bg-gradient-to-br from-blue-50 to-indigo-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="text-primary font-semibold uppercase tracking-wider text-sm mb-2 block">Cosa offro</span>
+                <h2 class="text-4xl lg:text-5xl font-syne font-bold mb-4 relative inline-block">I miei servizi</h2>
+                <div class="w-24 h-1 bg-primary mx-auto mb-6 rounded-full"></div>
+                <p class="max-w-3xl mx-auto text-gray-600 text-lg leading-relaxed">Dalla comprensione delle tue esigenze, alla realizzazione di un progetto e alla consegna del prodotto finale, tranquillo, non preoccuparti, penso a tutto io.</p>
             </div>
             
-            <div class="row g-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
                 <!-- Service 1 -->
-                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-laptop-code"></i>
+                <div data-aos="fade-up" data-aos-delay="100">
+                    <div class="bg-white rounded-2xl p-6 lg:p-8 text-center h-full shadow-sm border border-gray-100 transition-all duration-300 hover:-translate-y-3 hover:shadow-xl hover:border-primary hover:border-opacity-30 relative overflow-hidden group">
+                        <div class="absolute inset-0 bg-gradient-to-br from-primary to-primary-dark opacity-0 group-hover:opacity-5 transition-opacity duration-300 rounded-2xl"></div>
+                        
+                        <div class="relative z-10">
+                            <div class="w-16 h-16 bg-gradient-to-br from-primary to-primary-dark rounded-2xl flex items-center justify-center text-white mx-auto mb-6 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 shadow-lg">
+                                <i class="fas fa-laptop-code text-2xl"></i>
+                            </div>
+                            <h4 class="text-lg font-bold text-dark mb-4 leading-tight">SITI WEB, GESTIONALI ED ECOMMERCE</h4>
+                            <p class="text-gray-600 text-sm leading-relaxed">Realizzazione e/o restyling di siti web statici e dinamici anche multilingua. Creazione Ecommerce e sistemi gestionali per piccole e medie aziende.</p>
+                            
+                            <div class="flex flex-wrap justify-center gap-1 mt-4">
+                                <span class="px-2 py-1 bg-primary bg-opacity-10 text-primary text-xs font-medium rounded-full">Web Design</span>
+                                <span class="px-2 py-1 bg-primary bg-opacity-10 text-primary text-xs font-medium rounded-full">E-commerce</span>
+                            </div>
                         </div>
-                        <h4>SITI WEB, GESTIONALI ED ECOMMERCE</h4>
-                        <p>Realizzazione e/o restyling di siti web statici e dinamici anche multilingua. Creazione Ecommerce e sistemi gestionali per piccole e medie aziende.</p>
                     </div>
                 </div>
                 
                 <!-- Service 2 -->
-                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-search"></i>
+                <div data-aos="fade-up" data-aos-delay="200">
+                    <div class="bg-white rounded-2xl p-6 lg:p-8 text-center h-full shadow-sm border border-gray-100 transition-all duration-300 hover:-translate-y-3 hover:shadow-xl hover:border-green-500 hover:border-opacity-30 relative overflow-hidden group">
+                        <div class="absolute inset-0 bg-gradient-to-br from-green-500 to-green-600 opacity-0 group-hover:opacity-5 transition-opacity duration-300 rounded-2xl"></div>
+                        
+                        <div class="relative z-10">
+                            <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center text-white mx-auto mb-6 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 shadow-lg">
+                                <i class="fas fa-search text-2xl"></i>
+                            </div>
+                            <h4 class="text-lg font-bold text-dark mb-4 leading-tight">OTTIMIZZAZIONE SEO</h4>
+                            <p class="text-gray-600 text-sm leading-relaxed">Strategie di miglioramento per la scansione, indicizzazione e posizionamento del sito nei motori di ricerca.</p>
+                            
+                            <div class="flex flex-wrap justify-center gap-1 mt-4">
+                                <span class="px-2 py-1 bg-green-500 bg-opacity-10 text-green-600 text-xs font-medium rounded-full">Google</span>
+                                <span class="px-2 py-1 bg-green-500 bg-opacity-10 text-green-600 text-xs font-medium rounded-full">Analytics</span>
+                            </div>
                         </div>
-                        <h4>OTTIMIZZAZIONE SEO</h4>
-                        <p>Strategie di miglioramento per la scansione, indicizzazione e posizionamento del sito nei motori di ricerca.</p>
                     </div>
                 </div>
                 
                 <!-- Service 3 -->
-                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-headset"></i>
+                <div data-aos="fade-up" data-aos-delay="300">
+                    <div class="bg-white rounded-2xl p-6 lg:p-8 text-center h-full shadow-sm border border-gray-100 transition-all duration-300 hover:-translate-y-3 hover:shadow-xl hover:border-blue-500 hover:border-opacity-30 relative overflow-hidden group">
+                        <div class="absolute inset-0 bg-gradient-to-br from-blue-500 to-blue-600 opacity-0 group-hover:opacity-5 transition-opacity duration-300 rounded-2xl"></div>
+                        
+                        <div class="relative z-10">
+                            <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center text-white mx-auto mb-6 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 shadow-lg">
+                                <i class="fas fa-headset text-2xl"></i>
+                            </div>
+                            <h4 class="text-lg font-bold text-dark mb-4 leading-tight">ASSISTENZA 24/7</h4>
+                            <p class="text-gray-600 text-sm leading-relaxed">Assistenza remota e/o fisica 24/7 per assicurarti in ogni momento il funzionamento del sistema.</p>
+                            
+                            <div class="flex flex-wrap justify-center gap-1 mt-4">
+                                <span class="px-2 py-1 bg-blue-500 bg-opacity-10 text-blue-600 text-xs font-medium rounded-full">Support</span>
+                                <span class="px-2 py-1 bg-blue-500 bg-opacity-10 text-blue-600 text-xs font-medium rounded-full">24/7</span>
+                            </div>
                         </div>
-                        <h4>ASSISTENZA 24/7</h4>
-                        <p>Assistenza remota e/o fisica 24/7 per assicurarti in ogni momento il funzionamento del sistema.</p>
                     </div>
                 </div>
                 
                 <!-- Service 4 -->
-                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-palette"></i>
+                <div data-aos="fade-up" data-aos-delay="400">
+                    <div class="bg-white rounded-2xl p-6 lg:p-8 text-center h-full shadow-sm border border-gray-100 transition-all duration-300 hover:-translate-y-3 hover:shadow-xl hover:border-purple-500 hover:border-opacity-30 relative overflow-hidden group">
+                        <div class="absolute inset-0 bg-gradient-to-br from-purple-500 to-purple-600 opacity-0 group-hover:opacity-5 transition-opacity duration-300 rounded-2xl"></div>
+                        
+                        <div class="relative z-10">
+                            <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center text-white mx-auto mb-6 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 shadow-lg">
+                                <i class="fas fa-palette text-2xl"></i>
+                            </div>
+                            <h4 class="text-lg font-bold text-dark mb-4 leading-tight">LOGHI E GRAFICHE PERSONALIZZATE</h4>
+                            <p class="text-gray-600 text-sm leading-relaxed">Progettazione e realizzazione di loghi, locandine, dépliants, opuscoli, infografiche e copertine.</p>
+                            
+                            <div class="flex flex-wrap justify-center gap-1 mt-4">
+                                <span class="px-2 py-1 bg-purple-500 bg-opacity-10 text-purple-600 text-xs font-medium rounded-full">Branding</span>
+                                <span class="px-2 py-1 bg-purple-500 bg-opacity-10 text-purple-600 text-xs font-medium rounded-full">Design</span>
+                            </div>
                         </div>
-                        <h4>LOGHI E GRAFICHE PERSONALIZZATE</h4>
-                        <p>Progettazione e realizzazione di loghi, locandine, dépliants, opuscoli, infografiche e copertine.</p>
                     </div>
                 </div>
                 
                 <!-- Service 5 -->
-                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-hashtag"></i>
+                <div data-aos="fade-up" data-aos-delay="100">
+                    <div class="bg-white rounded-2xl p-6 lg:p-8 text-center h-full shadow-sm border border-gray-100 transition-all duration-300 hover:-translate-y-3 hover:shadow-xl hover:border-pink-500 hover:border-opacity-30 relative overflow-hidden group">
+                        <div class="absolute inset-0 bg-gradient-to-br from-pink-500 to-pink-600 opacity-0 group-hover:opacity-5 transition-opacity duration-300 rounded-2xl"></div>
+                        
+                        <div class="relative z-10">
+                            <div class="w-16 h-16 bg-gradient-to-br from-pink-500 to-pink-600 rounded-2xl flex items-center justify-center text-white mx-auto mb-6 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 shadow-lg">
+                                <i class="fas fa-hashtag text-2xl"></i>
+                            </div>
+                            <h4 class="text-lg font-bold text-dark mb-4 leading-tight">GESTIONE DEI SOCIAL</h4>
+                            <p class="text-gray-600 text-sm leading-relaxed">Gestione completa delle pagine social, realizzazione campagne pubblicitarie e creazione di GIF, sticker ed effetti per aumentare le interazioni con i follower.</p>
+                            
+                            <div class="flex flex-wrap justify-center gap-1 mt-4">
+                                <span class="px-2 py-1 bg-pink-500 bg-opacity-10 text-pink-600 text-xs font-medium rounded-full">Instagram</span>
+                                <span class="px-2 py-1 bg-pink-500 bg-opacity-10 text-pink-600 text-xs font-medium rounded-full">Facebook</span>
+                            </div>
                         </div>
-                        <h4>GESTIONE DEI SOCIAL</h4>
-                        <p>Gestione completa delle pagine social, realizzazione campagne pubblicitarie e creazione di GIF, sticker ed effetti per aumentare le interazioni con i follower.</p>
                     </div>
                 </div>
                 
                 <!-- Service 6 -->
-                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-camera"></i>
+                <div data-aos="fade-up" data-aos-delay="200">
+                    <div class="bg-white rounded-2xl p-6 lg:p-8 text-center h-full shadow-sm border border-gray-100 transition-all duration-300 hover:-translate-y-3 hover:shadow-xl hover:border-orange-500 hover:border-opacity-30 relative overflow-hidden group">
+                        <div class="absolute inset-0 bg-gradient-to-br from-orange-500 to-orange-600 opacity-0 group-hover:opacity-5 transition-opacity duration-300 rounded-2xl"></div>
+                        
+                        <div class="relative z-10">
+                            <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center text-white mx-auto mb-6 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 shadow-lg">
+                                <i class="fas fa-camera text-2xl"></i>
+                            </div>
+                            <h4 class="text-lg font-bold text-dark mb-4 leading-tight">SERVIZI FOTOGRAFICI</h4>
+                            <p class="text-gray-600 text-sm leading-relaxed">Foto per eventi, book fotografici, food, restaurant, eventi religiosi, cerimonie…</p>
+                            
+                            <div class="flex flex-wrap justify-center gap-1 mt-4">
+                                <span class="px-2 py-1 bg-orange-500 bg-opacity-10 text-orange-600 text-xs font-medium rounded-full">Eventi</span>
+                                <span class="px-2 py-1 bg-orange-500 bg-opacity-10 text-orange-600 text-xs font-medium rounded-full">Food</span>
+                            </div>
                         </div>
-                        <h4>SERVIZI FOTOGRAFICI</h4>
-                        <p>Foto per eventi, book fotografici, food, restaurant, eventi religiosi, cerimonie…</p>
                     </div>
                 </div>
                 
                 <!-- Service 7 -->
-                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-helicopter"></i>
+                <div data-aos="fade-up" data-aos-delay="300">
+                    <div class="bg-white rounded-2xl p-6 lg:p-8 text-center h-full shadow-sm border border-gray-100 transition-all duration-300 hover:-translate-y-3 hover:shadow-xl hover:border-cyan-500 hover:border-opacity-30 relative overflow-hidden group">
+                        <div class="absolute inset-0 bg-gradient-to-br from-cyan-500 to-cyan-600 opacity-0 group-hover:opacity-5 transition-opacity duration-300 rounded-2xl"></div>
+                        
+                        <div class="relative z-10">
+                            <div class="w-16 h-16 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-2xl flex items-center justify-center text-white mx-auto mb-6 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 shadow-lg">
+                                <i class="fas fa-helicopter text-2xl"></i>
+                            </div>
+                            <h4 class="text-lg font-bold text-dark mb-4 leading-tight">RIPRESE CON DRONE</h4>
+                            <p class="text-gray-600 text-sm leading-relaxed">Riprese aeree con DJI Mini 3 Pro per matrimoni, feste, immobili, paesaggi, contenuti per i social…</p>
+                            
+                            <div class="flex flex-wrap justify-center gap-1 mt-4">
+                                <span class="px-2 py-1 bg-cyan-500 bg-opacity-10 text-cyan-600 text-xs font-medium rounded-full">Aeree</span>
+                                <span class="px-2 py-1 bg-cyan-500 bg-opacity-10 text-cyan-600 text-xs font-medium rounded-full">DJI</span>
+                            </div>
                         </div>
-                        <h4>RIPRESE CON DRONE</h4>
-                        <p>Riprese aeree con DJI Mini 3 Pro per matrimoni, feste, immobili, paesaggi, contenuti per i social…</p>
                     </div>
                 </div>
                 
                 <!-- Service 8 -->
-                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-video"></i>
+                <div data-aos="fade-up" data-aos-delay="400">
+                    <div class="bg-white rounded-2xl p-6 lg:p-8 text-center h-full shadow-sm border border-gray-100 transition-all duration-300 hover:-translate-y-3 hover:shadow-xl hover:border-red-500 hover:border-opacity-30 relative overflow-hidden group">
+                        <div class="absolute inset-0 bg-gradient-to-br from-red-500 to-red-600 opacity-0 group-hover:opacity-5 transition-opacity duration-300 rounded-2xl"></div>
+                        
+                        <div class="relative z-10">
+                            <div class="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-2xl flex items-center justify-center text-white mx-auto mb-6 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 shadow-lg">
+                                <i class="fas fa-video text-2xl"></i>
+                            </div>
+                            <h4 class="text-lg font-bold text-dark mb-4 leading-tight">PRODUZIONI VIDEO</h4>
+                            <p class="text-gray-600 text-sm leading-relaxed">Produzione e montaggio di video per matrimoni, feste, pubblicità, social…</p>
+                            
+                            <div class="flex flex-wrap justify-center gap-1 mt-4">
+                                <span class="px-2 py-1 bg-red-500 bg-opacity-10 text-red-600 text-xs font-medium rounded-full">Editing</span>
+                                <span class="px-2 py-1 bg-red-500 bg-opacity-10 text-red-600 text-xs font-medium rounded-full">Social</span>
+                            </div>
                         </div>
-                        <h4>PRODUZIONI VIDEO</h4>
-                        <p>Produzione e montaggio di video per matrimoni, feste, pubblicità, social…</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Call to Action -->
+            <div class="text-center mt-16" data-aos="fade-up" data-aos-delay="500">
+                <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 max-w-2xl mx-auto">
+                    <h3 class="text-2xl font-bold text-dark mb-4">Hai un progetto in mente?</h3>
+                    <p class="text-gray-600 mb-6">Parliamone insieme e trasformiamo la tua idea in realtà digitale</p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="mailto:lucavalli2000@gmail.com" class="px-8 py-3 bg-primary text-white font-semibold rounded-xl transition-all duration-300 hover:bg-primary-dark hover:-translate-y-1 hover:shadow-lg">
+                            <i class="fas fa-envelope mr-2"></i>
+                            Contattami ora
+                        </a>
+                        <a href="#projects" class="px-8 py-3 bg-white text-primary border-2 border-primary font-semibold rounded-xl transition-all duration-300 hover:bg-primary hover:text-white hover:-translate-y-1 hover:shadow-lg">
+                            <i class="fas fa-eye mr-2"></i>
+                            Vedi i progetti
+                        </a>
                     </div>
                 </div>
             </div>
@@ -531,343 +933,496 @@
     </section>
 
     <!-- Certifications -->
-    <section id="certifications" class="py-5 section-padding">
-        <div class="container">
-            <div class="section-title text-center mb-5" data-aos="fade-up">
-                <span class="subtitle">Riconoscimenti</span>
-                <h2>Le mie certificazioni</h2>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-md-6 col-lg-5" data-aos="fade-up" data-aos-delay="100">
-                    <div class="cert-card">
-                        <div class="cert-icon">
-                            <i class="fas fa-plane"></i>
-                        </div>
-                        <div class="cert-content">
-                            <h4>PATENTE DI GUIDA DI UAS</h4>
-                            <p class="cert-date">Rilasciata nel 2022</p>
-                            <p class="cert-desc">Pilota di droni categoria A1/A3 OPEN</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-5" data-aos="fade-up" data-aos-delay="200">
-                    <div class="cert-card">
-                        <div class="cert-icon">
-                            <i class="fas fa-fire-extinguisher"></i>
-                        </div>
-                        <div class="cert-content">
-                            <h4>ATTESTATO ANTINCENDIO</h4>
-                            <p class="cert-date">Rilasciato nel 2019</p>
-                            <p class="cert-desc">Addetto antincendio rischio elevato rilasciato dal Corpo Nazionale dei Vigili del Fuoco – Comando di Viterbo</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Timeline -->
-    <section id="projects" class="py-5 section-padding bg-light">
-        <div class="container">
-            <div class="section-title text-center mb-5" data-aos="fade-up">
-                <span class="subtitle">Portfolio</span>
-                <h2>I miei lavori</h2>
+    <section id="certifications" class="py-24 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="text-primary font-semibold uppercase tracking-wider text-sm mb-2 block">Riconoscimenti</span>
+                <h2 class="text-4xl lg:text-5xl font-syne font-bold mb-4 relative inline-block">Le mie certificazioni</h2>
             </div>
             
-            <ul class="timeline-cards">
-                <!-- Nuovo Progetto - La stanza del Petrarca -->
-                <li style="--accent-color:#4361ee" data-aos="fade-up">
-                    <div class="date">07/2024 - Oggi</div>
-                    <div class="title">La stanza del Petrarca</div>
-                    <div class="descr">
-                        <h5 class="text-primary mb-3">WEB DEVELOPER</h5>
-                        <p>Sviluppo e realizzazione del sito web per La stanza del Petrarca.</p>
-                        <a href="https://www.lastanzadelpetrarca.it" class="btn btn-sm btn-outline-primary mt-2" target="_blank">
-                            <i class="fas fa-globe me-2" style="color: #2563eb;"></i> Visita il sito
-                        </a>                    
+            <div class="max-w-6xl mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <!-- Certificazione Drone -->
+                    <div data-aos="fade-right" data-aos-delay="100">
+                        <div class="relative bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 border-l-8 border-blue-500 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group">
+                            <div class="absolute -top-4 -right-4 w-20 h-20 bg-blue-500 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-plane text-white text-2xl transform group-hover:rotate-12 transition-transform duration-300"></i>
+                            </div>
+                            
+                            <div class="relative z-10">
+                                <div class="flex items-start mb-6">
+                                    <div class="w-16 h-16 bg-blue-500 bg-opacity-15 rounded-xl flex items-center justify-center mr-6 flex-shrink-0">
+                                        <i class="fas fa-certificate text-3xl text-blue-600"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-2xl font-bold text-gray-800 mb-2">PATENTE DI GUIDA DI UAS</h4>
+                                        <div class="inline-flex items-center px-3 py-1 bg-blue-500 text-white text-sm font-semibold rounded-full mb-3">
+                                            <i class="fas fa-calendar-alt mr-2"></i>
+                                            Rilasciata nel 2022
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <p class="text-gray-700 leading-relaxed mb-4">Pilota di droni categoria A1/A3 OPEN certificato dall'ENAC (Ente Nazionale per l'Aviazione Civile). Abilitazione per operazioni di volo con sistemi aeromobili a pilotaggio remoto per uso commerciale e professionale.</p>
+                                
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-medium rounded-full">Categoria A1/A3</span>
+                                    <span class="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-medium rounded-full">ENAC Certified</span>
+                                    <span class="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-medium rounded-full">Uso Commerciale</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </li>
-
-                <!-- Nuovo Progetto 1 -->
-                <li style="--accent-color:#e74c3c" data-aos="fade-up">
-                    <div class="date">06/2024 - Oggi</div>
-                    <div class="title">FantaContrade</div>
-                    <div class="descr">
-                        <h5 class="text-primary mb-3">CREATORE E SVILUPPATORE</h5>
-                        <p>Sviluppo di un fantasy game basato sugli eventi dell'Ottava Medievale di Orte. Un gioco ispirato al concetto di FantaSanremo ma adattato per le competizioni locali.</p>
-                        <a href="https://www.fantacontrade.it" class="btn btn-sm btn-outline-primary mt-2" target="_blank">
-                            <i class="fas fa-globe me-2" style="color: #2563eb;"></i> Visita il sito
-                        </a>                    
-                    </div>
-                </li>
-                
-                <!-- Nuovo Progetto 2 -->
-                <li style="--accent-color:#9b59b6" data-aos="fade-up" data-aos-delay="100">
-                    <div class="date">07/2024 - Oggi</div>
-                    <div class="title">A.S.D. Wellness Studio</div>
-                    <div class="descr">
-                        <h5 class="text-primary mb-3">SOCIAL MEDIA MANAGER</h5>
-                        <p>Gestione delle pagine social e creazione di contenuti per Wellness Studio, uno studio di benessere situato a Soriano nel Cimino.</p>
-                        <a href="#" class="btn btn-sm btn-outline-primary mt-2" target="_blank">
-                            <i class="fab fa-instagram me-2" style="color: #E1306C;"></i> Link al profilo Instagram
-                        </a>                 
-                    </div>
-                </li>
-                
-                <!-- Nuovo Progetto 3 -->
-                <li style="--accent-color:#f39c12" data-aos="fade-up" data-aos-delay="200">
-                    <div class="date">05/2023 - 06/2024</div>
-                    <div class="title">FantaTorneo</div>
-                    <div class="descr">
-                        <h5 class="text-primary mb-3">CREATORE, SVILUPPATORE E SOCIAL MEDIA MANAGER</h5>
-                        <p>Realizzazione di www.fantatorneo.it, un fantasy game ispirato al FantaSanremo e basato sul Torneo delle Contrade che si svolge a Soriano nel Cimino. Gestione delle pagine social e creazione di contenuti.</p>
-                        <a href="https://www.fantatorneo.it" class="btn btn-sm btn-outline-primary mt-2" target="_blank">
-                            <i class="fas fa-globe me-2" style="color: #2563eb;"></i> Visita il sito
-                        </a>                    
-                    </div>
-                </li>
-                
-                <!-- Associazione COST -->
-                <li style="--accent-color:#3498db" data-aos="fade-up" data-aos-delay="300">
-                    <div class="date">06/2022 - Oggi</div>
-                    <div class="title">Associazione COST</div>
-                    <div class="descr">
-                        <h5 class="text-primary mb-3">SOCIAL MEDIA MANAGER, WEB DEVELOPER E MEMBRO DEL CONSIGLIO DIRETTIVO</h5>
-                        <p>Creazione e gestione delle pagine social e dei contenuti dell'Associazione COST, SORIANO NEL CIMINO (VT). Realizzazione del sito web per l'associazione (08/2023).</p>
-                        <div class="d-flex flex-wrap gap-2">
-                            <a href="#" class="btn btn-sm btn-outline-primary mt-2">
-                                <i class="fab fa-facebook-f me-2" style="color: #1877F2;"></i> Link alla pagina Facebook
-                            </a>
-                            <a href="https://www.costsoriano.it" class="btn btn-sm btn-outline-primary mt-2" target="_blank">
-                                <i class="fas fa-globe me-2" style="color: #2563eb;"></i> Visita il sito
-                            </a>
-                        </div>             
-                    </div>
-                </li>
-                
-                <!-- Associazione Culturale Kimairah -->
-                <li style="--accent-color:#2c3e50" data-aos="fade-up" data-aos-delay="100">
-                    <div class="date">05/2022 - Oggi</div>
-                    <div class="title">Associazione Culturale Kimairah</div>
-                    <div class="descr">
-                        <h5 class="text-primary mb-3">SOCIAL MEDIA MANAGER</h5>
-                        <p>Creazione e gestione delle pagine social e dei contenuti dell'Associazione Culturale Kimairah, CAPRANICA (VT)</p>
-                        <a href="#" class="btn btn-sm btn-outline-primary mt-2">
-                            <i class="fab fa-facebook-f me-2" style="color: #1877F2;"></i> Link alla pagina Facebook
-                        </a>                            
-                    </div>
-                </li>
-                
-                <!-- Dialoghi sulla Tuscia -->
-                <li style="--accent-color:#2980b9" data-aos="fade-up" data-aos-delay="200">
-                    <div class="date">10/2021 - Oggi</div>
-                    <div class="title">Dialoghi sulla Tuscia</div>
-                    <div class="descr">
-                        <h5 class="text-primary mb-3">VIDEOMAKER E CONTENT CREATOR</h5>
-                        <p>Creazione contenuti video per il canale Dialoghi sulla Tuscia.</p>
-                        <a href="#" class="btn btn-sm btn-outline-primary mt-2">
-                            <i class="fab fa-youtube me-2" style="color: #FF0000;"></i> Link al canale Youtube
-                        </a>                    
-                    </div>
-                </li>
-
-                <!-- Giuseppe Rossi -->
-                <li style="--accent-color:#e67e22" data-aos="fade-up" data-aos-delay="100">
-                    <div class="date">08/2021 - 09/2021</div>
-                    <div class="title">Giuseppe Rossi</div>
-                    <div class="descr">
-                        <h5 class="text-primary mb-3">WEB DEVELOPER</h5>
-                        <p>Restyling completo del sito del pittore Giuseppe Rossi, SORIANO NEL CIMINO (VT).</p>
-                        <a href="#" class="btn btn-sm btn-outline-primary mt-2" target="_blank">
-                            <i class="fas fa-globe me-2" style="color: #2563eb;"></i> Visita il sito
-                        </a>                    
-                    </div>
-                </li>
-                
-                <!-- Lost in Tuscia -->
-                <li style="--accent-color:#16a085" data-aos="fade-up" data-aos-delay="300">
-                    <div class="date">05/2022 - 07/2022</div>
-                    <div class="title">Lost in Tuscia</div>
-                    <div class="descr">
-                        <h5 class="text-primary mb-3">IDEATORE, VIDEOMAKER E CONTENT CREATOR</h5>
-                        <p>Creazione e gestione delle pagine social e dei contenuti di Lost in Tuscia.</p>
-                        <a href="#" class="btn btn-sm btn-outline-primary mt-2" target="_blank">
-                            <i class="fab fa-instagram me-2" style="color: #E1306C;"></i> Link al profilo Instagram
-                        </a>                     
-                    </div>
-                </li>
-
-                <!-- Azienda Agricola Vulcano -->
-                <li style="--accent-color:#27ae60" data-aos="fade-up" data-aos-delay="200">
-                    <div class="date">01/2021 - 05/2021</div>
-                    <div class="title">Azienda Agricola Vulcano</div>
-                    <div class="descr">
-                        <h5 class="text-primary mb-3">PARTECIPAZIONE @ AMAZON CAMPUS CHALLENGE</h5>
-                        <p>Sfida tra studenti universitari con lo scopo di lanciare un'azienda italiana sugli store europei di Amazon. In collaborazione con l'Azienda Agricola Vulcano, MIRTO CROSIA (CS).</p>
-                        <a href="#" class="btn btn-sm btn-outline-primary mt-2" target="_blank">
-                            <i class="fab fa-amazon me-2" style="color: #FF9900;"></i> Link allo store Amazon
-                        </a>                    
-                    </div>
-                </li>
-
-                <!-- S.A.D. – Sportello Amico Digitale -->
-                <li style="--accent-color:#8e44ad" data-aos="fade-up" data-aos-delay="200">
-                    <div class="date">09/2018 - 06/2019</div>
-                    <div class="title">S.A.D. – Sportello Amico Digitale</div>
-                    <div class="descr">
-                        <h5 class="text-primary mb-3">WEB DEVELOPER</h5>
-                        <p>Sviluppo del sistema gestionale S.A.D. – Sportello Amico Digitale per il Liceo Scientifico "Paolo Ruffini" di Viterbo.</p>
-                        <a href="#" class="btn btn-sm btn-outline-primary mt-2" target="_blank">
-                            <i class="fas fa-globe me-2" style="color: #2563eb;"></i> Visita il sito
-                        </a>                    
-                    </div>
-                </li>
-
-                <!-- KDS Web Agency -->
-                <li style="--accent-color:#d35400" data-aos="fade-up" data-aos-delay="300">
-                    <div class="date">06/2017 - 07/2017</div>
-                    <div class="title">KDS Web Agency</div>
-                    <div class="descr">
-                        <h5 class="text-primary mb-3">WEB DEVELOPER</h5>
-                        <p>Gestione e organizzazione di un sistema informativo.</p>                   
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </section>
-
-    <!-- Gallery -->
-    <section id="gallery" class="py-5 section-padding">
-        <div class="container">
-            <div class="section-title text-center mb-5" data-aos="fade-up">
-                <span class="subtitle">I miei scatti</span>
-                <h2>Galleria fotografica</h2>
-                <p class="title-desc">Scatto, filmo, edito e produco mentre studio Ingegneria Informatica alla Sapienza.</p>
-            </div>
-            <div class="row g-3">
-                <div class="col-md-4" data-aos="fade-up">
-                    <div class="gallery-item">
-                        <img src="img/Foto01-Sito-scaled.jpg" alt="Foto portfolio 1" class="img-fluid">
+                    
+                    <!-- Certificazione Antincendio -->
+                    <div data-aos="fade-left" data-aos-delay="200">
+                        <div class="relative bg-gradient-to-br from-red-50 to-red-100 rounded-2xl p-8 border-l-8 border-red-500 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group">
+                            <div class="absolute -top-4 -right-4 w-20 h-20 bg-red-500 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-fire-extinguisher text-white text-2xl transform group-hover:rotate-12 transition-transform duration-300"></i>
+                            </div>
+                            
+                            <div class="relative z-10">
+                                <div class="flex items-start mb-6">
+                                    <div class="w-16 h-16 bg-red-500 bg-opacity-15 rounded-xl flex items-center justify-center mr-6 flex-shrink-0">
+                                        <i class="fas fa-shield-alt text-3xl text-red-600"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-2xl font-bold text-gray-800 mb-2">ATTESTATO ANTINCENDIO</h4>
+                                        <div class="inline-flex items-center px-3 py-1 bg-red-500 text-white text-sm font-semibold rounded-full mb-3">
+                                            <i class="fas fa-calendar-alt mr-2"></i>
+                                            Aggiornato nel 2024
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <p class="text-gray-700 leading-relaxed mb-4">Addetto antincendio rischio elevato rilasciato dal Corpo Nazionale dei Vigili del Fuoco – Comando di Viterbo. Corso di aggiornamento completato nel 2024 presso il Centro Antincendio Viterbese per mantenere le competenze aggiornate.</p>
+                                
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-3 py-1 bg-red-100 text-red-700 text-xs font-medium rounded-full">Rischio Elevato</span>
+                                    <span class="px-3 py-1 bg-red-100 text-red-700 text-xs font-medium rounded-full">VVF Certificato</span>
+                                    <span class="px-3 py-1 bg-red-100 text-red-700 text-xs font-medium rounded-full">Aggiornato 2024</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-                    <div class="gallery-item">
-                        <img src="img/Foto02-Sito-scaled.jpg" alt="Foto portfolio 2" class="img-fluid">
+                
+                <!-- Sezione aggiuntiva con statistiche -->
+                <div class="mt-16 bg-white rounded-2xl p-8 shadow-lg" data-aos="fade-up" data-aos-delay="300">
+                    <div class="text-center mb-8">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Competenze Certificate</h3>
+                        <p class="text-gray-600">Formazione continua per garantire i più alti standard professionali</p>
                     </div>
-                </div>
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                    <div class="gallery-item">
-                        <img src="img/Foto03-Sito-scaled.jpg" alt="Foto portfolio 3" class="img-fluid">
-                    </div>
-                </div>
-                <!-- Altre foto della galleria... -->
-                <div class="col-md-6" data-aos="fade-up">
-                    <div class="gallery-item">
-                        <img src="img/Foto17-Sito-scaled.jpg" alt="Foto portfolio panoramica" class="img-fluid">
-                    </div>
-                </div>
-                <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
-                    <div class="gallery-item">
-                        <img src="img/Foto20-Sito-scaled.jpg" alt="Foto portfolio panoramica" class="img-fluid">
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-gradient-to-br from-primary to-primary-dark rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-graduation-cap text-white text-2xl"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-gray-800 mb-2">Formazione Continua</h4>
+                            <p class="text-gray-600 text-sm">Aggiornamento costante delle competenze tecniche e professionali</p>
+                        </div>
+                        
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-check-circle text-white text-2xl"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-gray-800 mb-2">Certificazioni Valide</h4>
+                            <p class="text-gray-600 text-sm">Tutti gli attestati sono regolarmente rinnovati e conformi alla normativa</p>
+                        </div>
+                        
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-star text-white text-2xl"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-gray-800 mb-2">Standard Elevati</h4>
+                            <p class="text-gray-600 text-sm">Impegno verso l'eccellenza e il rispetto delle normative di sicurezza</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Social Media -->
-<section id="social" class="py-5 section-padding bg-light">
-    <div class="container">
-        <div class="section-title text-center mb-5" data-aos="fade-up">
-            <span class="subtitle">Resta in contatto</span>
-            <h2>Seguimi sui social</h2>
+<!-- Projects Timeline -->
+<section id="projects" class="py-24 bg-gradient-to-br from-slate-50 to-gray-100">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <span class="text-primary font-semibold uppercase tracking-wider text-sm mb-2 block">Portfolio</span>
+            <h2 class="text-4xl lg:text-5xl font-syne font-bold mb-4 relative inline-block">I miei lavori</h2>
         </div>
-        <div class="social-grid" data-aos="fade-up">
-            <a href="http://instagram.com/lucavalli17/" class="social-item" target="_blank">
-                <div class="social-icon"><i class="fab fa-instagram" style="color: #E1306C;"></i></div>
-                <h3>Instagram</h3>
-                <p>Seguimi su Instagram</p>
-            </a>
-            <a href="http://facebook.com/lucavalli17/" class="social-item" target="_blank">
-                <div class="social-icon"><i class="fab fa-facebook-f" style="color: #1877F2;"></i></div>
-                <h3>Facebook</h3>
-                <p>Seguimi su Facebook</p>
-            </a>
-            <a href="https://it.linkedin.com/in/lucavalli17" class="social-item" target="_blank">
-                <div class="social-icon"><i class="fab fa-linkedin-in" style="color: #0A66C2;"></i></div>
-                <h3>LinkedIn</h3>
-                <p>Collegati con me su LinkedIn</p>
-            </a>
-            <a href="https://github.com/lucavalli" class="social-item" target="_blank">
-                <div class="social-icon"><i class="fab fa-github" style="color: #171515;"></i></div>
-                <h3>GitHub</h3>
-                <p>Esplora i miei progetti su GitHub</p>
-            </a>
+        
+        <ul class="timeline-cards">
+            <!-- La stanza del Petrarca -->
+            <li style="--accent-color:#4361ee;" data-aos="fade-up">
+                <div class="date"></div>
+                <div class="project-card">
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                        <!-- Date header integrated in card -->
+                        <div class="bg-[#4361ee] px-6 py-4">
+                            <h4 class="text-white font-bold text-lg text-center">07/2024 - Oggi</h4>
+                        </div>
+                        
+                        <!-- Card content -->
+                        <div class="p-8">
+                            <div class="flex items-start mb-6">
+                                <div class="w-12 h-12 bg-[#4361ee] bg-opacity-10 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                                    <i class="fas fa-globe text-[#4361ee] text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-2xl font-bold text-dark mb-2">La stanza del Petrarca</h3>
+                                    <span class="inline-block px-3 py-1 bg-[#4361ee] text-white text-sm font-semibold rounded-full">WEB DEVELOPER</span>
+                                </div>
+                            </div>
+                            <p class="text-gray-700 mb-6 leading-relaxed">Sviluppo e realizzazione del sito web per La stanza del Petrarca, con focus su user experience e design responsive.</p>
+                            <a href="https://www.lastanzadelpetrarca.it" class="inline-flex items-center px-6 py-3 bg-[#4361ee] text-white font-semibold rounded-xl hover:bg-[#3a53c0] transition-all duration-300 hover:shadow-md" target="_blank">
+                                <i class="fas fa-globe mr-2"></i> Visita il sito
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <!-- FantaContrade -->
+            <li style="--accent-color:#e74c3c;" data-aos="fade-up">
+                <div class="date"></div>
+                <div class="project-card">
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                        <div class="bg-[#e74c3c] px-6 py-4">
+                            <h4 class="text-white font-bold text-lg text-center">06/2024 - Oggi</h4>
+                        </div>
+                        
+                        <div class="p-8">
+                            <div class="flex items-start mb-6">
+                                <div class="w-12 h-12 bg-[#e74c3c] bg-opacity-10 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                                    <i class="fas fa-gamepad text-[#e74c3c] text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-2xl font-bold text-dark mb-2">FantaContrade</h3>
+                                    <span class="inline-block px-3 py-1 bg-[#e74c3c] text-white text-sm font-semibold rounded-full">CREATORE E SVILUPPATORE</span>
+                                </div>
+                            </div>
+                            <p class="text-gray-700 mb-6 leading-relaxed">Sviluppo di un fantasy game basato sugli eventi dell'Ottava Medievale di Orte. Un gioco ispirato al concetto di FantaSanremo ma adattato per le competizioni locali.</p>
+                            <a href="https://www.fantacontrade.it" class="inline-flex items-center px-6 py-3 bg-[#e74c3c] text-white font-semibold rounded-xl hover:bg-[#c0392b] transition-all duration-300 hover:shadow-md" target="_blank">
+                                <i class="fas fa-globe mr-2"></i> Visita il sito
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            
+            <!-- A.S.D. Wellness Studio -->
+            <li style="--accent-color:#9b59b6;" data-aos="fade-up" data-aos-delay="100">
+                <div class="date"></div>
+                <div class="project-card">
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                        <div class="bg-[#9b59b6] px-6 py-4">
+                            <h4 class="text-white font-bold text-lg text-center">07/2024 - Oggi</h4>
+                        </div>
+                        
+                        <div class="p-8">
+                            <div class="flex items-start mb-6">
+                                <div class="w-12 h-12 bg-[#9b59b6] bg-opacity-10 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                                    <i class="fas fa-hashtag text-[#9b59b6] text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-2xl font-bold text-dark mb-2">A.S.D. Wellness Studio</h3>
+                                    <span class="inline-block px-3 py-1 bg-[#9b59b6] text-white text-sm font-semibold rounded-full">SOCIAL MEDIA MANAGER</span>
+                                </div>
+                            </div>
+                            <p class="text-gray-700 mb-6 leading-relaxed">Gestione delle pagine social e creazione di contenuti per Wellness Studio, uno studio di benessere situato a Soriano nel Cimino.</p>
+                            <a href="#" class="inline-flex items-center px-6 py-3 bg-[#9b59b6] text-white font-semibold rounded-xl hover:bg-[#8e44ad] transition-all duration-300 hover:shadow-md" target="_blank">
+                                <i class="fab fa-instagram mr-2"></i> Instagram
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            
+            <!-- FantaTorneo -->
+            <li style="--accent-color:#f39c12;" data-aos="fade-up" data-aos-delay="200">
+                <div class="date"></div>
+                <div class="project-card">
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                        <div class="bg-[#f39c12] px-6 py-4">
+                            <h4 class="text-white font-bold text-lg text-center">05/2023 - 06/2024</h4>
+                        </div>
+                        
+                        <div class="p-8">
+                            <div class="flex items-start mb-6">
+                                <div class="w-12 h-12 bg-[#f39c12] bg-opacity-10 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                                    <i class="fas fa-trophy text-[#f39c12] text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-2xl font-bold text-dark mb-2">FantaTorneo</h3>
+                                    <span class="inline-block px-3 py-1 bg-[#f39c12] text-white text-sm font-semibold rounded-full">CREATORE E SVILUPPATORE</span>
+                                </div>
+                            </div>
+                            <p class="text-gray-700 mb-6 leading-relaxed">Realizzazione di www.fantatorneo.it, un fantasy game ispirato al FantaSanremo e basato sul Torneo delle Contrade che si svolge a Soriano nel Cimino. Gestione delle pagine social e creazione di contenuti.</p>
+                            <a href="https://www.fantatorneo.it" class="inline-flex items-center px-6 py-3 bg-[#f39c12] text-white font-semibold rounded-xl hover:bg-[#e67e22] transition-all duration-300 hover:shadow-md" target="_blank">
+                                <i class="fas fa-globe mr-2"></i> Visita il sito
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            
+            <!-- Associazione COST -->
+            <li style="--accent-color:#3498db;" data-aos="fade-up" data-aos-delay="300">
+                <div class="date"></div>
+                <div class="project-card">
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                        <div class="bg-[#3498db] px-6 py-4">
+                            <h4 class="text-white font-bold text-lg text-center">06/2022 - Oggi</h4>
+                        </div>
+                        
+                        <div class="p-8">
+                            <div class="flex items-start mb-6">
+                                <div class="w-12 h-12 bg-[#3498db] bg-opacity-10 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                                    <i class="fas fa-users text-[#3498db] text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-2xl font-bold text-dark mb-2">Associazione COST</h3>
+                                    <span class="inline-block px-3 py-1 bg-[#3498db] text-white text-sm font-semibold rounded-full">SOCIAL & WEB DEVELOPER</span>
+                                </div>
+                            </div>
+                            <p class="text-gray-700 mb-6 leading-relaxed">Creazione e gestione delle pagine social e dei contenuti dell'Associazione COST, SORIANO NEL CIMINO (VT). Realizzazione del sito web per l'associazione (08/2023).</p>
+                            <div class="flex flex-wrap gap-3">
+                                <a href="#" class="inline-flex items-center px-4 py-2 bg-[#3498db] text-white font-semibold rounded-lg hover:bg-[#2980b9] transition-all duration-300">
+                                    <i class="fab fa-facebook-f mr-2"></i> Facebook
+                                </a>
+                                <a href="https://www.costsoriano.it" class="inline-flex items-center px-4 py-2 border-2 border-[#3498db] text-[#3498db] font-semibold rounded-lg hover:bg-[#3498db] hover:text-white transition-all duration-300" target="_blank">
+                                    <i class="fas fa-globe mr-2"></i> Sito Web
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            
+            <!-- Associazione Culturale Kimairah -->
+            <li style="--accent-color:#2c3e50;" data-aos="fade-up" data-aos-delay="100">
+                <div class="date"></div>
+                <div class="project-card">
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                        <div class="bg-[#2c3e50] px-6 py-4">
+                            <h4 class="text-white font-bold text-lg text-center">05/2022 - Oggi</h4>
+                        </div>
+                        
+                        <div class="p-8">
+                            <div class="flex items-start mb-6">
+                                <div class="w-12 h-12 bg-[#2c3e50] bg-opacity-10 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                                    <i class="fas fa-theater-masks text-[#2c3e50] text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-2xl font-bold text-dark mb-2">Associazione Culturale Kimairah</h3>
+                                    <span class="inline-block px-3 py-1 bg-[#2c3e50] text-white text-sm font-semibold rounded-full">SOCIAL MEDIA MANAGER</span>
+                                </div>
+                            </div>
+                            <p class="text-gray-700 mb-6 leading-relaxed">Creazione e gestione delle pagine social e dei contenuti dell'Associazione Culturale Kimairah, CAPRANICA (VT).</p>
+                            <a href="#" class="inline-flex items-center px-6 py-3 bg-[#2c3e50] text-white font-semibold rounded-xl hover:bg-[#34495e] transition-all duration-300 hover:shadow-md">
+                                <i class="fab fa-facebook-f mr-2"></i> Facebook
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            
+            <!-- Dialoghi sulla Tuscia -->
+            <li style="--accent-color:#2980b9;" data-aos="fade-up" data-aos-delay="200">
+                <div class="date"></div>
+                <div class="project-card">
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                        <div class="bg-[#2980b9] px-6 py-4">
+                            <h4 class="text-white font-bold text-lg text-center">10/2021 - Oggi</h4>
+                        </div>
+                        
+                        <div class="p-8">
+                            <div class="flex items-start mb-6">
+                                <div class="w-12 h-12 bg-[#2980b9] bg-opacity-10 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                                    <i class="fas fa-video text-[#2980b9] text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-2xl font-bold text-dark mb-2">Dialoghi sulla Tuscia</h3>
+                                    <span class="inline-block px-3 py-1 bg-[#2980b9] text-white text-sm font-semibold rounded-full">VIDEOMAKER & CONTENT CREATOR</span>
+                                </div>
+                            </div>
+                            <p class="text-gray-700 mb-6 leading-relaxed">Creazione contenuti video per il canale Dialoghi sulla Tuscia, con focus su storytelling territoriale e produzione audiovisiva.</p>
+                            <a href="#" class="inline-flex items-center px-6 py-3 bg-[#2980b9] text-white font-semibold rounded-xl hover:bg-[#1f5f8b] transition-all duration-300 hover:shadow-md">
+                                <i class="fab fa-youtube mr-2"></i> YouTube
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</section>
+
+<!-- Gallery -->
+<section id="gallery" class="py-16 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+    <div class="container mx-auto px-6 max-w-6xl">
+        <div class="text-center mb-12" data-aos="fade-up">
+            <div class="inline-flex items-center px-4 py-2 bg-white/70 backdrop-blur-sm rounded-full border border-blue-100 mb-4">
+                <i class="fas fa-camera text-blue-600 mr-2"></i>
+                <span class="text-blue-700 font-medium text-sm uppercase tracking-wider">I miei scatti</span>
+            </div>
+            <h2 class="text-3xl lg:text-4xl font-syne font-bold mb-3 bg-gradient-to-r from-gray-800 to-blue-700 bg-clip-text text-transparent">
+                Galleria fotografica
+            </h2>
+            <p class="max-w-xl mx-auto text-gray-600 text-sm leading-relaxed">
+                Scatto, filmo, edito e produco mentre studio Ingegneria Informatica alla Sapienza.
+            </p>
+        </div>
+        
+        <div id="gallery-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+            <!-- Le foto verranno generate dinamicamente qui -->
+        </div>
+        
+        <!-- Optional decorative elements -->
+        <div class="flex justify-center mt-8" data-aos="fade-up" data-aos-delay="200">
+            <div class="w-16 h-1 bg-gradient-to-r from-blue-400 to-indigo-500 rounded-full"></div>
         </div>
     </div>
 </section>
 
-<!-- Footer moderno migliorato -->
-<footer class="footer">
-  <div class="container">
-      <div class="row gy-4">
-          <div class="col-lg-4">
-              <a href="#" class="footer-logo">Luca Valli</a>
-              <p class="mt-3 text-light-opacity">Web Developer, Social Media Manager, Fotografo e Videomaker con base nella Tuscia.</p>
-              <div class="footer-contact mt-4">
-                  <div class="contact-item mb-2">
-                      <i class="fas fa-envelope me-2"></i>
-                      <a href="mailto:lucavalli2000@gmail.com" class="text-light-opacity">lucavalli2000@gmail.com</a>
-                  </div>
-                  <div class="contact-item">
-                      <i class="fas fa-phone me-2"></i>
-                      <a href="tel:+393928305037" class="text-light-opacity">392 8305037</a>
-                  </div>
-              </div>
-          </div>
-          <div class="col-lg-4">
-              <h5 class="text-white mb-4">Collegamenti rapidi</h5>
-              <div class="footer-nav">
-                  <a href="#home">Home</a>
-                  <a href="#about">Chi Sono</a>
-                  <a href="#services">Servizi</a>
-                  <a href="#projects">Progetti</a>
-                  <a href="#gallery">Galleria</a>
-              </div>
+<!-- Social -->
+<section id="social" class="py-12 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 relative overflow-hidden">
+    <!-- Background decorative elements -->
+    <div class="absolute inset-0 bg-black/20"></div>
+    <div class="absolute top-0 left-0 w-full h-full">
+        <div class="absolute top-10 left-10 w-20 h-20 bg-white/10 rounded-full blur-xl animate-pulse"></div>
+        <div class="absolute bottom-10 right-10 w-32 h-32 bg-white/5 rounded-full blur-2xl animate-pulse" style="animation-delay: 1s;"></div>
+        <div class="absolute top-1/2 left-1/3 w-16 h-16 bg-white/10 rounded-full blur-lg animate-pulse" style="animation-delay: 2s;"></div>
+    </div>
+    
+    <div class="container mx-auto px-6 relative z-10">
+        <div class="text-center max-w-4xl mx-auto">
+            <!-- Header compatto -->
+            <div class="mb-8" data-aos="fade-up">
+                <div class="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full border border-white/30 mb-3">
+                    <i class="fas fa-share-alt text-white mr-2"></i>
+                    <span class="text-white font-medium text-sm uppercase tracking-wider">Connettiti</span>
+                </div>
+                <h2 class="text-2xl lg:text-3xl font-syne font-bold text-white mb-2">
+                    Seguimi sui social
+                </h2>
+                <p class="text-white/80 text-sm max-w-md mx-auto">
+                    Resta aggiornato sui miei progetti e condividi il viaggio insieme
+                </p>
             </div>
-            <div class="col-lg-4">
-                <h5 class="text-white mb-4">Social Media</h5>
-                <div class="footer-social">
-                    <a href="http://instagram.com/lucavalli17/" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="http://facebook.com/lucavalli17/" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://it.linkedin.com/in/lucavalli17" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://github.com/lucavalli" target="_blank"><i class="fab fa-github"></i></a>
+
+            <!-- Social cards grid -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4" data-aos="fade-up" data-aos-delay="200">
+                <!-- Instagram -->
+                <a href="https://www.instagram.com/lucavalli17" target="_blank" 
+                   class="group bg-white/15 backdrop-blur-md rounded-2xl p-6 border border-white/20 hover:bg-white/25 hover:scale-105 transition-all duration-300 hover:shadow-2xl text-center">
+                    <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center mb-3 mx-auto group-hover:scale-110 transition-transform duration-300">
+                        <i class="fab fa-instagram text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-white font-semibold text-sm mb-1">Instagram</h3>
+                    <p class="text-white/70 text-xs">@lucavalli17</p>
+                </a>
+
+                <!-- Facebook -->
+                <a href="https://www.facebook.com/luca.valli.5268/" target="_blank"
+                   class="group bg-white/15 backdrop-blur-md rounded-2xl p-6 border border-white/20 hover:bg-white/25 hover:scale-105 transition-all duration-300 hover:shadow-2xl text-center">
+                    <div class="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-500 rounded-xl flex items-center justify-center mb-3 mx-auto group-hover:scale-110 transition-transform duration-300">
+                        <i class="fab fa-facebook-f text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-white font-semibold text-sm mb-1">Facebook</h3>
+                    <p class="text-white/70 text-xs">Luca Valli</p>
+                </a>
+
+                <!-- LinkedIn -->
+                <a href="https://www.linkedin.com/in/luca-valli-/" target="_blank"
+                   class="group bg-white/15 backdrop-blur-md rounded-2xl p-6 border border-white/20 hover:bg-white/25 hover:scale-105 transition-all duration-300 hover:shadow-2xl text-center">
+                    <div class="w-12 h-12 bg-gradient-to-br from-blue-700 to-blue-600 rounded-xl flex items-center justify-center mb-3 mx-auto group-hover:scale-110 transition-transform duration-300">
+                        <i class="fab fa-linkedin-in text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-white font-semibold text-sm mb-1">LinkedIn</h3>
+                    <p class="text-white/70 text-xs">Luca Valli</p>
+                </a>
+
+                <!-- Email -->
+                <a href="mailto:lucavalli@outlook.it"
+                   class="group bg-white/15 backdrop-blur-md rounded-2xl p-6 border border-white/20 hover:bg-white/25 hover:scale-105 transition-all duration-300 hover:shadow-2xl text-center">
+                    <div class="w-12 h-12 bg-gradient-to-br from-gray-700 to-gray-600 rounded-xl flex items-center justify-center mb-3 mx-auto group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-envelope text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-white font-semibold text-sm mb-1">Email</h3>
+                    <p class="text-white/70 text-xs">Contattami</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white pt-16 pb-8 mt-auto">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="text-center md:text-left">
+                    <a href="#" class="text-3xl font-syne font-bold text-white inline-block">Luca Valli</a>
+                    <p class="mt-3 text-white text-opacity-70">Web Developer, Social Media Manager, Fotografo e Videomaker con base nella Tuscia.</p>
+                    <div class="mt-6 flex flex-col items-center md:items-start">
+                        <div class="flex items-center mb-2 justify-center md:justify-start">
+                            <i class="fas fa-envelope mr-2"></i>
+                            <a href="mailto:lucavalli2000@gmail.com" class="text-white text-opacity-70 hover:text-white transition-colors duration-300">lucavalli2000@gmail.com</a>
+                        </div>
+                        <div class="flex items-center justify-center md:justify-start">
+                            <i class="fas fa-phone mr-2"></i>
+                            <a href="tel:+393928305037" class="text-white text-opacity-70 hover:text-white transition-colors duration-300">392 8305037</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center md:text-left hidden md:block">
+                    <h5 class="text-white font-syne font-semibold text-lg mb-6">Collegamenti rapidi</h5>
+                    <div class="flex flex-col gap-2">
+                        <a href="#home" class="text-white text-opacity-80 hover:text-white transition-all duration-300 hover:translate-x-1">Home</a>
+                        <a href="#about" class="text-white text-opacity-80 hover:text-white transition-all duration-300 hover:translate-x-1">Chi Sono</a>
+                        <a href="#services" class="text-white text-opacity-80 hover:text-white transition-all duration-300 hover:translate-x-1">Servizi</a>
+                        <a href="#projects" class="text-white text-opacity-80 hover:text-white transition-all duration-300 hover:translate-x-1">Progetti</a>
+                        <a href="#gallery" class="text-white text-opacity-80 hover:text-white transition-all duration-300 hover:translate-x-1">Galleria</a>
+                    </div>
+                </div>
+                <div class="text-center md:text-left">
+                    <h5 class="text-white font-syne font-semibold text-lg mb-6">Social Media</h5>
+                    <div class="flex gap-3 justify-center md:justify-start">
+                        <a href="http://instagram.com/lucavalli17/" target="_blank" class="w-10 h-10 bg-white bg-opacity-10 rounded-full flex items-center justify-center text-white transition-all duration-300 hover:bg-primary hover:-translate-y-1">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="http://facebook.com/lucavalli17/" target="_blank" class="w-10 h-10 bg-white bg-opacity-10 rounded-full flex items-center justify-center text-white transition-all duration-300 hover:bg-primary hover:-translate-y-1">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://it.linkedin.com/in/lucavalli17" target="_blank" class="w-10 h-10 bg-white bg-opacity-10 rounded-full flex items-center justify-center text-white transition-all duration-300 hover:bg-primary hover:-translate-y-1">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://github.com/lucavalli" target="_blank" class="w-10 h-10 bg-white bg-opacity-10 rounded-full flex items-center justify-center text-white transition-all duration-300 hover:bg-primary hover:-translate-y-1">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
-      </div>
-      <hr class="mt-4 mb-3 footer-divider">
-      <div class="text-center">
-          <p class="copyright">Copyright © <span class="year">2025</span> Luca Valli | È vietata la copia, la riproduzione, la redistribuzione e la pubblicazione dei contenuti e immagini in qualsiasi forma non autorizzata.</p>
-      </div>
-  </div>
-</footer>
+            <hr class="mt-8 mb-6 border-white border-opacity-15">
+            <div class="text-center">
+                <p class="text-white text-opacity-70 text-sm">Copyright © <span id="year">2025</span> Luca Valli | È vietata la copia, la riproduzione, la redistribuzione e la pubblicazione dei contenuti e immagini in qualsiasi forma non autorizzata.</p>
+            </div>
+        </div>
+    </footer>
 
-<!-- Back to top button -->
-<a href="#home" class="back-to-top" aria-label="Torna all'inizio">
-  <i class="fas fa-arrow-up"></i>
-</a>
+    <!-- Back to top button -->
+    <a href="#home" class="fixed bottom-8 right-8 w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white text-xl opacity-0 invisible transition-all duration-300 hover:bg-primary-dark hover:-translate-y-1 hover:shadow-md z-50" id="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
 
     <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-    <script src="https://cdn.jsdelivr.net/npm/simple-lightbox@2.1.0/dist/simpleLightbox.min.js"></script>
-    <script src="js/script.js"></script>
     
-    <!-- Script aggiuntivo per animazione progressi -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Inizializza AOS (Animate On Scroll)
+            // Initialize AOS
             AOS.init({
                 duration: 800,
                 easing: 'ease-in-out',
@@ -875,104 +1430,164 @@
                 mirror: false
             });
             
-            // Inizializza TypedJS per hero section
-            const typedText = document.querySelector('.typed-text');
-            if (typedText) {
-                let typed = new Typed('.typed-text', {
-                    strings: [
-                        'Web Developer',
-                        'Social Media Manager',
-                        'Fotografo',
-                        'Videomaker',
-                        'Creatore di Fantasy Games'
-                    ],
-                    typeSpeed: 50,
-                    backSpeed: 30,
-                    backDelay: 2000,
-                    loop: true,
-                    showCursor: true
-                });
-            }
-            
-            // Inizializza SimpleLightbox per galleria
-            const galleryLinks = document.querySelectorAll('.gallery-link');
-            if (galleryLinks.length > 0) {
-                new SimpleLightbox('.gallery-link', {
-                    captionsData: 'alt',
-                    captionDelay: 250,
-                    showCounter: true,
-                    animationSpeed: 300,
-                    close: true,
-                    closeText: '×',
-                    nav: true,
-                    navText: ['←', '→'],
-                    overlayOpacity: 0.9
-                });
-            }
+            // Initialize Typed.js
+            new Typed('.typed-text', {
+                strings: [
+                    'Web Developer',
+                    'Social Media Manager',
+                    'Fotografo',
+                    'Videomaker',
+                    'Creatore di Fantasy Games'
+                ],
+                typeSpeed: 50,
+                backSpeed: 30,
+                backDelay: 2000,
+                loop: true,
+                showCursor: false
+            });
             
             // Navbar scroll effect
-            const navbar = document.querySelector('.navbar');
+            const navbar = document.querySelector('#navbar');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const navbarBrand = navbar.querySelector('a');
             
-            window.addEventListener('scroll', () => {
+            function handleScroll() {
                 if (window.scrollY > 50) {
-                    navbar.classList.add('scrolled');
+                    navbar.classList.add('bg-white', 'bg-opacity-95', 'backdrop-blur-md', 'shadow-sm', 'py-3');
+                    navbar.classList.remove('py-4');
+                    
+                    navLinks.forEach(link => {
+                        link.classList.remove('text-white', 'hover:after:bg-white');
+                        link.classList.add('text-dark', 'hover:after:bg-primary');
+                    });
+                    
+                    navbarBrand.classList.remove('text-white');
+                    navbarBrand.classList.add('text-primary');
                 } else {
-                    navbar.classList.remove('scrolled');
+                    navbar.classList.remove('bg-white', 'bg-opacity-95', 'backdrop-blur-md', 'shadow-sm', 'py-3');
+                    navbar.classList.add('py-4');
+                    
+                    navLinks.forEach(link => {
+                        link.classList.add('text-white', 'hover:after:bg-white');
+                        link.classList.remove('text-dark', 'hover:after:bg-primary');
+                    });
+                    
+                    navbarBrand.classList.add('text-white');
+                    navbarBrand.classList.remove('text-primary');
                 }
-            });
+            }
             
-            // Back to top button visibility
-            const backToTopButton = document.querySelector('.back-to-top');
+            window.addEventListener('scroll', handleScroll);
             
-            window.addEventListener('scroll', () => {
+            // Mobile menu toggle
+            window.toggleMobileMenu = function() {
+                const mobileMenu = document.getElementById('mobile-menu');
+                mobileMenu.classList.toggle('hidden');
+            };
+            
+            // Back to top button
+            const backToTopButton = document.getElementById('back-to-top');
+            
+            window.addEventListener('scroll', function() {
                 if (window.scrollY > 300) {
-                    backToTopButton.classList.add('visible');
+                    backToTopButton.classList.add('opacity-100', 'visible');
+                    backToTopButton.classList.remove('opacity-0', 'invisible');
                 } else {
-                    backToTopButton.classList.remove('visible');
-                }
+                    backToTopButton.classList.remove('opacity-100', 'visible');
+                    backToTopButton.classList.add('opacity-0', 'invisible');
+                    }
             });
             
-            // Smooth scrolling per link interni
-            const links = document.querySelectorAll('a[href^="#"]');
-            
-            links.forEach(link => {
-                link.addEventListener('click', function(e) {
+            // Smooth scroll
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
                     e.preventDefault();
                     
                     const targetId = this.getAttribute('href');
                     if (targetId === '#') return;
                     
                     const targetElement = document.querySelector(targetId);
-                    const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                    const navbarHeight = navbar.offsetHeight;
                     
                     if (targetElement) {
                         window.scrollTo({
                             top: targetElement.offsetTop - navbarHeight,
                             behavior: 'smooth'
                         });
-                        
-                        // Chiudi il menu mobile se aperto
-                        const navbarToggler = document.querySelector('.navbar-toggler');
-                        const navbarCollapse = document.querySelector('.navbar-collapse');
-                        if (navbarCollapse.classList.contains('show')) {
-                            navbarToggler.click();
-                        }
                     }
                 });
             });
             
-            // Animazione barre dei linguaggi di programmazione
-            const languageBars = document.querySelectorAll('.language-bar-inner');
-            setTimeout(() => {
-                languageBars.forEach(bar => {
-                    bar.style.opacity = 1;
+            // Active nav link on scroll
+            function highlightNavOnScroll() {
+                const sections = document.querySelectorAll('section, header');
+                let current = '';
+                const navbarHeight = navbar.offsetHeight;
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - navbarHeight - 100;
+                    const sectionHeight = section.offsetHeight;
+                    
+                    if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                        current = section.getAttribute('id');
+                    }
                 });
-            }, 500);
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('after:w-full');
+                    const href = link.getAttribute('href');
+                    if (href === `#${current}`) {
+                        link.classList.add('after:w-full');
+                    }
+                });
+            }
             
-            // Aggiorna anno corrente nel footer
-            const yearSpan = document.querySelector('.year');
-            if (yearSpan) {
-                yearSpan.textContent = new Date().getFullYear();
+            window.addEventListener('scroll', highlightNavOnScroll);
+            
+            // Update year in footer
+            document.getElementById('year').textContent = new Date().getFullYear();
+            
+            // Gallery: Random photo selection
+            const allPhotoNumbers = Array.from({length: 20}, (_, i) => i + 1);
+            
+            function shuffleArray(array) {
+                const shuffled = [...array];
+                for (let i = shuffled.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+                }
+                return shuffled;
+            }
+            
+            const shuffledPhotos = shuffleArray(allPhotoNumbers);
+            const selectedPhotos = shuffledPhotos.slice(0, 12);
+            
+            const galleryGrid = document.getElementById('gallery-grid');
+            
+            if (galleryGrid) {
+                selectedPhotos.forEach((photoNum, index) => {
+                    const formattedNum = photoNum.toString().padStart(2, '0');
+                    
+                    const photoDiv = document.createElement('div');
+                    photoDiv.setAttribute('data-aos', 'fade-up');
+                    photoDiv.setAttribute('data-aos-delay', (index % 3) * 100);
+                    
+                    photoDiv.innerHTML = `
+                        <div class="overflow-hidden rounded-lg shadow-sm transition-all duration-300 hover:shadow-md">
+                            <img src="img/${formattedNum}.jpg" 
+                                 alt="Foto portfolio ${photoNum}" 
+                                 class="w-full h-auto object-cover transition-transform duration-500 hover:scale-110"
+                                 loading="lazy"
+                                 onerror="this.style.display='none'">
+                        </div>
+                    `;
+                    
+                    galleryGrid.appendChild(photoDiv);
+                });
+                
+                if (typeof AOS !== 'undefined') {
+                    AOS.refresh();
+                }
             }
         });
     </script>
