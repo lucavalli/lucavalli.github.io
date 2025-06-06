@@ -246,6 +246,47 @@ nav.bg-white .nav-link.active::after {
         transform: translateY(-50%);
         z-index: 2;
     }
+    
+    /* Miglioramenti per il testo nelle card su mobile */
+    .timeline-cards .project-card h3 {
+        font-size: 1.25rem !important;
+        line-height: 1.4 !important;
+    }
+    
+    .timeline-cards .project-card p {
+        font-size: 0.875rem !important;
+        line-height: 1.6 !important;
+    }
+    
+    /* Ottimizzazione badge/tag su mobile */
+    .timeline-cards .project-card span.inline-block {
+        font-size: 0.7rem !important;
+        padding: 0.25rem 0.75rem !important;
+        white-space: nowrap;
+        display: inline-block;
+        margin-bottom: 0.5rem;
+    }
+    
+    /* Padding ridotto nelle card per mobile */
+    .timeline-cards .project-card > div > div:last-child {
+        padding: 1.5rem !important;
+    }
+    
+    /* Gestione pulsanti nelle card */
+    .timeline-cards .project-card a.inline-flex {
+        font-size: 0.875rem !important;
+        padding: 0.5rem 1.25rem !important;
+        white-space: nowrap;
+    }
+    
+    /* Date header ottimizzato per mobile */
+    .timeline-cards .project-card > div > div:first-child {
+        padding: 0.75rem 1rem !important;
+    }
+    
+    .timeline-cards .project-card > div > div:first-child h4 {
+        font-size: 0.875rem !important;
+    }
 }
 
 /* Extra mobile optimizations */
@@ -275,6 +316,37 @@ nav.bg-white .nav-link.active::after {
     .timeline-cards li:nth-child(even) .project-card::before {
         left: -1.5rem !important;
         width: 1.5rem !important;
+    }
+    
+    /* Ulteriori ottimizzazioni per schermi piccoli */
+    .timeline-cards .project-card h3 {
+        font-size: 1.125rem !important;
+        word-wrap: break-word;
+        hyphens: auto;
+    }
+    
+    .timeline-cards .project-card p {
+        font-size: 0.8125rem !important;
+    }
+    
+    /* Gestione migliore degli spazi per i badge lunghi */
+    .timeline-cards .project-card span.inline-block {
+        font-size: 0.65rem !important;
+        padding: 0.2rem 0.6rem !important;
+        line-height: 1.2 !important;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    /* Icone più piccole su mobile */
+    .timeline-cards .project-card .w-12.h-12 {
+        width: 2.5rem !important;
+        height: 2.5rem !important;
+    }
+    
+    .timeline-cards .project-card .w-12.h-12 i {
+        font-size: 1rem !important;
     }
 }
 
@@ -330,7 +402,7 @@ nav.bg-white .nav-link.active::after {
 
 @media (max-width: 576px) {
     .timeline-cards {
-        padding-left: 1rem;
+        padding-left: 4px;
     }
     
     .timeline-cards::before {
@@ -347,6 +419,37 @@ nav.bg-white .nav-link.active::after {
     .timeline-cards li:nth-child(even) .project-card::before {
         left: -1rem !important;
         width: 1rem !important;
+    }
+    
+    /* Ottimizzazioni estreme per schermi molto piccoli */
+    .timeline-cards .project-card h3 {
+        font-size: 1rem !important;
+    }
+    
+    .timeline-cards .project-card p {
+        font-size: 0.75rem !important;
+        line-height: 1.5 !important;
+    }
+    
+    /* Badge ancora più compatti */
+    .timeline-cards .project-card span.inline-block {
+        font-size: 0.6rem !important;
+        padding: 0.15rem 0.5rem !important;
+    }
+    
+    /* Pulsanti più piccoli su schermi molto piccoli */
+    .timeline-cards .project-card a.inline-flex {
+        font-size: 0.75rem !important;
+        padding: 0.4rem 1rem !important;
+    }
+    
+    .timeline-cards .project-card a.inline-flex i {
+        font-size: 0.75rem !important;
+    }
+    
+    /* Padding ancora più ridotto */
+    .timeline-cards .project-card > div > div:last-child {
+        padding: 1rem !important;
     }
 }
 </style>
