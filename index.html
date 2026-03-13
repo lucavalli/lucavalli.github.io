@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Luca Valli | Portfolio</title>
 
-    <!-- Aggiungi questi meta tag nell'<head> del tuo HTML, dopo il <title> -->
-
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="img/favicon.png">
     <link rel="apple-touch-icon" href="img/favicon.png">
@@ -45,7 +43,7 @@
     "name": "Luca Valli",
     "url": "https://lucavalli.github.io",
     "image": "https://lucavalli.github.io/img/profile.png",
-    "sameAs": [
+    "sameAs":[
         "https://www.instagram.com/lucavalli17",
         "https://www.facebook.com/lucavalli17",
         "https://www.linkedin.com/in/lucavalli17/",
@@ -120,15 +118,18 @@
                     },
                     fontFamily: {
                         'urbanist': ['Urbanist', 'sans-serif'],
-                        'syne': ['Syne', 'sans-serif']
+                        'syne':['Syne', 'sans-serif']
                     }
                 }
             }
         }
-</script>
+    </script>
 <style>
 /* Base styles optimized for the current site */
-:root { scroll-behavior: smooth; }
+:root { 
+    scroll-behavior: smooth; 
+    --line-idle: #e2e8f0; 
+}
 
 /* Typed.js cursor animation */
 @keyframes blink {
@@ -153,393 +154,179 @@
 .animate-float-3 { animation: float 5s ease-in-out infinite 2s; }
 
 /* Navigation active line fix */
-/* Default state: white lines for home section */
-.nav-link::after {
-    background-color: white !important;
-}
+.nav-link::after { background-color: white !important; }
+.nav-link:hover::after { background-color: white !important; }
+.nav-link.active::after { width: 100% !important; background-color: white !important; }
 
-.nav-link:hover::after {
-    background-color: white !important;
-}
-
-/* Active link with white line on home section */
-.nav-link.active::after {
-    width: 100% !important;
-    background-color: white !important;
-}
-
-/* When header has scrolled background: celestine lines */
 #navbar.scrolled .nav-link::after,
 #navbar.bg-white .nav-link::after,
 nav.scrolled .nav-link::after,
-nav.bg-white .nav-link::after {
-    background-color: #4361EE !important;
-}
+nav.bg-white .nav-link::after { background-color: #4361EE !important; }
 
 #navbar.scrolled .nav-link:hover::after,
 #navbar.bg-white .nav-link:hover::after,
 nav.scrolled .nav-link:hover::after,
-nav.bg-white .nav-link:hover::after {
-    background-color: #4361EE !important;
-}
+nav.bg-white .nav-link:hover::after { background-color: #4361EE !important; }
 
-/* Active link with celestine line when scrolled */
 #navbar.scrolled .nav-link.active::after,
 #navbar.bg-white .nav-link.active::after,
 nav.scrolled .nav-link.active::after,
-nav.bg-white .nav-link.active::after {
-    width: 100% !important;
-    background-color: #4361EE !important;
-}
-
-/* Clean timeline layout like screenshot 2 */
-.timeline-cards {
-    --line-w: 6px;
-    display: grid;
-    grid-template-columns: 1fr var(--line-w) 1fr;
-    column-gap: 0;
-    width: min(85rem, 90%);
-    margin-inline: auto;
-    position: relative;
-}
-
-.timeline-cards::before {
-    content: "";
-    grid-column: 2;
-    grid-row: 1 / span 20;
-    background: linear-gradient(to bottom, rgba(67, 97, 238, 0.8), rgba(67, 97, 238, 0.6));
-    width: 6px;
-    border-radius: 3px;
-    z-index: 1;
-}
-
-.timeline-cards li {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    margin-bottom: 30px;
-}
-
-.timeline-cards li:nth-child(odd) { 
-    grid-column: 1;
-    align-items: flex-end;
-    padding-right: 4rem;
-}
-
-.timeline-cards li:nth-child(even) { 
-    grid-column: 3;
-    align-items: flex-start;
-    padding-left: 4rem;
-    margin-top: 30px; /* Offset iniziale per la colonna destra */
-}
-
-/* Remove margin-bottom from last items in each column */
-.timeline-cards li:nth-child(odd):last-child,
-.timeline-cards li:nth-child(even):last-child {
-    margin-bottom: 0;
-}
-
-/* Project cards with integrated dates */
-.timeline-cards li .project-card {
-    width: 100%;
-    max-width: 450px;
-    position: relative;
-    z-index: 2;
-}
-
-/* Connection lines from cards to timeline */
-.timeline-cards li .project-card::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    height: 3px;
-    background: rgba(67, 97, 238, 0.7);
-    z-index: 1;
-    border-radius: 1px;
-}
-
-.timeline-cards li:nth-child(odd) .project-card::before {
-    right: -4rem;
-    width: 4rem;
-    transform: translateY(-50%);
-}
-
-.timeline-cards li:nth-child(even) .project-card::before {
-    left: -4rem;
-    width: 4rem;
-    transform: translateY(-50%);
-}
-
-/* Hide the separate date elements */
-.timeline-cards li .date {
-    display: none;
-}
-
-/* Mobile timeline adjustments */
-@media (max-width: 992px) {
-    .timeline-cards {
-        --line-w: 4px;
-        display: block;
-        width: 100%;
-        position: relative;
-        padding-left: 2rem;
-    }
-    
-    .timeline-cards::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        width: 4px;
-        background: linear-gradient(to bottom, rgba(67, 97, 238, 0.8), rgba(67, 97, 238, 0.6));
-        border-radius: 2px;
-        z-index: 1;
-    }
-    
-    .timeline-cards li,
-    .timeline-cards li:nth-child(odd),
-    .timeline-cards li:nth-child(even) {
-        display: block;
-        margin-bottom: 2rem;
-        margin-top: 0 !important;
-        padding: 0;
-        position: relative;
-    }
-    
-    .timeline-cards li .project-card {
-        margin-left: 2rem;
-        max-width: none;
-        width: calc(100% - 2rem);
-    }
-    
-    /* Reset e normalizza tutte le linee orizzontali per mobile */
-    .timeline-cards li .project-card::before,
-    .timeline-cards li:nth-child(odd) .project-card::before,
-    .timeline-cards li:nth-child(even) .project-card::before {
-        content: "";
-        position: absolute;
-        left: -2rem !important;
-        right: auto !important;
-        top: 50%;
-        width: 2rem !important;
-        height: 3px;
-        background: rgba(67, 97, 238, 0.7);
-        transform: translateY(-50%);
-        z-index: 2;
-    }
-    
-    /* Miglioramenti per il testo nelle card su mobile */
-    .timeline-cards .project-card h3 {
-        font-size: 1.375rem !important;
-        line-height: 1.4 !important;
-        margin-bottom: 0.5rem !important;
-    }
-    
-    .timeline-cards .project-card p {
-        font-size: 0.9375rem !important;
-        line-height: 1.6 !important;
-        margin-bottom: 1.5rem !important;
-        margin-top: 0.75rem !important;
-    }
-    
-    /* Ottimizzazione badge/tag su mobile */
-    .timeline-cards .project-card span.inline-block {
-        font-size: 0.75rem !important;
-        padding: 0.375rem 0.875rem !important;
-        white-space: nowrap;
-        display: inline-block;
-        margin-bottom: 0 !important;
-    }
-    
-    /* Padding ridotto nelle card per mobile */
-    .timeline-cards .project-card > div > div:last-child {
-        padding: 1.5rem !important;
-    }
-    
-    /* Gestione pulsanti nelle card */
-    .timeline-cards .project-card a.inline-flex {
-        font-size: 0.875rem !important;
-        padding: 0.5rem 1.25rem !important;
-        white-space: nowrap;
-    }
-    
-    /* Date header ottimizzato per mobile */
-    .timeline-cards .project-card > div > div:first-child {
-        padding: 0.75rem 1rem !important;
-    }
-    
-    .timeline-cards .project-card > div > div:first-child h4 {
-        font-size: 0.875rem !important;
-    }
-}
-
-/* Extra mobile optimizations */
-@media (max-width: 768px) {
-    .animate-float-1, .animate-float-2, .animate-float-3 { 
-        animation: none; 
-    }
-    #social { 
-        display: none !important; 
-    }
-    
-    .timeline-cards {
-        padding-left: 4px;
-    }
-    
-    .timeline-cards::before {
-        left: 0;
-    }
-    
-    .timeline-cards li .project-card {
-        margin-left: 1.5rem;
-        width: calc(100% - 1.5rem);
-    }
-    
-    .timeline-cards li .project-card::before,
-    .timeline-cards li:nth-child(odd) .project-card::before,
-    .timeline-cards li:nth-child(even) .project-card::before {
-        left: -1.5rem !important;
-        width: 1.5rem !important;
-    }
-    
-    /* Ulteriori ottimizzazioni per schermi piccoli */
-    .timeline-cards .project-card h3 {
-        font-size: 1.25rem !important;
-        word-wrap: break-word;
-        hyphens: auto;
-    }
-    
-    .timeline-cards .project-card p {
-        font-size: 0.875rem !important;
-    }
-    
-    /* Gestione migliore degli spazi per i badge lunghi */
-    .timeline-cards .project-card span.inline-block {
-        font-size: 0.7rem !important;
-        padding: 0.3rem 0.75rem !important;
-        line-height: 1.2 !important;
-        max-width: 100%;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-    
-    /* Icone più piccole su mobile */
-    .timeline-cards .project-card .w-12.h-12 {
-        width: 2.5rem !important;
-        height: 2.5rem !important;
-    }
-    
-    .timeline-cards .project-card .w-12.h-12 i {
-        font-size: 1rem !important;
-    }
-}
+nav.bg-white .nav-link.active::after { width: 100% !important; background-color: #4361EE !important; }
 
 /* Mobile menu button fix */
-/* Default state: white hamburger lines */
-#navbar button span {
-    background-color: white;
-    transition: background-color 0.3s ease;
-}
-
-/* When navbar is scrolled: blue hamburger lines */
-#navbar.bg-white button span,
-#navbar.bg-opacity-95 button span {
-    background-color: #4361ee !important;
-}
-
-/* Remove background from mobile menu button */
-#navbar button {
-    background: none !important;
-    border: none !important;
-}
+#navbar button span { background-color: white; transition: background-color 0.3s ease; }
+#navbar.bg-white button span, #navbar.bg-opacity-95 button span { background-color: #4361ee !important; }
+#navbar button { background: none !important; border: none !important; }
 
 /* Mobile responsive adjustments for About section */
 @media (max-width: 768px) {
-    /* Make formation box wider on mobile */
-    .lg\:w-1\/3 {
-        width: 100% !important;
-        margin-top: 2rem;
-    }
-    
-    /* Adjust flex direction for mobile */
-    .lg\:flex-row {
-        flex-direction: column !important;
-    }
-    
-    /* Remove padding that creates narrow box */
-    .lg\:pr-12 {
-        padding-right: 0 !important;
-    }
-    
-    /* Reduce size of floating certification icons on mobile */
-    .group .absolute.-top-4.-right-4 {
-        width: 50px !important;
-        height: 50px !important;
-        top: -15px !important;
-        right: -15px !important;
-    }
-    
-    .group .absolute.-top-4.-right-4 i {
-        font-size: 16px !important;
-    }
+    .animate-float-1, .animate-float-2, .animate-float-3 { animation: none; }
+    #social { display: none !important; }
+    .lg\:w-1\/3 { width: 100% !important; margin-top: 2rem; }
+    .lg\:flex-row { flex-direction: column !important; }
+    .lg\:pr-12 { padding-right: 0 !important; }
+    .group .absolute.-top-4.-right-4 { width: 50px !important; height: 50px !important; top: -15px !important; right: -15px !important; }
+    .group .absolute.-top-4.-right-4 i { font-size: 16px !important; }
 }
 
-@media (max-width: 576px) {
-    .timeline-cards {
-        padding-left: 4px;
+/* =========================================
+   MAGIC SCROLL TIMELINE & ACCORDION
+   ========================================= */
+#magic-ball {
+    position: fixed;
+    top: 50vh; 
+    left: 50vw;
+    width: 14px;
+    height: 14px;
+    background: #ffffff;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5; /* Z-INDEX Pallina: 5 (Sopra le linee, sotto le card) */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, box-shadow 0.3s ease;
+}
+
+.timeline-container { max-width: 950px; margin: 0 auto; position: relative; }
+
+.timeline-row {
+    display: flex; width: 100%; margin-bottom: 25px; position: relative;
+}
+.timeline-row.left { justify-content: flex-start; }
+.timeline-row.right { justify-content: flex-end; }
+
+/* Z-INDEX Card: 10 (Sopra alla pallina) */
+.card-wrapper { width: 48%; position: relative; z-index: 10; } 
+
+/* Animazioni di ingresso (A Cascata) */
+.compact-card { opacity: 0; transform: translateY(30px) scale(0.98); transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.card-icon { transform: scale(0); transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s; }
+.card-header-row, .role { opacity: 0; transform: translateY(10px); transition: all 0.5s ease 0.3s; }
+.card-desc { opacity: 0; transform: translateY(10px); transition: all 0.5s ease 0.4s; }
+.links-group { opacity: 0; transform: translateY(10px); transition: all 0.5s ease 0.5s; }
+
+.timeline-row.visible .compact-card { opacity: 1; transform: translateY(0) scale(1); }
+.timeline-row.visible .card-icon { transform: scale(1); }
+.timeline-row.visible .card-header-row, .timeline-row.visible .role, 
+.timeline-row.visible .card-desc, .timeline-row.visible .links-group { opacity: 1; transform: translateY(0); }
+
+/* Snake Line Borders - Z-INDEX: 1 (Sotto alla pallina) */
+.connector {
+    position: absolute; z-index: 1; border-style: solid; border-color: var(--line-idle);
+    transition: border-color 0.8s ease 0.3s, filter 0.8s ease 0.3s;
+    transform: translateZ(0); 
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    will-change: height, filter;
+}
+
+.timeline-row.visible .connector {
+    border-color: var(--c);
+    filter: drop-shadow(0 0 3px color-mix(in srgb, var(--c) 40%, transparent));
+}
+
+.timeline-row.left .connector {
+    top: 50%; left: 48%; width: 26%; height: calc(50% + 25px);
+    border-width: 4px 4px 0 0; border-top-right-radius: 20px;
+}
+.timeline-row.right .connector {
+    top: 50%; right: 48%; width: 26%; height: calc(50% + 25px);
+    border-width: 4px 0 0 4px; border-top-left-radius: 20px;
+}
+.timeline-row:last-child .connector { display: none; }
+
+/* Card Design e Micro-interazioni */
+.compact-card {
+    background: #ffffff; border-radius: 16px; padding: 16px 20px; display: flex; gap: 14px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.04);
+    border-top: 4px solid var(--c); transition: transform 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease !important;
+}
+.card-wrapper:hover .compact-card { transform: translateY(-5px) !important; box-shadow: 0 15px 30px -5px color-mix(in srgb, var(--c) 15%, transparent) !important; }
+
+.card-icon {
+    flex-shrink: 0; width: 42px; height: 42px; border-radius: 12px;
+    background: color-mix(in srgb, var(--c) 12%, transparent); color: var(--c); display: flex; align-items: center; justify-content: center;
+    font-size: 1.15rem; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+}
+.card-wrapper:hover .card-icon { transform: scale(1.15) rotate(5deg) !important; }
+
+.card-content { flex-grow: 1; display: flex; flex-direction: column; width: 100%; }
+/* Utilizzo flex-wrap per adattarsi meglio agli schermi molto piccoli */
+.card-header-row { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px; margin-bottom: 2px; }
+
+/* FONT URBANIST PER LE CARD IMPOSTATO QUI */
+.card-header-row h3 { font-size: 1.1rem; font-weight: 800; font-family: 'Urbanist', sans-serif; margin: 0; line-height: 1.2; color: var(--text-dark); }
+.date-badge { font-size: 0.7rem; font-weight: 700; color: #64748b; background: #f1f5f9; padding: 4px 8px; border-radius: 8px; white-space: nowrap; margin-left: auto; }
+.role { font-size: 0.7rem; font-weight: 800; color: var(--c); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; display: inline-block; }
+.card-desc { font-size: 0.85rem; color: #64748b; line-height: 1.5; margin: 0 0 12px 0; }
+
+.links-group { display: flex; gap: 12px; flex-wrap: wrap; margin-top: auto; align-items: center; width: 100%; }
+.link-modern { display: inline-flex; align-items: center; gap: 5px; font-size: 0.85rem; font-weight: 700; color: var(--c); text-decoration: none; padding: 4px 8px; margin-left: -8px; border-radius: 6px; transition: all 0.2s; }
+.link-modern i { transition: transform 0.2s; font-size: 0.8rem; }
+.link-modern:hover { background: color-mix(in srgb, var(--c) 10%, transparent); color: color-mix(in srgb, var(--c) 80%, black); }
+.link-modern:hover i { transform: translateX(3px); }
+
+/* Pulsante Expand Accordion (Mantiene questo stile sia su PC che Mobile) */
+.btn-expand {
+    background: transparent; border: none; font-family: inherit; font-size: 0.8rem; font-weight: 600;
+    color: #64748b; cursor: pointer; padding: 4px 8px; border-radius: 6px;
+    display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s; margin-left: auto;
+}
+.btn-expand i { transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.btn-expand:hover { background: #f1f5f9; color: var(--text-dark); }
+.compact-card.is-open .btn-expand i { transform: rotate(180deg); color: var(--c); }
+.compact-card.is-open .btn-expand { color: var(--c); }
+
+/* Accordion Grid CSS */
+.accordion-wrapper { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1); width: 100%; will-change: grid-template-rows; }
+.compact-card.is-open .accordion-wrapper { grid-template-rows: 1fr; }
+.accordion-content { overflow: hidden; opacity: 0; transition: opacity 0.3s ease 0.1s, padding 0.4s ease, margin 0.4s ease; }
+.compact-card.is-open .accordion-content { opacity: 1; padding-top: 15px; margin-top: 12px; border-top: 1px dashed var(--line-idle); }
+.accordion-content h4 { font-size: 0.85rem; font-weight: 700; color: var(--text-dark); margin: 0 0 6px 0; }
+.accordion-content p { font-size: 0.8rem; color: #64748b; line-height: 1.6; margin: 0 0 12px 0; }
+
+.tech-stack { display: flex; gap: 6px; flex-wrap: wrap; }
+.tech-badge { font-size: 0.65rem; font-weight: 600; padding: 3px 8px; border-radius: 6px; background: #f1f5f9; color: #64748b; border: 1px solid var(--line-idle); }
+
+/* Responsive Timeline Mobile Ottimizzato */
+@media screen and (max-width: 768px) {
+    .timeline-row { margin-bottom: 20px; }
+    .card-wrapper { width: 100%; }
+    .connector { 
+        top: 100% !important; 
+        left: 50% !important; 
+        width: 4px !important; 
+        height: 20px !important; 
+        border-width: 0 0 0 4px !important; 
+        border-radius: 0 !important; 
+        transform: translateX(-50%) translateZ(0); 
     }
     
-    .timeline-cards::before {
-        left: 0;
-    }
-    
-    .timeline-cards li .project-card {
-        margin-left: 1rem;
-        width: calc(100% - 1rem);
-    }
-    
-    .timeline-cards li .project-card::before,
-    .timeline-cards li:nth-child(odd) .project-card::before,
-    .timeline-cards li:nth-child(even) .project-card::before {
-        left: -1rem !important;
-        width: 1rem !important;
-    }
-    
-    /* Ottimizzazioni estreme per schermi molto piccoli */
-    .timeline-cards .project-card h3 {
-        font-size: 1.125rem !important;
-    }
-    
-    .timeline-cards .project-card p {
-        font-size: 0.8125rem !important;
-        line-height: 1.5 !important;
-    }
-    
-    /* Badge ancora più compatti */
-    .timeline-cards .project-card span.inline-block {
-        font-size: 0.675rem !important;
-        padding: 0.25rem 0.625rem !important;
-    }
-    
-    /* Pulsanti più piccoli su schermi molto piccoli */
-    .timeline-cards .project-card a.inline-flex {
-        font-size: 0.75rem !important;
-        padding: 0.4rem 1rem !important;
-    }
-    
-    .timeline-cards .project-card a.inline-flex i {
-        font-size: 0.75rem !important;
-    }
-    
-    /* Padding ancora più ridotto */
-    .timeline-cards .project-card > div > div:last-child {
-        padding: 1rem !important;
-    }
+    /* Layout Mobile SIMILE al PC */
+    .compact-card { padding: 16px 15px; gap: 12px; }
+    .card-icon { width: 36px; height: 36px; font-size: 1rem; }
 }
 </style>
-
-
 </head>
 <body class="font-urbanist text-text bg-white min-h-screen flex flex-col overflow-x-hidden">
     <!-- Header Navigation -->
@@ -1232,248 +1019,304 @@ nav.bg-white .nav-link.active::after {
         </div>
     </section>
 
-<!-- Projects Timeline -->
-<section id="projects" class="py-24 bg-gradient-to-br from-slate-50 to-gray-100">
-    <div class="container mx-auto px-6">
+<!-- Projects Timeline (NEW) -->
+<section id="projects" class="py-24 bg-gradient-to-br from-slate-50 to-gray-100 relative">
+    <div class="container mx-auto px-6 relative z-10">
         <div class="text-center mb-16" data-aos="fade-up">
             <span class="text-primary font-semibold uppercase tracking-wider text-sm mb-2 block">Portfolio</span>
             <h2 class="text-4xl lg:text-5xl font-syne font-bold mb-4 relative inline-block">I miei lavori</h2>
         </div>
         
-        <ul class="timeline-cards">
-            <!-- Wellness Studio -->
-            <li style="--accent-color:#10b981;" data-aos="fade-up">
-                <div class="date"></div>
-                <div class="project-card">
-                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                        <!-- Date header integrated in card -->
-                        <div class="bg-[#10b981] px-6 py-4">
-                            <h4 class="text-white font-bold text-lg text-center">10/2025 - Oggi</h4>
-                        </div>
-                        
-                        <!-- Card content -->
-                        <div class="p-8">
-                            <div class="flex items-start mb-6">
-                                <div class="w-12 h-12 bg-[#10b981] bg-opacity-10 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
-                                    <i class="fas fa-globe text-[#10b981] text-xl"></i>
-                                </div>
-                                <div>
-                                    <h3 class="text-2xl font-bold text-dark mb-2">Wellness Studio</h3>
-                                    <span class="inline-block px-3 py-1 bg-[#10b981] text-white text-sm font-semibold rounded-full">WEB DEVELOPER</span>
-                                </div>
-                            </div>
-                            <p class="text-gray-700 mb-6 leading-relaxed">Sviluppo e realizzazione del sito web per Wellness Studio, con focus su user experience e design responsive.</p>
-                            <a href="https://www.wellness-studio.it" class="inline-flex items-center px-6 py-3 bg-[#10b981] text-white font-semibold rounded-xl hover:bg-[#059669] transition-all duration-300 hover:shadow-md" target="_blank">
-                                <i class="fas fa-globe mr-2"></i> Visita il sito
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </li>
+        <div class="timeline-container">
             
-            <!-- La stanza del Petrarca -->
-            <li style="--accent-color:#4361ee;" data-aos="fade-up">
-                <div class="date"></div>
-                <div class="project-card">
-                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                        <!-- Date header integrated in card -->
-                        <div class="bg-[#4361ee] px-6 py-4">
-                            <h4 class="text-white font-bold text-lg text-center">07/2024 - Oggi</h4>
-                        </div>
-                        
-                        <!-- Card content -->
-                        <div class="p-8">
-                            <div class="flex items-start mb-6">
-                                <div class="w-12 h-12 bg-[#4361ee] bg-opacity-10 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
-                                    <i class="fas fa-globe text-[#4361ee] text-xl"></i>
-                                </div>
-                                <div>
-                                    <h3 class="text-2xl font-bold text-dark mb-2">La stanza del Petrarca</h3>
-                                    <span class="inline-block px-3 py-1 bg-[#4361ee] text-white text-sm font-semibold rounded-full">WEB DEVELOPER</span>
-                                </div>
-                            </div>
-                            <p class="text-gray-700 mb-6 leading-relaxed">Sviluppo e realizzazione del sito web per La stanza del Petrarca, con focus su user experience e design responsive.</p>
-                            <a href="https://www.lastanzadelpetrarca.it" class="inline-flex items-center px-6 py-3 bg-[#4361ee] text-white font-semibold rounded-xl hover:bg-[#3a53c0] transition-all duration-300 hover:shadow-md" target="_blank">
-                                <i class="fas fa-globe mr-2"></i> Visita il sito
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </li>
+            <!-- MAGIC BALL INSERITA QUI PER GESTIRE BENE LO Z-INDEX -->
+            <div id="magic-ball"></div>
 
-            <!-- FantaContrade -->
-            <li style="--accent-color:#e74c3c;" data-aos="fade-up">
-                <div class="date"></div>
-                <div class="project-card">
-                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                        <div class="bg-[#e74c3c] px-6 py-4">
-                            <h4 class="text-white font-bold text-lg text-center">06/2024 - Oggi</h4>
-                        </div>
-                        
-                        <div class="p-8">
-                            <div class="flex items-start mb-6">
-                                <div class="w-12 h-12 bg-[#e74c3c] bg-opacity-10 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
-                                    <i class="fas fa-gamepad text-[#e74c3c] text-xl"></i>
-                                </div>
-                                <div>
-                                    <h3 class="text-2xl font-bold text-dark mb-2">FantaContrade</h3>
-                                    <span class="inline-block px-3 py-1 bg-[#e74c3c] text-white text-sm font-semibold rounded-full">CREATORE E SVILUPPATORE</span>
+            <div class="timeline-row left">
+                <div class="card-wrapper" style="--c: #10b981;">
+                    <div class="compact-card">
+                        <div class="card-icon"><i class="fas fa-laptop-code"></i></div>
+                        <div class="card-content">
+                            <div class="card-header-row">
+                                <h3>Wellness Studio</h3>
+                                <span class="date-badge">10/2025 - Oggi</span>
+                            </div>
+                            <span class="role">WEB DEVELOPER</span>
+                            <p class="card-desc">Sviluppo sito web con focus su UX e design responsive.</p>
+                            <div class="links-group">
+                                <a href="https://www.wellness-studio.it" target="_blank" class="link-modern">Visita il sito <i class="fas fa-arrow-right"></i></a>
+                                <button class="btn-expand">Dettagli <i class="fas fa-chevron-down"></i></button>
+                            </div>
+                            
+                            <div class="accordion-wrapper">
+                                <div class="accordion-content">
+                                    <h4>Approfondisci</h4>
+                                    <p>Sviluppo e realizzazione del sito web per Wellness Studio di Soriano nel Cimino (VT), con particolare attenzione alla user experience, al design responsive e all’ottimizzazione SEO per la visibilità locale.</p>
+                                    <div class="tech-stack">
+                                        <span class="tech-badge">User Experience</span>
+                                        <span class="tech-badge">Ottimizzazione SEO</span>
+                                        <span class="tech-badge">Responsive Design</span>
+                                    </div>
                                 </div>
                             </div>
-                            <p class="text-gray-700 mb-6 leading-relaxed">Sviluppo di un fantasy game basato sugli eventi dell'Ottava Medievale di Orte. Un gioco ispirato al concetto di FantaSanremo ma adattato per le competizioni locali.</p>
-                            <a href="https://www.fantacontrade.it" class="inline-flex items-center px-6 py-3 bg-[#e74c3c] text-white font-semibold rounded-xl hover:bg-[#c0392b] transition-all duration-300 hover:shadow-md" target="_blank">
-                                <i class="fas fa-globe mr-2"></i> Visita il sito
-                            </a>
+
                         </div>
                     </div>
                 </div>
-            </li>
-            
-            <!-- A.S.D. Wellness Studio -->
-            <li style="--accent-color:#9b59b6;" data-aos="fade-up" data-aos-delay="100">
-                <div class="date"></div>
-                <div class="project-card">
-                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                        <div class="bg-[#9b59b6] px-6 py-4">
-                            <h4 class="text-white font-bold text-lg text-center">07/2024 - Oggi</h4>
-                        </div>
-                        
-                        <div class="p-8">
-                            <div class="flex items-start mb-6">
-                                <div class="w-12 h-12 bg-[#9b59b6] bg-opacity-10 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
-                                    <i class="fas fa-hashtag text-[#9b59b6] text-xl"></i>
-                                </div>
-                                <div>
-                                    <h3 class="text-2xl font-bold text-dark mb-2">A.S.D. Wellness Studio</h3>
-                                    <span class="inline-block px-3 py-1 bg-[#9b59b6] text-white text-sm font-semibold rounded-full">SOCIAL MEDIA MANAGER</span>
+                <div class="connector" style="--c: #10b981;"></div>
+            </div>
+
+            <div class="timeline-row right">
+                <div class="card-wrapper" style="--c: #3b82f6;">
+                    <div class="compact-card">
+                        <div class="card-icon"><i class="fas fa-globe"></i></div>
+                        <div class="card-content">
+                            <div class="card-header-row">
+                                <h3>La stanza del Petrarca</h3>
+                                <span class="date-badge">07/2024 - Oggi</span>
+                            </div>
+                            <span class="role">WEB DEVELOPER</span>
+                            <p class="card-desc">Sviluppo sito vetrina focalizzato su usabilità ed estetica moderna.</p>
+                            <div class="links-group">
+                                <a href="https://www.lastanzadelpetrarca.it" target="_blank" class="link-modern">Visita il sito <i class="fas fa-arrow-right"></i></a>
+                                <button class="btn-expand">Dettagli <i class="fas fa-chevron-down"></i></button>
+                            </div>
+
+                            <div class="accordion-wrapper">
+                                <div class="accordion-content">
+                                    <h4>Approfondisci</h4>
+                                    <p>Sviluppo e realizzazione del sito web per il LOFT La stanza del Petrarca a Capranica (VT), con particolare attenzione alla user experience, al design responsive e all’ottimizzazione SEO per la visibilità locale.</p>
+                                    <div class="tech-stack">
+                                        <span class="tech-badge">User Experience</span>
+                                        <span class="tech-badge">Ottimizzazione SEO</span>
+                                        <span class="tech-badge">Responsive Design</span>
+                                    </div>
                                 </div>
                             </div>
-                            <p class="text-gray-700 mb-6 leading-relaxed">Gestione delle pagine social e creazione di contenuti per Wellness Studio, uno studio di benessere situato a Soriano nel Cimino.</p>
-                            <a href="#" class="inline-flex items-center px-6 py-3 bg-[#9b59b6] text-white font-semibold rounded-xl hover:bg-[#8e44ad] transition-all duration-300 hover:shadow-md" target="_blank">
-                                <i class="fab fa-instagram mr-2"></i> Instagram
-                            </a>
+
                         </div>
                     </div>
                 </div>
-            </li>
-            
-            <!-- FantaTorneo -->
-            <li style="--accent-color:#f39c12;" data-aos="fade-up" data-aos-delay="200">
-                <div class="date"></div>
-                <div class="project-card">
-                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                        <div class="bg-[#f39c12] px-6 py-4">
-                            <h4 class="text-white font-bold text-lg text-center">05/2023 - 06/2024</h4>
-                        </div>
-                        
-                        <div class="p-8">
-                            <div class="flex items-start mb-6">
-                                <div class="w-12 h-12 bg-[#f39c12] bg-opacity-10 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
-                                    <i class="fas fa-trophy text-[#f39c12] text-xl"></i>
-                                </div>
-                                <div>
-                                    <h3 class="text-2xl font-bold text-dark mb-2">FantaTorneo</h3>
-                                    <span class="inline-block px-3 py-1 bg-[#f39c12] text-white text-sm font-semibold rounded-full">CREATORE E SVILUPPATORE</span>
+                <div class="connector" style="--c: #3b82f6;"></div>
+            </div>
+
+            <div class="timeline-row left">
+                <div class="card-wrapper" style="--c: #ef4444;">
+                    <div class="compact-card">
+                        <div class="card-icon"><i class="fas fa-gamepad"></i></div>
+                        <div class="card-content">
+                            <div class="card-header-row">
+                                <h3>FantaContrade</h3>
+                                <span class="date-badge">06/2024 - Oggi</span>
+                            </div>
+                            <span class="role">CREATORE E SVILUPPATORE</span>
+                            <p class="card-desc">Fantasy game per l'Ottava Medievale di Orte, ispirato al FantaSanremo.</p>
+                            <div class="links-group">
+                                <a href="https://www.fantacontrade.it" target="_blank" class="link-modern">Scopri il gioco <i class="fas fa-arrow-right"></i></a>
+                                <button class="btn-expand">Dettagli <i class="fas fa-chevron-down"></i></button>
+                            </div>
+
+                            <div class="accordion-wrapper">
+                                <div class="accordion-content">
+                                    <h4>Approfondisci</h4>
+                                    <p>Sviluppo di un fantasy game basato sugli eventi dell'Ottava Medievale di Orte. Un gioco ispirato al concetto di FantaSanremo ma adattato per le competizioni locali.</p>
+                                    <div class="tech-stack">
+                                        <span class="tech-badge">Laravel</span>
+                                        <span class="tech-badge">Ottimizzazione SEO</span>
+                                        <span class="tech-badge">UI/UX</span>
+                                    </div>
                                 </div>
                             </div>
-                            <p class="text-gray-700 mb-6 leading-relaxed">Realizzazione di www.fantatorneo.it, un fantasy game ispirato al FantaSanremo e basato sul Torneo delle Contrade che si svolge a Soriano nel Cimino. Gestione delle pagine social e creazione di contenuti.</p>
-                            <a href="https://www.fantatorneo.it" class="inline-flex items-center px-6 py-3 bg-[#f39c12] text-white font-semibold rounded-xl hover:bg-[#e67e22] transition-all duration-300 hover:shadow-md" target="_blank">
-                                <i class="fas fa-globe mr-2"></i> Visita il sito
-                            </a>
+
                         </div>
                     </div>
                 </div>
-            </li>
-            
-            <!-- Associazione COST -->
-            <li style="--accent-color:#3498db;" data-aos="fade-up" data-aos-delay="300">
-                <div class="date"></div>
-                <div class="project-card">
-                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                        <div class="bg-[#3498db] px-6 py-4">
-                            <h4 class="text-white font-bold text-lg text-center">06/2022 - Oggi</h4>
-                        </div>
-                        
-                        <div class="p-8">
-                            <div class="flex items-start mb-6">
-                                <div class="w-12 h-12 bg-[#3498db] bg-opacity-10 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
-                                    <i class="fas fa-users text-[#3498db] text-xl"></i>
-                                </div>
-                                <div>
-                                    <h3 class="text-2xl font-bold text-dark mb-2">Associazione COST</h3>
-                                    <span class="inline-block px-3 py-1 bg-[#3498db] text-white text-sm font-semibold rounded-full">SOCIAL & WEB DEVELOPER</span>
+                <div class="connector" style="--c: #ef4444;"></div>
+            </div>
+
+            <div class="timeline-row right">
+                <div class="card-wrapper" style="--c: #8b5cf6;">
+                    <div class="compact-card">
+                        <div class="card-icon"><i class="fab fa-instagram"></i></div>
+                        <div class="card-content">
+                            <div class="card-header-row">
+                                <h3>A.S.D. Wellness Studio</h3>
+                                <span class="date-badge">07/2024 - Oggi</span>
+                            </div>
+                            <span class="role">SOCIAL MEDIA MANAGER</span>
+                            <p class="card-desc">Gestione social e creazione contenuti per la palestra Wellness Studio.</p>
+                            <div class="links-group">
+                                <a href="#" target="_blank" class="link-modern"><i class="fab fa-instagram"></i>Instagram</a>
+                                <button class="btn-expand">Dettagli <i class="fas fa-chevron-down"></i></button>
+                            </div>
+
+                            <div class="accordion-wrapper">
+                                <div class="accordion-content">
+                                    <h4>Digital Strategy</h4>
+                                    <p>Sviluppo di un piano editoriale mensile e rebranding della comunicazione visiva per la palestra Wellness Studio di Soriano nel Cimino (VT). Ho introdotto format video (Reels/Shorts) e infografiche che hanno migliorato l'engagement della pagina nei primi mesi.</p>
+                                    <div class="tech-stack">
+                                        <span class="tech-badge">Canva Pro</span>
+                                        <span class="tech-badge">Adobe Illustrator</span>
+                                        <span class="tech-badge">Meta Business</span>
+                                        <span class="tech-badge">Copywriting</span>
+                                    </div>
                                 </div>
                             </div>
-                            <p class="text-gray-700 mb-6 leading-relaxed">Creazione e gestione delle pagine social e dei contenuti dell'Associazione COST, SORIANO NEL CIMINO (VT). Realizzazione del sito web per l'associazione (08/2023).</p>
-                            <div class="flex flex-wrap gap-3">
-                                <a href="#" class="inline-flex items-center px-4 py-2 bg-[#3498db] text-white font-semibold rounded-lg hover:bg-[#2980b9] transition-all duration-300">
-                                    <i class="fab fa-facebook-f mr-2"></i> Facebook
-                                </a>
-                                <a href="https://www.costsoriano.it" class="inline-flex items-center px-4 py-2 border-2 border-[#3498db] text-[#3498db] font-semibold rounded-lg hover:bg-[#3498db] hover:text-white transition-all duration-300" target="_blank">
-                                    <i class="fas fa-globe mr-2"></i> Sito Web
-                                </a>
-                            </div>
+
                         </div>
                     </div>
                 </div>
-            </li>
-            
-            <!-- Associazione Culturale Kimairah -->
-            <li style="--accent-color:#2c3e50;" data-aos="fade-up" data-aos-delay="100">
-                <div class="date"></div>
-                <div class="project-card">
-                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                        <div class="bg-[#2c3e50] px-6 py-4">
-                            <h4 class="text-white font-bold text-lg text-center">05/2022 - Oggi</h4>
-                        </div>
-                        
-                        <div class="p-8">
-                            <div class="flex items-start mb-6">
-                                <div class="w-12 h-12 bg-[#2c3e50] bg-opacity-10 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
-                                    <i class="fas fa-theater-masks text-[#2c3e50] text-xl"></i>
-                                </div>
-                                <div>
-                                    <h3 class="text-2xl font-bold text-dark mb-2">Associazione Culturale Kimairah</h3>
-                                    <span class="inline-block px-3 py-1 bg-[#2c3e50] text-white text-sm font-semibold rounded-full">SOCIAL MEDIA MANAGER</span>
+                <div class="connector" style="--c: #8b5cf6;"></div>
+            </div>
+
+            <div class="timeline-row left">
+                <div class="card-wrapper" style="--c: #f59e0b;">
+                    <div class="compact-card">
+                        <div class="card-icon"><i class="fas fa-trophy"></i></div>
+                        <div class="card-content">
+                            <div class="card-header-row">
+                                <h3>FantaTorneo</h3>
+                                <span class="date-badge">05/2023 - 06/2024</span>
+                            </div>
+                            <span class="role">CREATORE E SVILUPPATORE</span>
+                            <p class="card-desc">Fantasy game per il Torneo delle Contrade. Gestione social e web.</p>
+                            <div class="links-group">
+                                <a href="https://www.fantatorneo.it" target="_blank" class="link-modern">Visita il sito <i class="fas fa-arrow-right"></i></a>
+                                <button class="btn-expand">Dettagli <i class="fas fa-chevron-down"></i></button>
+                            </div>
+
+                            <div class="accordion-wrapper">
+                                <div class="accordion-content">
+                                    <h4>Approfondisci</h4>
+                                    <p>Ideazione e sviluppo completo di www.fantatorneo.it, fantasy game ispirato al FantaSanremo e basato sul Torneo delle Contrade di Soriano nel Cimino. Progettazione e sviluppo della piattaforma web (front-end e back-end), definizione e scrittura del regolamento di gioco, gestione dell’applicazione dei punteggi durante il torneo e gestione completa della comunicazione social dell’evento.</p>
+                                    <div class="tech-stack">
+                                        <span class="tech-badge">Web Design</span>
+                                        <span class="tech-badge">Laravel</span>
+                                        <span class="tech-badge">Responsive Design</span>
+                                        <span class="tech-badge">User Experience</span>
+                                        <span class="tech-badge">Capcut</span>
+                                        <span class="tech-badge">Canva Pro</span>
+                                        <span class="tech-badge">Adobe Photoshop</span>
+                                        <span class="tech-badge">Adobe Illustrator</span>
+                                    </div>
                                 </div>
                             </div>
-                            <p class="text-gray-700 mb-6 leading-relaxed">Creazione e gestione delle pagine social e dei contenuti dell'Associazione Culturale Kimairah, CAPRANICA (VT).</p>
-                            <a href="#" class="inline-flex items-center px-6 py-3 bg-[#2c3e50] text-white font-semibold rounded-xl hover:bg-[#34495e] transition-all duration-300 hover:shadow-md">
-                                <i class="fab fa-facebook-f mr-2"></i> Facebook
-                            </a>
+
                         </div>
                     </div>
                 </div>
-            </li>
-            
-            <!-- Dialoghi sulla Tuscia -->
-            <li style="--accent-color:#2980b9;" data-aos="fade-up" data-aos-delay="200">
-                <div class="date"></div>
-                <div class="project-card">
-                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                        <div class="bg-[#2980b9] px-6 py-4">
-                            <h4 class="text-white font-bold text-lg text-center">10/2021 - Oggi</h4>
-                        </div>
-                        
-                        <div class="p-8">
-                            <div class="flex items-start mb-6">
-                                <div class="w-12 h-12 bg-[#2980b9] bg-opacity-10 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
-                                    <i class="fas fa-video text-[#2980b9] text-xl"></i>
-                                </div>
-                                <div>
-                                    <h3 class="text-2xl font-bold text-dark mb-2">Dialoghi sulla Tuscia</h3>
-                                    <span class="inline-block px-3 py-1 bg-[#2980b9] text-white text-sm font-semibold rounded-full">VIDEOMAKER & CONTENT CREATOR</span>
+                <div class="connector" style="--c: #f59e0b;"></div>
+            </div>
+
+            <div class="timeline-row right">
+                <div class="card-wrapper" style="--c: #0ea5e9;">
+                    <div class="compact-card">
+                        <div class="card-icon"><i class="fas fa-share-nodes"></i></div>
+                        <div class="card-content">
+                            <div class="card-header-row">
+                                <h3>Associazione COST</h3>
+                                <span class="date-badge">06/2022 - Oggi</span>
+                            </div>
+                            <span class="role">SOCIAL & WEB DEVELOPER</span>
+                            <p class="card-desc">Gestione social e sviluppo sito web per l'associazione COST.</p>
+                            <div class="links-group">
+                                <a href="#" target="_blank" class="link-modern"><i class="fab fa-facebook"></i> Facebook</a>
+                                <a href="https://www.costsoriano.it" target="_blank" class="link-modern"><i class="fas fa-globe"></i> Sito Web</a>
+                                <button class="btn-expand">Dettagli <i class="fas fa-chevron-down"></i></button>
+                            </div>
+
+                            <div class="accordion-wrapper">
+                                <div class="accordion-content">
+                                    <h4>Approfondisci</h4>
+                                    <p>Creazione e gestione delle pagine social, dei contenuti e delle locandine degli eventi dell'Associazione COST di Soriano nel Cimino (VT). Realizzazione del sito web per l'associazione.</p>
+                                    <div class="tech-stack">
+                                        <span class="tech-badge">Web Design</span>
+                                        <span class="tech-badge">Wordpress</span>
+                                        <span class="tech-badge">Elementor</span>
+                                        <span class="tech-badge">User Experience</span>
+                                        <span class="tech-badge">Capcut</span>
+                                        <span class="tech-badge">Canva Pro</span>
+                                        <span class="tech-badge">Adobe Photoshop</span>
+                                        <span class="tech-badge">Adobe Illustrator</span>
+                                    </div>
                                 </div>
                             </div>
-                            <p class="text-gray-700 mb-6 leading-relaxed">Creazione contenuti video per il canale Dialoghi sulla Tuscia, con focus su storytelling territoriale e produzione audiovisiva.</p>
-                            <a href="#" class="inline-flex items-center px-6 py-3 bg-[#2980b9] text-white font-semibold rounded-xl hover:bg-[#1f5f8b] transition-all duration-300 hover:shadow-md">
-                                <i class="fab fa-youtube mr-2"></i> YouTube
-                            </a>
+
                         </div>
                     </div>
                 </div>
-            </li>
-        </ul>
+                <div class="connector" style="--c: #0ea5e9;"></div>
+            </div>
+
+            <div class="timeline-row left">
+                <div class="card-wrapper" style="--c: #ec4899;">
+                    <div class="compact-card">
+                        <div class="card-icon"><i class="fas fa-users"></i></div>
+                        <div class="card-content">
+                            <div class="card-header-row">
+                                <h3>Associazione Kimairah</h3>
+                                <span class="date-badge">05/2022 - Oggi</span>
+                            </div>
+                            <span class="role">SOCIAL MEDIA MANAGER</span>
+                            <p class="card-desc">Social Management e creazione contenuti per l'associazione Kimairah.</p>
+                            <div class="links-group">
+                                <a href="#" target="_blank" class="link-modern"><i class="fab fa-facebook"></i> Facebook</a>
+                                <button class="btn-expand">Dettagli <i class="fas fa-chevron-down"></i></button>
+                            </div>
+
+                            <div class="accordion-wrapper">
+                                <div class="accordion-content">
+                                    <h4>Approfondisci</h4>
+                                    <p>Creazione e gestione delle pagine social e dei contenuti dell'Associazione Culturale Kimairah di Capranica (VT).</p>
+                                    <div class="tech-stack">
+                                        <span class="tech-badge">Canva Pro</span>
+                                        <span class="tech-badge">Adobe Illustrator</span>
+                                        <span class="tech-badge">Da Vinci Resolve</span>
+                                        <span class="tech-badge">Capcut</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="connector" style="--c: #ec4899;"></div>
+            </div>
+
+            <div class="timeline-row right">
+                <div class="card-wrapper" style="--c: #14b8a6;">
+                    <div class="compact-card">
+                        <div class="card-icon"><i class="fab fa-youtube"></i></div>
+                        <div class="card-content">
+                            <div class="card-header-row">
+                                <h3>Dialoghi sulla Tuscia</h3>
+                                <span class="date-badge">10/2021 - Oggi</span>
+                            </div>
+                            <span class="role">VIDEOMAKER E CONTENT CREATOR</span>
+                            <p class="card-desc">Produzione video e storytelling territoriale per il canale YouTube.</p>
+                            <div class="links-group">
+                                <a href="" target="_blank" class="link-modern"><i class="fab fa-youtube"></i> YouTube</a>
+                                <button class="btn-expand">Dettagli <i class="fas fa-chevron-down"></i></button>
+                            </div>
+
+                            <div class="accordion-wrapper">
+                                <div class="accordion-content">
+                                    <h4>Approfondisci</h4>
+                                    <p>Riprese sul campo con droni e mirrorless, sound design e color grading cinematografico. Una docu-serie in continua evoluzione per valorizzare i paesaggi dimenticati della nostra terra.</p>
+                                    <div class="tech-stack">
+                                        <span class="tech-badge">Premiere Pro</span>
+                                        <span class="tech-badge">After Effects</span>
+                                        <span class="tech-badge">Drone Pilot</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
 </section>
 
@@ -1596,7 +1439,6 @@ nav.bg-white .nav-link.active::after {
             </div>
             <div class="text-center md:text-left hidden md:block">
                 <h5 class="text-white font-syne font-semibold text-lg mb-6">Collegamenti rapidi</h5>
-                <!-- Collegamenti orizzontali su PC con icone, verticali su mobile -->
                 <div class="flex flex-col md:flex-row md:flex-wrap md:gap-x-6 gap-y-2">
                     <a href="#home" class="text-white text-opacity-80 hover:text-white transition-all duration-300 hover:translate-x-1 md:hover:translate-x-0 md:hover:translate-y-0 whitespace-nowrap flex items-center md:flex-col md:items-center md:text-center group">
                         <i class="fas fa-home md:text-lg md:mb-1 mr-2 md:mr-0 text-white text-opacity-60 group-hover:text-white transition-colors duration-300"></i>
@@ -1666,7 +1508,7 @@ nav.bg-white .nav-link.active::after {
             
             // Initialize Typed.js
             new Typed('.typed-text', {
-                strings: [
+                strings:[
                     'Web Developer',
                     'Social Media Manager',
                     'Fotografo',
@@ -1729,7 +1571,7 @@ nav.bg-white .nav-link.active::after {
                 } else {
                     backToTopButton.classList.remove('opacity-100', 'visible');
                     backToTopButton.classList.add('opacity-0', 'invisible');
-                    }
+                }
             });
             
             // Smooth scroll
@@ -1823,6 +1665,184 @@ nav.bg-white .nav-link.active::after {
                     AOS.refresh();
                 }
             }
+
+
+            // ==========================================
+            // LOGICA TIMELINE & MAGIC BALL & ACCORDION
+            // ==========================================
+            const timelineObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        timelineObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
+
+            const rows = document.querySelectorAll('.timeline-row');
+            rows.forEach(row => timelineObserver.observe(row));
+
+            const expandBtns = document.querySelectorAll('.btn-expand');
+            expandBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const currentCard = btn.closest('.compact-card');
+                    const isAlreadyOpen = currentCard.classList.contains('is-open');
+
+                    document.querySelectorAll('.compact-card.is-open').forEach(card => {
+                        card.classList.remove('is-open');
+                        const toggleIcon = card.querySelector('.btn-expand i');
+                        if(toggleIcon) toggleIcon.style.transform = 'rotate(0deg)';
+                    });
+
+                    if (!isAlreadyOpen) {
+                        currentCard.classList.add('is-open');
+                    }
+
+                    let startTime = performance.now();
+                    function updateBallPosition(currentTime) {
+                        window.dispatchEvent(new Event('scroll'));
+                        if (currentTime - startTime < 450) { 
+                            requestAnimationFrame(updateBallPosition);
+                        }
+                    }
+                    requestAnimationFrame(updateBallPosition);
+                });
+            });
+
+            const magicBall = document.getElementById('magic-ball');
+
+            window.addEventListener('scroll', () => {
+                const cy = window.innerHeight / 2;
+                let targetX = null;
+                let targetY = cy; 
+                let targetColor = null;
+                let ballVisible = false;
+
+                for (let i = 0; i < rows.length; i++) {
+                    const row = rows[i];
+                    const rect = row.getBoundingClientRect();
+                    const nextRect = rows[i+1] ? rows[i+1].getBoundingClientRect() : null;
+                    
+                    const rowStart = rect.top;
+                    const rowEnd = nextRect ? nextRect.top : rect.bottom + 100;
+
+                    if (cy >= rowStart && cy < rowEnd) {
+                        ballVisible = true;
+                        
+                        const cardWrapper = row.querySelector('.card-wrapper');
+                        targetColor = getComputedStyle(cardWrapper).getPropertyValue('--c').trim();
+                        const crossCenterY = rect.top + (rect.height / 2);
+                        const connector = row.querySelector('.connector');
+
+                        if (window.innerWidth > 768) {
+                            // DESKTOP LOGIC
+                            const isLeft = row.classList.contains('left');
+                            const prevConnector = i > 0 ? rows[i-1].querySelector('.connector') : null;
+                            const centerX = window.innerWidth / 2;
+
+                            let startX, endX;
+
+                            if (connector) {
+                                const connRect = connector.getBoundingClientRect();
+                                endX = isLeft ? connRect.right - 2 : connRect.left + 2;
+                            } else {
+                                const mockOffset = window.innerWidth * 0.24;
+                                endX = isLeft ? (centerX + mockOffset) : (centerX - mockOffset);
+                            }
+
+                            if (prevConnector) {
+                                const pRect = prevConnector.getBoundingClientRect();
+                                const prevWasLeft = rows[i-1].classList.contains('left');
+                                startX = prevWasLeft ? pRect.right - 2 : pRect.left + 2;
+                            } else {
+                                startX = centerX - (endX - centerX);
+                            }
+
+                            const zoneRadius = 90; 
+                            const delta = cy - crossCenterY; 
+
+                            if (!connector && i === rows.length - 1) {
+                                if (cy > crossCenterY) {
+                                    targetX = startX;
+                                    targetY = crossCenterY;
+                                    ballVisible = false;
+                                } else {
+                                    targetX = startX;
+                                    targetY = cy; 
+                                }
+                            } else {
+                                if (delta < -zoneRadius) {
+                                    targetX = startX;
+                                    targetY = cy;
+                                } else if (delta > zoneRadius) {
+                                    targetX = endX;
+                                    targetY = cy;
+                                } else {
+                                    let p = (delta + zoneRadius) / (zoneRadius * 2); 
+                                    const p1End = 0.20; 
+                                    const p2End = 0.80; 
+                                    const easeInOut = (t) => t * t * (3 - 2 * t);
+                                    
+                                    const D = Math.abs(endX - startX);
+                                    const R = Math.min(20, D / 2); 
+                                    
+                                    if (p < p1End) {
+                                        targetX = startX;
+                                        let ease = easeInOut(p / p1End);
+                                        let yStartPath = crossCenterY - R;
+                                        targetY = cy + (yStartPath - cy) * ease;
+                                    } else if (p < p2End) {
+                                        let ease = easeInOut((p - p1End) / (p2End - p1End));
+                                        targetX = startX + (endX - startX) * ease;
+                                        let distX = Math.abs(targetX - startX);
+                                        
+                                        if (distX < R) {
+                                            targetY = crossCenterY - R + Math.sqrt(R * R - Math.pow(distX - R, 2));
+                                        } else if (distX > D - R) {
+                                            let distFromEnd = D - distX;
+                                            targetY = crossCenterY + R - Math.sqrt(R * R - Math.pow(distFromEnd - R, 2));
+                                        } else {
+                                            targetY = crossCenterY; 
+                                        }
+                                    } else {
+                                        targetX = endX;
+                                        let ease = easeInOut((p - p2End) / (1 - p2End));
+                                        let yEndPath = crossCenterY + R;
+                                        targetY = yEndPath + (cy - yEndPath) * ease;
+                                    }
+                                }
+                            }
+                        } else {
+                            // MOBILE LOGIC
+                            targetX = window.innerWidth / 2;
+                            
+                            if (i === rows.length - 1) {
+                                if (cy > crossCenterY) {
+                                    targetY = crossCenterY;
+                                    ballVisible = false; // Ferma e svanisce
+                                } else {
+                                    targetY = cy;
+                                }
+                            } else {
+                                targetY = cy;
+                            }
+                        }
+                        break; 
+                    }
+                }
+
+                if (ballVisible && targetX !== null) {
+                    magicBall.style.opacity = '1';
+                    magicBall.style.left = targetX + 'px';
+                    magicBall.style.top = targetY + 'px'; 
+                    magicBall.style.boxShadow = `0 0 10px 4px ${targetColor}, 0 0 20px 8px ${targetColor}`;
+                } else {
+                    magicBall.style.opacity = '0'; 
+                }
+            });
+
+            // Trigger scroll event at load to set initial positions
+            window.dispatchEvent(new Event('scroll'));
         });
     </script>
 </body>
