@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#07071a">
+  <meta name="description" content="DocScan — Scansiona, ritaglia e impagina documenti in formato reale">
+  <title>DocScan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="camera.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════
+     WELCOME SCREEN
+════════════════════════════════════════════════════════ -->
+<div id="welcome">
+  <div class="wlc-bg">
+    <div class="wlc-blob wlc-blob-1"></div>
+    <div class="wlc-blob wlc-blob-2"></div>
+    <div class="wlc-blob wlc-blob-3"></div>
+    <div class="wlc-grid"></div>
+  </div>
+  <div class="wlc-content">
+    <div class="wlc-logo">
+      <div class="wlc-logo-mark">⬡</div>
+      <div class="wlc-name">Doc<em>Scan</em></div>
+    </div>
+    <p class="wlc-tagline">DocScan ti permette in pochi passaggi di scansionare ed esportare i tuoi documenti di identità.</p>
+    <div class="wlc-cta">
+      <button class="wlc-btn" id="btn-start">
+        <span>Inizia ora</span>
+        <span class="wlc-btn-arrow">→</span>
+      </button>
+    </div>
+  </div>
+
+  <footer class="wlc-footer">
+    <div class="wlc-footer-row wlc-footer-privacy">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <span>I documenti non vengono mai salvati — tutto avviene localmente nel tuo browser.</span>
+    </div>
+    <div class="wlc-footer-divider"></div>
+    <div class="wlc-footer-row wlc-footer-meta">
+      <span>Realizzato da <strong>Luca Valli</strong></span>
+      <span class="wlc-footer-dot">·</span>
+      <span>© <span id="copyright-year">2025</span> DocScan</span>
+      <span class="wlc-footer-dot">·</span>
+      <span>100% offline &amp; open</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     DESKTOP SIDEBAR
+════════════════════════════════════════════════════════ -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark sm">⬡</div>
+    <span class="logo-text">Doc<em>Scan</em></span>
+  </div>
+  <nav class="sidebar-nav">
+    <button class="snav-item active" data-step="0">
+      <span class="snav-num">1</span>
+      <div class="snav-info"><span class="snav-title">Formato</span><span class="snav-sub">Pagina e orientamento</span></div>
+    </button>
+    <div class="snav-line"></div>
+    <button class="snav-item" data-step="1">
+      <span class="snav-num">2</span>
+      <div class="snav-info"><span class="snav-title">Documenti</span><span class="snav-sub">Aggiungi e scansiona</span></div>
+    </button>
+    <div class="snav-line"></div>
+    <button class="snav-item" data-step="2">
+      <span class="snav-num">3</span>
+      <div class="snav-info"><span class="snav-title">Esporta</span><span class="snav-sub">Anteprima e download</span></div>
+    </button>
+  </nav>
+  <div class="sidebar-footer">
+    <button class="sidebar-reset" id="sidebar-reset">↺ Nuovo progetto</button>
+  </div>
+</aside>
+
+<!-- ═══════════════════════════════════════════════════════
+     APP SHELL
+════════════════════════════════════════════════════════ -->
+<div id="app">
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-mark">⬡</div>
+        <span class="logo-text">Doc<em>Scan</em></span>
+      </div>
+      <button class="btn-icon" id="btn-reset-mobile">↺</button>
+    </div>
+    <div class="mobile-steps">
+      <button class="step-pill active" data-step="0"><span class="sp-num">1</span><span class="sp-lbl">Formato</span></button>
+      <div class="step-conn"></div>
+      <button class="step-pill" data-step="1"><span class="sp-num">2</span><span class="sp-lbl">Documenti</span></button>
+      <div class="step-conn"></div>
+      <button class="step-pill" data-step="2"><span class="sp-num">3</span><span class="sp-lbl">Esporta</span></button>
+    </div>
+  </header>
+
+  <main class="app-main" id="app-main">
+
+    <!-- STEP 0 -->
+    <section class="panel active" id="panel-0">
+      <div class="panel-hdr">
+        <h1>Formato pagina</h1>
+        <p>Scegli il foglio su cui verrà stampato il documento finale.</p>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Formato</div>
+        <div class="fmt-grid" id="fmt-grid"></div>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Orientamento</div>
+        <div class="orient-row" id="orient-row">
+          <button class="orient-btn active" data-v="portrait"><span class="orient-icon">▯</span> Verticale</button>
+          <button class="orient-btn" data-v="landscape"><span class="orient-icon">▭</span> Orizzontale</button>
+        </div>
+      </div>
+      <div class="panel-actions desktop-only">
+        <button class="btn-primary" id="step0-next">Continua →</button>
+      </div>
+    </section>
+
+    <!-- STEP 1 -->
+    <section class="panel" id="panel-1">
+      <div class="panel-hdr">
+        <h1>Documenti</h1>
+        <p>Aggiungi i documenti e fotografa ogni lato.</p>
+      </div>
+      <div class="step1-layout">
+        <div class="step1-left">
+          <div class="field-label px18">Aggiungi documento</div>
+          <div class="doc-picker-wrap">
+            <div class="doc-picker-cards" id="doc-picker">
+
+              <!-- Card 1: Documento a tessera -->
+              <div class="doc-cat-card" id="dp-card-tessera">
+                <div class="doc-cat-icon">
+                  <svg width="32" height="32" viewBox="0 0 54 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="1" y="1" width="52" height="32" rx="4" stroke="currentColor" stroke-width="2"/>
+                    <circle cx="13" cy="14" r="6" stroke="currentColor" stroke-width="1.8"/>
+                    <line x1="8" y1="24" x2="18" y2="24" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                    <line x1="24" y1="10" x2="46" y2="10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                    <line x1="24" y1="16" x2="40" y2="16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                    <line x1="24" y1="22" x2="44" y2="22" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <div class="doc-cat-body">
+                  <div class="doc-cat-title">Documento a tessera</div>
+                  <div class="doc-cat-sub">Formato standard ISO 7810 (85,6 × 54 mm)</div>
+                  <div class="doc-cat-examples">
+                    <span class="doc-cat-tag">CIE elettronica</span>
+                    <span class="doc-cat-tag">Tessera Sanitaria</span>
+                    <span class="doc-cat-tag">Patente</span>
+                  </div>
+                </div>
+                <div class="doc-cat-arrow">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+                </div>
+              </div>
+
+              <!-- Card 2: Carta d'identità cartacea -->
+              <div class="doc-cat-card" id="dp-card-cartacea">
+                <div class="doc-cat-icon">
+                  <svg width="32" height="32" viewBox="0 0 62 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="1" y="1" width="60" height="42" rx="3" stroke="currentColor" stroke-width="2"/>
+                    <line x1="6" y1="10" x2="56" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <rect x="6" y="16" width="18" height="22" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                    <circle cx="15" cy="23" r="4" stroke="currentColor" stroke-width="1.5"/>
+                    <line x1="30" y1="18" x2="56" y2="18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <line x1="30" y1="24" x2="56" y2="24" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <line x1="30" y1="30" x2="50" y2="30" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <div class="doc-cat-body">
+                  <div class="doc-cat-title">Carta d'identità cartacea</div>
+                  <div class="doc-cat-sub">Formato libretto (~102 × 73 mm)</div>
+                  <div class="doc-cat-examples">
+                    <span class="doc-cat-tag">CI cartacea vecchio formato</span>
+                  </div>
+                </div>
+                <div class="doc-cat-arrow">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+                </div>
+              </div>
+
+              <!-- Sub-picker tessera (hidden by default) -->
+              <div class="doc-subpicker" id="dp-subpicker-tessera" style="display:none">
+                <button class="doc-subpicker-back" id="dp-back-tessera">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+                  Indietro
+                </button>
+                <div class="doc-subpicker-title">Quale documento?</div>
+                <div class="doc-subpicker-list">
+                  <div class="doc-sub-item" data-type="cie">
+                    <div class="doc-sub-icon">
+                      <svg width="22" height="14" viewBox="0 0 54 34" fill="none"><rect x="1" y="1" width="52" height="32" rx="4" stroke="currentColor" stroke-width="2"/><circle cx="13" cy="14" r="5" stroke="currentColor" stroke-width="1.8"/><line x1="24" y1="10" x2="46" y2="10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><line x1="24" y1="16" x2="40" y2="16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                    </div>
+                    <div class="doc-sub-info">
+                      <div class="doc-sub-name">Carta d'Identità Elettronica</div>
+                      <div class="doc-sub-desc">CIE — 85,6 × 54 mm, fronte e retro</div>
+                    </div>
+                    <svg class="doc-sub-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+                  </div>
+                  <div class="doc-sub-item" data-type="cf">
+                    <div class="doc-sub-icon">
+                      <svg width="22" height="14" viewBox="0 0 54 34" fill="none"><rect x="1" y="1" width="52" height="32" rx="4" stroke="currentColor" stroke-width="2"/><line x1="8" y1="12" x2="46" y2="12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><line x1="8" y1="18" x2="36" y2="18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><line x1="8" y1="24" x2="28" y2="24" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                    </div>
+                    <div class="doc-sub-info">
+                      <div class="doc-sub-name">Tessera Sanitaria / Cod. Fiscale</div>
+                      <div class="doc-sub-desc">TS/CF — 85,6 × 54 mm, fronte e retro</div>
+                    </div>
+                    <svg class="doc-sub-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+                  </div>
+                  <div class="doc-sub-item" data-type="patente">
+                    <div class="doc-sub-icon">
+                      <svg width="22" height="14" viewBox="0 0 54 34" fill="none"><rect x="1" y="1" width="52" height="32" rx="4" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="17" r="7" stroke="currentColor" stroke-width="1.8"/><path d="M12 17l3 3 5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><line x1="30" y1="13" x2="46" y2="13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="30" y1="19" x2="42" y2="19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                    </div>
+                    <div class="doc-sub-info">
+                      <div class="doc-sub-name">Patente di Guida</div>
+                      <div class="doc-sub-desc">85,6 × 54 mm, fronte e retro</div>
+                    </div>
+                    <svg class="doc-sub-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div id="doc-scan-list"></div>
+          <div class="empty-docs" id="empty-docs">
+            <div class="empty-icon">☝️</div>
+            <div class="empty-msg">Tocca un documento per aggiungerlo</div>
+          </div>
+        </div>
+        <div class="step1-right desktop-only" id="step1-right">
+          <div class="acq-summary">
+            <div class="acq-title">Acquisizioni</div>
+            <div class="acq-grid" id="acq-grid"></div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-actions desktop-only">
+        <button class="btn-secondary" id="step1-back">← Indietro</button>
+        <button class="btn-primary"   id="step1-next">Anteprima →</button>
+      </div>
+    </section>
+
+    <!-- STEP 2 -->
+    <section class="panel" id="panel-2">
+      <!-- Normal export UI -->
+      <div id="export-ui">
+        <div class="panel-hdr">
+          <h1>Esporta</h1>
+          <p>Controlla il layout e scarica il documento.</p>
+        </div>
+        <div class="step2-layout">
+          <div class="step2-preview">
+            <div class="preview-wrap" id="preview-wrap"></div>
+          </div>
+          <div class="step2-options">
+            <div class="field-group">
+              <div class="field-label">Formato file</div>
+              <div class="seg-row" id="exp-fmt-row">
+                <button class="seg-btn active" data-v="pdf">PDF</button>
+                <button class="seg-btn" data-v="png">PNG</button>
+                <button class="seg-btn" data-v="jpeg">JPEG</button>
+              </div>
+            </div>
+            <div class="field-group">
+              <div class="field-label">Qualità</div>
+              <div class="dpi-row" id="dpi-row">
+                <button class="dpi-btn" data-v="96">96 dpi<span>Bassa</span></button>
+                <button class="dpi-btn active" data-v="150">150 dpi<span>Media</span></button>
+                <button class="dpi-btn" data-v="300">300 dpi<span>Alta</span></button>
+              </div>
+            </div>
+            <div class="field-group">
+              <div class="field-label">Nome file</div>
+              <input id="export-name" class="text-input" type="text"
+                value="scansione-documenti" spellcheck="false" autocomplete="off" maxlength="80">
+            </div>
+            <div class="field-group desktop-only">
+              <button class="btn-export" id="btn-export">
+                <span>📥</span><span id="btn-export-lbl">Scarica PDF</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="panel-actions desktop-only">
+          <button class="btn-secondary" id="step2-back">← Indietro</button>
+        </div>
+      </div>
+
+      <!-- Success screen — shown after download -->
+      <div id="export-success" style="display:none">
+        <!-- Confetti canvas (behind everything) -->
+        <canvas id="confetti-cvs" aria-hidden="true"></canvas>
+
+        <div class="success-inner">
+          <!-- Logo prominente -->
+          <div class="success-logo">
+            <div class="success-logo-mark">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+                <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
+              </svg>
+            </div>
+            <span class="success-logo-name">Doc<em>Scan</em></span>
+          </div>
+
+          <!-- Check animato -->
+          <div class="success-icon-wrap">
+            <svg class="success-circle-svg" viewBox="0 0 100 100">
+              <circle class="success-circle-track" cx="50" cy="50" r="44"/>
+              <circle class="success-circle-fill"  cx="50" cy="50" r="44"/>
+            </svg>
+            <svg class="success-check" width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </div>
+
+          <!-- Testo -->
+          <p class="success-thanks">Grazie per aver usato DocScan!</p>
+          <h2 class="success-title">Il tuo file è pronto</h2>
+          <p class="success-msg">Il download è partito automaticamente.</p>
+
+          <div class="success-filename" id="success-filename">scansione-documenti.pdf</div>
+
+          <!-- Azioni -->
+          <div class="success-actions">
+            <!-- CTA primaria: nuova scansione -->
+            <button class="success-btn-new" id="btn-new-scan">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 5v14M5 12h14"/>
+              </svg>
+              Nuova scansione
+            </button>
+
+            <!-- Link secondario: scarica di nuovo -->
+            <button class="success-link-retry" id="btn-retry-download">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              Scarica di nuovo
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <nav class="bottom-nav mobile-only">
+    <button class="btn-back" id="btn-back" disabled>← Indietro</button>
+    <button class="btn-fwd"  id="btn-fwd">Avanti →</button>
+    <button class="btn-export-nav mobile-only" id="btn-export-nav" style="display:none">
+      <span>📥</span><span id="btn-export-nav-lbl">Scarica PDF</span>
+    </button>
+  </nav>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SOURCE PICKER — iOS action sheet
+════════════════════════════════════════════════════════ -->
+<div class="cam-backdrop" id="source-backdrop"></div>
+<div class="source-sheet" id="source-sheet">
+  <div class="source-sheet-card">
+    <div class="source-sheet-hdr">
+      <div class="source-sheet-doc" id="ss-doc-name">Documento</div>
+      <div class="source-sheet-side" id="ss-side-name">Fronte</div>
+    </div>
+    <!-- Opzione 1: Fotocamera -->
+    <div class="source-option" id="ss-opt-camera">
+      <div class="source-option-icon cam-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+          <circle cx="12" cy="13" r="4"/>
+        </svg>
+      </div>
+      <div class="source-option-text">
+        <div class="source-option-title">Scatta foto</div>
+        <div class="source-option-sub">Usa la fotocamera del dispositivo</div>
+      </div>
+      <span class="source-option-chevron">›</span>
+    </div>
+    <!-- Opzione 2: Libreria -->
+    <div class="source-option" id="ss-opt-library">
+      <div class="source-option-icon lib-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <polyline points="21 15 16 10 5 21"/>
+        </svg>
+      </div>
+      <div class="source-option-text">
+        <div class="source-option-title">Scegli dalla libreria</div>
+        <div class="source-option-sub">Seleziona un'immagine esistente</div>
+      </div>
+      <span class="source-option-chevron">›</span>
+    </div>
+  </div>
+  <div class="source-cancel" id="ss-cancel">Annulla</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     CAMERA CARD
+════════════════════════════════════════════════════════ -->
+<div class="cam-backdrop" id="cam-backdrop"></div>
+<div class="cam-card" id="cam-card">
+  <div class="cam-card-inner">
+
+    <!-- Viewfinder -->
+    <div class="cam-vf-area" id="cam-vf-area">
+      <video id="cam-video" autoplay playsinline muted></video>
+
+      <!-- Top bar -->
+      <div class="cam-top-bar">
+        <div class="cam-top-info">
+          <div class="cam-doc-badge" id="cam-doc-name">Documento</div>
+          <div class="cam-side-badge" id="cam-chip">FRONTE</div>
+        </div>
+        <button class="cam-close-btn" id="cam-x" aria-label="Chiudi">✕</button>
+      </div>
+    </div>
+
+    <!-- Controls bar -->
+    <div class="cam-controls-bar">
+      <!-- Last thumb / gallery -->
+      <div class="cam-thumb-wrap">
+        <img id="cam-thumb" alt="" title="Ultimo scatto">
+        <button class="cam-thumb-empty" id="btn-gallery" title="Scegli da libreria" aria-label="Galleria">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:rgba(255,255,255,0.6)">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <polyline points="21 15 16 10 5 21"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Shutter -->
+      <button class="cam-shutter-btn" id="btn-shutter" aria-label="Scatta foto">
+        <div class="shutter-outer"></div>
+        <div class="shutter-inner"></div>
+      </button>
+
+      <!-- Flip camera -->
+      <button class="cam-flip-btn" id="btn-flip" aria-label="Cambia fotocamera">
+        <!-- Custom SVG flip icon (Apple-style rotate arrows) -->
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M1 4v6h6"/>
+          <path d="M23 20v-6h-6"/>
+          <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10"/>
+          <path d="M3.51 15a9 9 0 0 0 14.85 3.36L23 14"/>
+        </svg>
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     CROP CARD
+════════════════════════════════════════════════════════ -->
+<div class="cam-backdrop" id="crop-backdrop"></div>
+<div class="crop-card" id="crop-card">
+  <div class="crop-card-inner">
+    <div class="crop-card-hdr">
+      <div class="crop-card-hdr-row1">
+        <div class="crop-card-title">Ritaglia documento</div>
+        <div class="crop-hdr-tools">
+          <!-- Rotate CW -->
+          <button class="crop-tool-btn" id="btn-crop-rotate" title="Ruota 90°" aria-label="Ruota 90°">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M23 4v6h-6"/>
+              <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+            </svg>
+            <span class="crop-tool-lbl">Ruota</span>
+          </button>
+          <!-- BG Remove toggle -->
+          <button class="crop-tool-btn" id="btn-crop-bgremove" title="Rimuovi sfondo" aria-label="Rimuovi sfondo">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+              <rect x="3" y="14" width="7" height="7" rx="1"/>
+              <path d="M14 14h.01M17 14h.01M20 14h.01M14 17h.01M17 17h.01M20 17h.01M14 20h.01M17 20h.01M20 20h.01"/>
+            </svg>
+            <span class="crop-tool-lbl">Sfondo</span>
+          </button>
+        </div>
+      </div>
+      <div class="crop-card-sub">Trascina gli angoli per allineare ai bordi del documento</div>
+    </div>
+    <div class="crop-canvas-area" id="crop-stage">
+      <canvas id="crop-cvs"></canvas>
+      <div id="crop-magnifier" aria-hidden="true">
+        <canvas id="mag-cvs"></canvas>
+        <div class="mag-crosshair"></div>
+      </div>
+    </div>
+    <div class="crop-card-bar">
+      <button class="btn-ios-ghost" id="btn-crop-back">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        Rifare
+      </button>
+      <button class="btn-ios-primary" id="btn-crop-ok">
+        Applica
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     CONFIRM MODAL
+════════════════════════════════════════════════════════ -->
+<div class="modal-backdrop" id="confirm-backdrop"></div>
+<div class="modal-card" id="confirm-modal" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+  <div class="modal-icon">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="1 4 1 10 7 10"/><polyline points="23 20 23 14 17 14"/>
+      <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10M23 14l-4.64 4.36A9 9 0 0 1 3.51 15"/>
+    </svg>
+  </div>
+  <div class="modal-title" id="confirm-title">Nuovo progetto</div>
+  <div class="modal-msg">Vuoi ricominciare? Tutte le scansioni aggiunte andranno perse.</div>
+  <div class="modal-actions">
+    <button class="modal-btn-cancel" id="confirm-cancel">Annulla</button>
+    <button class="modal-btn-ok" id="confirm-ok">Ricomincia</button>
+  </div>
+</div>
+
+<input type="file" id="gallery-input" accept="image/*" style="display:none">
+
+<div id="toasts"></div>
+<script src="config.js"></script>
+<script src="app.js"></script>
+<script>
+  (function () {
+    const el = document.getElementById('copyright-year');
+    if (el) el.textContent = String(new Date().getFullYear());
+  })();
+</script>
+</body>
+</html>

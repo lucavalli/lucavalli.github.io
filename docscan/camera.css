@@ -1,0 +1,590 @@
+/* ══════════════════════════════════════════════════════════════════
+   DocScan — Camera & Crop: Apple-like experience
+   ─────────────────────────────────────────────────────────────────
+   Source picker sheet (iOS action sheet style)
+   Camera card (centered modal, not fullscreen)
+   Crop editor card
+   All iPhone-like: spring animations, frosted glass, rounded corners
+══════════════════════════════════════════════════════════════════ */
+
+/* ── Shared backdrop ─────────────────────────────────────────── */
+.cam-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 8000;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  animation: backdropIn 250ms ease forwards;
+}
+.cam-backdrop.open { display: block; }
+.cam-backdrop.out  { animation: backdropOut 220ms ease forwards; }
+@keyframes backdropIn  { from { opacity: 0 } to { opacity: 1 } }
+@keyframes backdropOut { to   { opacity: 0 } }
+
+/* ══════════════════════════════════════════════════════════════
+   SOURCE PICKER — iOS Action Sheet
+══════════════════════════════════════════════════════════════ */
+.source-sheet {
+  display: none;
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 8100;
+  padding: 0 12px calc(12px + env(safe-area-inset-bottom, 0px));
+}
+.source-sheet.open {
+  display: block;
+  animation: sheetIn 380ms cubic-bezier(0.34, 1.3, 0.64, 1) forwards;
+}
+.source-sheet.out {
+  animation: sheetOut 260ms cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+@keyframes sheetIn  { from { transform: translateY(110%) } to { transform: translateY(0) } }
+@keyframes sheetOut { to   { transform: translateY(110%) } }
+
+.source-sheet-card {
+  background: rgba(28, 28, 32, 0.96);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.10);
+  box-shadow: 0 -4px 40px rgba(0,0,0,0.5), 0 0 0 0.5px rgba(255,255,255,0.07);
+}
+
+/* Doc info header */
+.source-sheet-hdr {
+  padding: 14px 20px 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  text-align: center;
+}
+.source-sheet-doc {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 0.02em;
+}
+.source-sheet-side {
+  font-family: -apple-system, 'SF Pro Display', var(--fd);
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.92);
+  margin-top: 2px;
+}
+
+/* Options */
+.source-option {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  cursor: pointer;
+  transition: background 140ms ease;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+.source-option:not(:last-child) {
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.source-option:active {
+  background: rgba(255,255,255,0.06);
+}
+
+.source-option-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-size: 20px;
+}
+.source-option-icon.cam-icon {
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+.source-option-icon.lib-icon {
+  background: linear-gradient(135deg, #1a2e1a, #162116);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+.source-option-text { flex: 1 }
+.source-option-title {
+  font-family: -apple-system, 'SF Pro Text', var(--fb);
+  font-size: 16px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.92);
+}
+.source-option-sub {
+  font-size: 12px;
+  color: rgba(255,255,255,0.35);
+  margin-top: 1px;
+}
+.source-option-chevron {
+  color: rgba(255,255,255,0.25);
+  font-size: 13px;
+}
+
+/* Cancel button (standalone) */
+.source-cancel {
+  margin-top: 10px;
+  background: rgba(28, 28, 32, 0.96);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border-radius: 14px;
+  padding: 17px;
+  text-align: center;
+  cursor: pointer;
+  font-family: -apple-system, 'SF Pro Text', var(--fb);
+  font-size: 17px;
+  font-weight: 600;
+  color: #0a84ff;
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: background 140ms ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.source-cancel:active { background: rgba(40,40,50,0.96); }
+
+/* ══════════════════════════════════════════════════════════════
+   CAMERA CARD — centered, not fullscreen
+══════════════════════════════════════════════════════════════ */
+.cam-card {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 8200;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 16px calc(20px + env(safe-area-inset-bottom, 0px));
+}
+.cam-card.open {
+  display: flex;
+  animation: cardIn 400ms cubic-bezier(0.34, 1.2, 0.64, 1) forwards;
+}
+.cam-card.out {
+  animation: cardOut 280ms cubic-bezier(0.4, 0, 0.6, 1) forwards;
+}
+@keyframes cardIn  { from { opacity:0; transform: scale(0.88) } to { opacity:1; transform: scale(1) } }
+@keyframes cardOut { to   { opacity:0; transform: scale(0.92) } }
+
+.cam-card-inner {
+  background: #000;
+  border-radius: 26px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 480px;
+  box-shadow:
+    0 30px 80px rgba(0,0,0,0.7),
+    0 0 0 0.5px rgba(255,255,255,0.08);
+  display: flex;
+  flex-direction: column;
+  /* Height: fills available space on mobile, fixed ratio on desktop */
+  max-height: calc(100dvh - 40px);
+  aspect-ratio: 3 / 4;
+}
+
+/* Viewfinder area (flexible) */
+.cam-vf-area {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  background: #111;
+}
+
+#cam-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+/* Top overlay bar (doc name + close) */
+.cam-top-bar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px 10px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.65) 0%, transparent 100%);
+}
+.cam-top-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.cam-doc-badge {
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-family: -apple-system, 'SF Pro Text', var(--fb);
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.9);
+  white-space: nowrap;
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cam-side-badge {
+  background: var(--c);
+  border-radius: 20px;
+  padding: 4px 10px;
+  font-family: var(--fm);
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--bg);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+.cam-close-btn {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.14);
+  color: rgba(255,255,255,0.85);
+  font-size: 13px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: background 140ms;
+  flex-shrink: 0;
+}
+.cam-close-btn:hover { background: rgba(40,40,40,0.7); }
+.cam-close-btn:active { transform: scale(0.9); }
+
+/* Camera controls bottom */
+.cam-controls-bar {
+  background: #1c1c1e;
+  padding: 20px 28px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0;
+  flex-shrink: 0;
+}
+
+/* Thumb (last capture) */
+.cam-thumb-wrap {
+  width: 52px; height: 52px;
+  position: relative;
+  flex-shrink: 0;
+}
+#cam-thumb {
+  width: 52px; height: 52px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 2px solid rgba(255,255,255,0.22);
+  display: none;
+  cursor: pointer;
+}
+/* Empty thumb placeholder */
+.cam-thumb-empty {
+  width: 52px; height: 52px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.07);
+  border: 1.5px solid rgba(255,255,255,0.12);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: background 140ms;
+}
+.cam-thumb-empty:active { background: rgba(255,255,255,0.12); }
+.cam-thumb-empty svg { opacity: 0.5; }
+
+/* Shutter — Apple camera style */
+.cam-shutter-btn {
+  width: 72px; height: 72px;
+  position: relative;
+  flex-shrink: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.shutter-outer {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 3px solid rgba(255,255,255,0.85);
+  transition: transform 120ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.shutter-inner {
+  position: absolute;
+  inset: 6px;
+  border-radius: 50%;
+  background: white;
+  transition: all 120ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.cam-shutter-btn:active .shutter-outer { transform: scale(0.93); }
+.cam-shutter-btn:active .shutter-inner { transform: scale(0.84); background: rgba(255,255,255,0.85); }
+
+/* Flip camera — custom SVG button */
+.cam-flip-btn {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.12);
+  border: none;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: background 140ms, transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  flex-shrink: 0;
+}
+.cam-flip-btn:hover { background: rgba(255,255,255,0.18); }
+.cam-flip-btn:active { background: rgba(255,255,255,0.24); }
+.cam-flip-btn.spinning { transform: rotateY(180deg); }
+.cam-flip-btn svg { color: white; }
+
+/* Hidden flip on single-camera devices */
+.cam-flip-btn.hidden,
+.cam-thumb-empty.hidden { visibility: hidden; pointer-events: none; }
+
+/* ══════════════════════════════════════════════════════════════
+   CROP EDITOR CARD
+══════════════════════════════════════════════════════════════ */
+.crop-card {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 8300;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 10px calc(14px + env(safe-area-inset-bottom, 0px));
+}
+.crop-card.open {
+  display: flex;
+  animation: cardIn 360ms cubic-bezier(0.34, 1.15, 0.64, 1) forwards;
+}
+.crop-card.out {
+  animation: cardOut 240ms cubic-bezier(0.4, 0, 0.6, 1) forwards;
+}
+
+.crop-card-inner {
+  background: #1c1c1e;
+  border-radius: 22px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 600px;
+  /* Fill as much vertical space as possible */
+  height: calc(100dvh - 28px - env(safe-area-inset-bottom, 0px));
+  max-height: 900px;
+  display: flex;
+  flex-direction: column;
+  box-shadow:
+    0 30px 80px rgba(0,0,0,0.7),
+    0 0 0 0.5px rgba(255,255,255,0.08);
+}
+
+/* Header — 2 rows: row1 = title + tools, row2 = subtitle */
+.crop-card-hdr {
+  padding: 12px 14px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex-shrink: 0;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.crop-card-hdr-row1 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 0;
+}
+.crop-card-title {
+  font-family: -apple-system, 'SF Pro Display', var(--fd);
+  font-size: 15px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.92);
+  white-space: nowrap;
+}
+.crop-card-sub {
+  font-size: 11px;
+  color: rgba(255,255,255,0.32);
+  line-height: 1.35;
+}
+
+/* Tool buttons in crop header */
+.crop-hdr-tools {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.crop-tool-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 32px;
+  padding: 0 10px;
+  border-radius: 9px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12) !important;
+  color: rgba(255,255,255,0.75);
+  font-family: -apple-system, 'SF Pro Text', var(--fb);
+  font-size: 11.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 140ms, color 140ms, border-color 140ms;
+  -webkit-tap-highlight-color: transparent;
+  white-space: nowrap;
+}
+.crop-tool-btn:hover { background: rgba(255,255,255,0.14); color: rgba(255,255,255,0.95); }
+.crop-tool-btn:active { background: rgba(255,255,255,0.20); transform: scale(0.95); }
+.crop-tool-btn.active {
+  background: rgba(0,212,255,0.15);
+  border-color: rgba(0,212,255,0.5) !important;
+  color: #00d4ff;
+}
+.crop-tool-lbl { font-size: 10.5px; }
+
+/* Canvas stage — flex:1 so it fills ALL remaining space */
+.crop-canvas-area {
+  flex: 1;
+  min-height: 0;
+  background: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+#crop-cvs {
+  display: block;
+  touch-action: none;
+  cursor: crosshair;
+  /* Fills the container as much as possible, aspect ratio preserved by JS */
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* Action bar */
+.crop-card-bar {
+  padding: 11px 14px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-shrink: 0;
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+
+/* iOS-style buttons */
+.btn-ios-ghost {
+  height: 48px;
+  padding: 0 20px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  font-family: -apple-system, 'SF Pro Text', var(--fb);
+  font-size: 15px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.85);
+  cursor: pointer;
+  transition: background 140ms, transform 120ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  white-space: nowrap;
+  display: flex; align-items: center; gap: 6px;
+}
+.btn-ios-ghost:active { background: rgba(255,255,255,0.14); transform: scale(0.97); }
+
+.btn-ios-primary {
+  flex: 1;
+  height: 48px;
+  border-radius: 14px;
+  background: #0a84ff;
+  border: none;
+  font-family: -apple-system, 'SF Pro Text', var(--fb);
+  font-size: 15px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  transition: background 140ms, transform 120ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+  box-shadow: 0 4px 16px rgba(10, 132, 255, 0.35);
+}
+.btn-ios-primary:hover { background: #1a8fff; }
+.btn-ios-primary:active { background: #0070e0; transform: scale(0.97); box-shadow: none; }
+
+/* Capture slot — source picker trigger ---------------------- */
+.cap-slot-picker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+/* override existing cap-slot click logic - don't open camera directly */
+
+/* ──────────────────────────────────────────────────────────── */
+
+/* Mobile: full-width source sheet */
+@media (min-width: 640px) {
+  .source-sheet {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 8100;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+  }
+  .source-sheet.open {
+    display: flex;
+    animation: cardIn 320ms cubic-bezier(0.34, 1.2, 0.64, 1) forwards;
+  }
+  .source-sheet.out {
+    animation: cardOut 240ms cubic-bezier(0.4, 0, 0.6, 1) forwards;
+  }
+  .source-sheet-card {
+    max-width: 360px;
+    width: 100%;
+    border-radius: 20px;
+    margin: 0 16px;
+  }
+  .source-cancel {
+    display: none; /* On desktop, click outside closes */
+  }
+}
+
+@media (min-width: 1024px) {
+  .cam-card-inner {
+    max-width: 440px;
+    aspect-ratio: 4 / 5;
+  }
+  .crop-card-inner {
+    max-width: 560px;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   CROP MAGNIFIER LENS
+══════════════════════════════════════════════════════════════ */
+#crop-magnifier {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.7);
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,0.35),
+    0 8px 28px rgba(0,0,0,0.65);
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 20;
+  opacity: 0;
+  transition: opacity 120ms ease;
+  background: #111;
+}
+#crop-magnifier.visible { opacity: 1; }
+#crop-magnifier canvas {
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 50%;
+}
+/* mag-crosshair is now drawn directly on the canvas — no CSS needed */
+.mag-crosshair { display: none; }
